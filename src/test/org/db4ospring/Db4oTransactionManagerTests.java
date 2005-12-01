@@ -1,10 +1,13 @@
-package com.db4o.springframework;
+package org.db4ospring;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.db4ospring.Db4oCallback;
+import org.db4ospring.Db4oTemplate;
+import org.db4ospring.Db4oTransactionManager;
 import org.easymock.MockControl;
 import org.springframework.orm.toplink.SessionFactory;
 import org.springframework.transaction.InvalidIsolationLevelException;

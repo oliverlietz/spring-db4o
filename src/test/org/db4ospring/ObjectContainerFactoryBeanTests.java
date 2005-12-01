@@ -1,4 +1,6 @@
-package com.db4o.springframework;
+package org.db4ospring;
+
+import org.db4ospring.ObjectContainerFactoryBean;
 
 import junit.framework.TestCase;
 
@@ -29,21 +31,21 @@ public class ObjectContainerFactoryBeanTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.ObjectContainerFactoryBean.getObjectType()'
+	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.getObjectType()'
 	 */
 	public void testGetObjectType() {
 		assertTrue(ObjectContainer.class.isAssignableFrom(containerFB.getObjectType()));
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.ObjectContainerFactoryBean.isSingleton()'
+	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.isSingleton()'
 	 */
 	public void testIsSingleton() {
 		assertTrue(containerFB.isSingleton());
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.ObjectContainerFactoryBean.afterPropertiesSet()'
+	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.afterPropertiesSet()'
 	 */
 	public void testAfterPropertiesSet() throws Exception {
 		containerFB.afterPropertiesSet();
@@ -59,7 +61,7 @@ public class ObjectContainerFactoryBeanTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.ObjectContainerFactoryBean.destroy()'
+	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.destroy()'
 	 */
 	public void testDestroy() throws Exception {
 		assertFalse(((ExtObjectContainer)containerFB.getObject()).isClosed());

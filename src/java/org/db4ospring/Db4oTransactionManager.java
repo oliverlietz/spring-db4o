@@ -1,4 +1,4 @@
-package com.db4o.springframework;
+package org.db4ospring;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.CannotCreateTransactionException;

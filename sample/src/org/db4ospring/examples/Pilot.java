@@ -1,4 +1,4 @@
-package com.db4o.springframework.examples;
+package org.db4ospring.examples;
 
 public class Pilot {
 

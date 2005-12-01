@@ -1,10 +1,10 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: Main.java,v 1.1 2005-11-30 12:30:35 costin Exp $
+ * $Id: Main.java,v 1.1 2005-12-01 14:51:22 costin Exp $
  * $Revision: 1.1 $
  */
-package com.db4o.springframework.examples;
+package org.db4ospring.examples;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

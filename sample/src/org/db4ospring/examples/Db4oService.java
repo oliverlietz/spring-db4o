@@ -1,16 +1,16 @@
 /**
  * Created on Nov 12, 2005
  *
- * $Id: Db4oService.java,v 1.1 2005-11-30 12:30:34 costin Exp $
+ * $Id: Db4oService.java,v 1.1 2005-12-01 14:51:22 costin Exp $
  * $Revision: 1.1 $
  */
-package com.db4o.springframework.examples;
+package org.db4ospring.examples;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.db4ospring.Db4oTemplate;
 
 import com.db4o.ObjectSet;
-import com.db4o.springframework.Db4oTemplate;
 
 /**
  * Demo class for working with db4o.

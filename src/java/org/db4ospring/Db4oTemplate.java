@@ -1,10 +1,10 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: Db4oTemplate.java,v 1.1 2005-11-30 12:30:33 costin Exp $
+ * $Id: Db4oTemplate.java,v 1.1 2005-12-01 14:51:14 costin Exp $
  * $Revision: 1.1 $
  */
-package com.db4o.springframework;
+package org.db4ospring;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -47,14 +47,14 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#execute(com.db4o.springframework.Db4oCallback)
+	 * @see org.db4ospring.Db4oOperations#execute(org.db4ospring.Db4oCallback)
 	 */
 	public Object execute(Db4oCallback callback) throws DataAccessException {
 		return execute(callback, isExposeNativeContainer());
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#execute(com.db4o.springframework.Db4oCallback, boolean)
+	 * @see org.db4ospring.Db4oOperations#execute(org.db4ospring.Db4oCallback, boolean)
 	 */
 	public Object execute(Db4oCallback callback, boolean exposeNativeContainer) throws DataAccessException {
 		ObjectContainer cont = getObjectContainer();
@@ -78,7 +78,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	// ObjectContainer interface methods 
 	//
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#activate(java.lang.Object, int)
+	 * @see org.db4ospring.Db4oOperations#activate(java.lang.Object, int)
 	 */
 	public void activate(final java.lang.Object obj, final int depth) {
 		execute(new Db4oCallback() {
@@ -90,7 +90,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#deactivate(java.lang.Object, int)
+	 * @see org.db4ospring.Db4oOperations#deactivate(java.lang.Object, int)
 	 */
 	public void deactivate(final java.lang.Object obj, final int depth) {
 		execute(new Db4oCallback() {
@@ -102,7 +102,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#delete(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#delete(java.lang.Object)
 	 */
 	public void delete(final java.lang.Object obj) {
 		execute(new Db4oCallback() {
@@ -114,7 +114,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#get(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#get(java.lang.Object)
 	 */
 	public ObjectSet get(final java.lang.Object template) {
 		return (ObjectSet) execute(new Db4oCallback() {
@@ -125,7 +125,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#query()
+	 * @see org.db4ospring.Db4oOperations#query()
 	 */
 	public Query query() {
 		return (Query) execute(new Db4oCallback() {
@@ -136,7 +136,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#query(com.db4o.query.Predicate)
+	 * @see org.db4ospring.Db4oOperations#query(com.db4o.query.Predicate)
 	 */
 	public ObjectSet query(final Predicate predicate) {
 		return (ObjectSet) execute(new Db4oCallback() {
@@ -147,7 +147,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#set(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#set(java.lang.Object)
 	 */
 	public void set(final Object obj) {
 		execute(new Db4oCallback() {
@@ -163,7 +163,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	//
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#backup(java.lang.String)
+	 * @see org.db4ospring.Db4oOperations#backup(java.lang.String)
 	 */
 	public void backup(final java.lang.String path) {
 		execute(new Db4oCallback() {
@@ -183,7 +183,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#bind(java.lang.Object, long)
+	 * @see org.db4ospring.Db4oOperations#bind(java.lang.Object, long)
 	 */
 	public void bind(final java.lang.Object obj, final long id) {
 		execute(new Db4oCallback() {
@@ -195,7 +195,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#collections()
+	 * @see org.db4ospring.Db4oOperations#collections()
 	 */
 	public Db4oCollections collections() {
 		return (Db4oCollections) execute(new Db4oCallback() {
@@ -206,7 +206,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#getByID(long)
+	 * @see org.db4ospring.Db4oOperations#getByID(long)
 	 */
 	public Object getByID(final long ID) {
 		return execute(new Db4oCallback() {
@@ -217,7 +217,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#getByUUID(com.db4o.ext.Db4oUUID)
+	 * @see org.db4ospring.Db4oOperations#getByUUID(com.db4o.ext.Db4oUUID)
 	 */
 	public Object getByUUID(final Db4oUUID uuid) {
 		return execute(new Db4oCallback() {
@@ -228,7 +228,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#getID(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#getID(java.lang.Object)
 	 */
 	public long getID(final java.lang.Object obj) {
 		return ((Long) execute(new Db4oCallback() {
@@ -239,7 +239,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#getObjectInfo(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#getObjectInfo(java.lang.Object)
 	 */
 	public ObjectInfo getObjectInfo(final java.lang.Object obj) {
 		return (ObjectInfo) execute(new Db4oCallback() {
@@ -250,7 +250,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#identity()
+	 * @see org.db4ospring.Db4oOperations#identity()
 	 */
 	public Db4oDatabase identity() {
 		return (Db4oDatabase) execute(new Db4oCallback() {
@@ -261,7 +261,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#isActive(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#isActive(java.lang.Object)
 	 */
 	public boolean isActive(final java.lang.Object obj) {
 		return ((Boolean) execute(new Db4oCallback() {
@@ -272,7 +272,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#isCached(long)
+	 * @see org.db4ospring.Db4oOperations#isCached(long)
 	 */
 	public boolean isCached(final long ID) {
 		return ((Boolean) execute(new Db4oCallback() {
@@ -283,7 +283,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#isClosed()
+	 * @see org.db4ospring.Db4oOperations#isClosed()
 	 */
 	public boolean isClosed() {
 		return ((Boolean) execute(new Db4oCallback() {
@@ -294,7 +294,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#isStored(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#isStored(java.lang.Object)
 	 */
 	public boolean isStored(final java.lang.Object obj) {
 		return ((Boolean) execute(new Db4oCallback() {
@@ -305,7 +305,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#knownClasses()
+	 * @see org.db4ospring.Db4oOperations#knownClasses()
 	 */
 	public ReflectClass[] knownClasses() {
 		return (ReflectClass[]) execute(new Db4oCallback() {
@@ -316,7 +316,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#lock()
+	 * @see org.db4ospring.Db4oOperations#lock()
 	 */
 	public Object lock() {
 		return execute(new Db4oCallback() {
@@ -327,7 +327,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#migrateFrom(com.db4o.ObjectContainer)
+	 * @see org.db4ospring.Db4oOperations#migrateFrom(com.db4o.ObjectContainer)
 	 */
 	public void migrateFrom(final ObjectContainer objectContainer) {
 		execute(new Db4oCallback() {
@@ -339,7 +339,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#peekPersisted(java.lang.Object, int, boolean)
+	 * @see org.db4ospring.Db4oOperations#peekPersisted(java.lang.Object, int, boolean)
 	 */
 	public Object peekPersisted(final java.lang.Object object, final int depth, final boolean committed) {
 		return execute(new Db4oCallback() {
@@ -350,7 +350,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#purge()
+	 * @see org.db4ospring.Db4oOperations#purge()
 	 */
 	public void purge() {
 		execute(new Db4oCallback() {
@@ -362,7 +362,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#purge(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#purge(java.lang.Object)
 	 */
 	public void purge(final java.lang.Object obj) {
 		execute(new Db4oCallback() {
@@ -374,7 +374,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#reflector()
+	 * @see org.db4ospring.Db4oOperations#reflector()
 	 */
 	public GenericReflector reflector() {
 		return (GenericReflector) execute(new Db4oCallback() {
@@ -385,7 +385,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#refresh(java.lang.Object, int)
+	 * @see org.db4ospring.Db4oOperations#refresh(java.lang.Object, int)
 	 */
 	public void refresh(final java.lang.Object obj, final int depth) {
 		execute(new Db4oCallback() {
@@ -397,7 +397,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#releaseSemaphore(java.lang.String)
+	 * @see org.db4ospring.Db4oOperations#releaseSemaphore(java.lang.String)
 	 */
 	public void releaseSemaphore(final java.lang.String name) {
 		execute(new Db4oCallback() {
@@ -409,7 +409,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#replicationBegin(com.db4o.ObjectContainer, com.db4o.replication.ReplicationConflictHandler)
+	 * @see org.db4ospring.Db4oOperations#replicationBegin(com.db4o.ObjectContainer, com.db4o.replication.ReplicationConflictHandler)
 	 */
 	public ReplicationProcess replicationBegin(final ObjectContainer peerB,
 			final ReplicationConflictHandler conflictHandler) {
@@ -421,7 +421,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#set(java.lang.Object, int)
+	 * @see org.db4ospring.Db4oOperations#set(java.lang.Object, int)
 	 */
 	public void set(final java.lang.Object obj, final int depth) {
 		execute(new Db4oCallback() {
@@ -433,7 +433,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#setSemaphore(java.lang.String, int)
+	 * @see org.db4ospring.Db4oOperations#setSemaphore(java.lang.String, int)
 	 */
 	public boolean setSemaphore(final java.lang.String name, final int waitForAvailability) {
 		return ((Boolean) execute(new Db4oCallback() {
@@ -444,7 +444,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#storedClass(java.lang.Object)
+	 * @see org.db4ospring.Db4oOperations#storedClass(java.lang.Object)
 	 */
 	public StoredClass storedClass(final java.lang.Object clazz) {
 		return (StoredClass) execute(new Db4oCallback() {
@@ -455,7 +455,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#storedClasses()
+	 * @see org.db4ospring.Db4oOperations#storedClasses()
 	 */
 	public StoredClass[] storedClasses() {
 		return (StoredClass[]) execute(new Db4oCallback() {
@@ -466,7 +466,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#version()
+	 * @see org.db4ospring.Db4oOperations#version()
 	 */
 	public long version() {
 		return ((Long) execute(new Db4oCallback() {
@@ -481,7 +481,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	//
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#switchToFile(java.lang.String)
+	 * @see org.db4ospring.Db4oOperations#switchToFile(java.lang.String)
 	 */
 	public void switchToFile(final String fileName) {
 		execute(new Db4oCallback() {
@@ -493,7 +493,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see com.db4o.springframework.Db4oOperations#switchToMainFile()
+	 * @see org.db4ospring.Db4oOperations#switchToMainFile()
 	 */
 	public void switchToMainFile() {
 		execute(new Db4oCallback() {

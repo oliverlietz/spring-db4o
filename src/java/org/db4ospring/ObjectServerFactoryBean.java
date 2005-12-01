@@ -1,10 +1,10 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: ObjectServerFactoryBean.java,v 1.1 2005-11-30 12:30:27 costin Exp $
+ * $Id: ObjectServerFactoryBean.java,v 1.1 2005-12-01 14:51:18 costin Exp $
  * $Revision: 1.1 $
  */
-package com.db4o.springframework;
+package org.db4ospring;
 
 import java.io.IOException;
 import java.util.Iterator;

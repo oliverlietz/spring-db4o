@@ -1,10 +1,10 @@
 /**
  * Created on Nov 12, 2005
  *
- * $Id: ObjectContainerHolder.java,v 1.1 2005-11-30 12:30:28 costin Exp $
+ * $Id: ObjectContainerHolder.java,v 1.1 2005-12-01 14:51:21 costin Exp $
  * $Revision: 1.1 $
  */
-package com.db4o.springframework;
+package org.db4ospring;
 
 import org.springframework.transaction.support.ResourceHolderSupport;
 

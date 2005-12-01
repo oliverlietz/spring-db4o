@@ -1,10 +1,10 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: ConfigurationFactoryBean.java,v 1.1 2005-11-30 12:30:32 costin Exp $
+ * $Id: ConfigurationFactoryBean.java,v 1.1 2005-12-01 14:51:16 costin Exp $
  * $Revision: 1.1 $
  */
-package com.db4o.springframework;
+package org.db4ospring;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;

@@ -1,9 +1,12 @@
-package com.db4o.springframework;
+package org.db4ospring;
 
 import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import org.db4ospring.Db4oCallback;
+import org.db4ospring.Db4oOperations;
+import org.db4ospring.Db4oTemplate;
 import org.easymock.MockControl;
 import org.easymock.classextension.MockClassControl;
 import org.springframework.dao.DataAccessResourceFailureException;
@@ -63,7 +66,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.execute(Db4oCallback)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.execute(Db4oCallback)'
 	 */
 	public void testExecuteDb4oCallback() {
 		final Object result = new Object();
@@ -96,7 +99,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.activate(Object, int)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.activate(Object, int)'
 	 */
 	public void testActivate() {
 		Object obj = new Object();
@@ -107,7 +110,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.deactivate(Object, int)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.deactivate(Object, int)'
 	 */
 	public void testDeactivate() {
 		Object obj = new Object();
@@ -118,7 +121,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.delete(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.delete(Object)'
 	 */
 	public void testDelete() {
 		Object obj = new Object();
@@ -128,7 +131,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.get(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.get(Object)'
 	 */
 	public void testGet() {
 		Object obj = new Object();
@@ -140,7 +143,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.query()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.query()'
 	 */
 	public void testQuery() {
 
@@ -155,7 +158,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.query(Predicate)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.query(Predicate)'
 	 */
 	public void testQueryPredicate() {
 		Predicate predicate = new Predicate() {
@@ -172,7 +175,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.set(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.set(Object)'
 	 */
 	public void testSetObject() {
 		Object obj = new Object();
@@ -183,7 +186,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.backup(String)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.backup(String)'
 	 */
 	public void testBackup() throws IOException {
 		String backup = new String();
@@ -195,7 +198,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.bind(Object, long)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.bind(Object, long)'
 	 */
 	public void testBind() {
 		Object obj = new Object();
@@ -208,7 +211,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.collections()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.collections()'
 	 */
 	public void testCollections() {
 		MockControl colCtrl = MockControl.createControl(Db4oCollections.class);
@@ -222,7 +225,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.getByID(long)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.getByID(long)'
 	 */
 	public void testGetByID() {
 		Object result = new Object();
@@ -235,7 +238,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.getByUUID(Db4oUUID)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.getByUUID(Db4oUUID)'
 	 */
 	public void testGetByUUID() {
 		long id = 1234l;
@@ -250,7 +253,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.getID(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.getID(Object)'
 	 */
 	public void testGetID() {
 		long id = 1234l;
@@ -264,7 +267,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.getObjectInfo(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.getObjectInfo(Object)'
 	 */
 	public void testGetObjectInfo() {
 
@@ -281,7 +284,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.identity()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.identity()'
 	 */
 	public void testIdentity() {
 		Db4oDatabase result = new Db4oDatabase();
@@ -292,7 +295,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.isActive(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.isActive(Object)'
 	 */
 	public void testIsActive() {
 		boolean result = false;
@@ -305,7 +308,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.isCached(long)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.isCached(long)'
 	 */
 	public void testIsCached() {
 		boolean result = false;
@@ -317,7 +320,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.isClosed()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.isClosed()'
 	 */
 	public void testIsClosed() {
 		boolean result = false;
@@ -328,7 +331,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.isStored(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.isStored(Object)'
 	 */
 	public void testIsStored() {
 		boolean result = false;
@@ -340,7 +343,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.knownClasses()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.knownClasses()'
 	 */
 	public void testKnownClasses() {
 		ReflectClass[] result = new ReflectClass[] {};
@@ -351,7 +354,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.lock()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.lock()'
 	 */
 	public void testLock() {
 		Object lock = new Object();
@@ -362,7 +365,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.migrateFrom(ObjectContainer)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.migrateFrom(ObjectContainer)'
 	 */
 	public void testMigrateFrom() {
 		MockControl objCtrl = MockControl.createControl(ObjectContainer.class);
@@ -374,7 +377,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.peekPersisted(Object, int, boolean)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.peekPersisted(Object, int, boolean)'
 	 */
 	public void testPeekPersisted() {
 		Object obj = new Object();
@@ -389,7 +392,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.purge()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.purge()'
 	 */
 	public void testPurge() {
 		container.purge();
@@ -398,7 +401,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.purge(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.purge(Object)'
 	 */
 	public void testPurgeObject() {
 		Object obj = new Object();
@@ -409,7 +412,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.reflector()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.reflector()'
 	 */
 	public void testReflector() {
 		MockControl refCtrl = MockClassControl.createControl(GenericReflector.class);
@@ -422,7 +425,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.refresh(Object, int)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.refresh(Object, int)'
 	 */
 	public void testRefresh() {
 		Object obj = new Object();
@@ -434,7 +437,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.releaseSemaphore(String)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.releaseSemaphore(String)'
 	 */
 	public void testReleaseSemaphore() {
 		String name = "";
@@ -445,7 +448,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.replicationBegin(ObjectContainer, ReplicationConflictHandler)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.replicationBegin(ObjectContainer, ReplicationConflictHandler)'
 	 */
 	public void testReplicationBegin() {
 		MockControl processCtrl = MockControl.createControl(ReplicationProcess.class);
@@ -463,7 +466,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.set(Object, int)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.set(Object, int)'
 	 */
 	public void testSetObjectInt() {
 		Object obj = new Object();
@@ -475,7 +478,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.setSemaphore(String, int)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.setSemaphore(String, int)'
 	 */
 	public void testSetSemaphore() {
 		boolean result = false;
@@ -489,7 +492,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.storedClass(Object)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.storedClass(Object)'
 	 */
 	public void testStoredClass() {
 		MockControl classCtrl = MockControl.createControl(StoredClass.class);
@@ -503,7 +506,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.storedClasses()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.storedClasses()'
 	 */
 	public void testStoredClasses() {
 		StoredClass[] result = new StoredClass[] {};
@@ -516,7 +519,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.version()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.version()'
 	 */
 	public void testVersion() {
 		long result = 1234;
@@ -527,7 +530,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.switchToFile(String)'
+	 * Test method for 'org.db4ospring.Db4oTemplate.switchToFile(String)'
 	 */
 	public void testSwitchToFile() {
 		String file = "";
@@ -538,7 +541,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oTemplate.switchToMainFile()'
+	 * Test method for 'org.db4ospring.Db4oTemplate.switchToMainFile()'
 	 */
 	public void testSwitchToMainFile() {
 		container.switchToMainFile();
@@ -547,7 +550,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oAccessor.afterPropertiesSet()'
+	 * Test method for 'org.db4ospring.Db4oAccessor.afterPropertiesSet()'
 	 */
 	public void testAfterPropertiesSet() {
 		try {
@@ -561,7 +564,7 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.Db4oAccessor.convertDb4oAccessException(Exception)'
+	 * Test method for 'org.db4ospring.Db4oAccessor.convertDb4oAccessException(Exception)'
 	 */
 	public void testConvertDb4oAccessException() {
 

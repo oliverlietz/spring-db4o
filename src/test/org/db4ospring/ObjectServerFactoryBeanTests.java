@@ -1,9 +1,10 @@
-package com.db4o.springframework;
+package org.db4ospring;
 
 import java.util.Properties;
 
 import junit.framework.TestCase;
 
+import org.db4ospring.ObjectServerFactoryBean;
 import org.springframework.core.io.ClassPathResource;
 
 import com.db4o.ObjectServer;
@@ -33,21 +34,21 @@ public class ObjectServerFactoryBeanTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.ObjectServerFactoryBean.getObjectType()'
+	 * Test method for 'org.db4ospring.ObjectServerFactoryBean.getObjectType()'
 	 */
 	public void testGetObjectType() {
 		assertTrue(ObjectServer.class.isAssignableFrom(serverFB.getObjectType()));
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.ObjectServerFactoryBean.isSingleton()'
+	 * Test method for 'org.db4ospring.ObjectServerFactoryBean.isSingleton()'
 	 */
 	public void testIsSingleton() {
 		assertTrue(serverFB.isSingleton());
 	}
 
 	/*
-	 * Test method for 'com.db4o.springframework.ObjectServerFactoryBean.afterPropertiesSet()'
+	 * Test method for 'org.db4ospring.ObjectServerFactoryBean.afterPropertiesSet()'
 	 */
 	public void testAfterPropertiesSet() throws Exception {
 		serverFB.setDatabaseFile(null);

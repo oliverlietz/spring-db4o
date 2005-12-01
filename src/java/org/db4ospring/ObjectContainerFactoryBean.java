@@ -1,10 +1,10 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: ObjectContainerFactoryBean.java,v 1.1 2005-11-30 12:30:30 costin Exp $
+ * $Id: ObjectContainerFactoryBean.java,v 1.1 2005-12-01 14:51:15 costin Exp $
  * $Revision: 1.1 $
  */
-package com.db4o.springframework;
+package org.db4ospring;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
