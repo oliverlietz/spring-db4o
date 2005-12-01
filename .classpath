@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/db4o-4.6-java1.2.jar"/>
 	<classpathentry kind="src" path="sample/src"/>
-	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="lib/easymock.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-1.2.12.jar"/>
-	<classpathentry kind="lib" path="lib/spring.jar"/>
-	<classpathentry kind="lib" path="lib/junit.jar"/>
-	<classpathentry kind="lib" path="lib/easymockclassextension.jar"/>
-	<classpathentry kind="lib" path="lib/cglib-nodep-2.1_2.jar"/>
+	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="lib" path="lib/db4o/db4o-4.6-java1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-commons/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/junit/junit.jar"/>
+	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring.jar"/>
+	<classpathentry kind="lib" path="lib/easymock/easymock.jar"/>
+	<classpathentry kind="lib" path="lib/easymock/easymockclassextension.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
