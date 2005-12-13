@@ -2,28 +2,28 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
     "http://www.springframework.org/dtd/spring-beans.dtd">
 <!--
-    $Id: applicationContext-db4o.xml,v 1.1 2005-11-30 12:32:16 costin Exp $
+    $Id: applicationContext-db4o.xml,v 1.2 2005-12-13 21:09:00 dmitter Exp $
     -->    
 <beans>
 
 	<!-- not used -->
-	<bean id="server" class="com.db4o.springframework.ObjectServerFactoryBean">
+	<bean id="server" class="org.db4ospring.ObjectServerFactoryBean">
 		<property name="userAccessLocation" value="user-access.properties"/>
 		<property name="databaseFile" value="file://./db4o.db"/>
 		<property name="port" value="0"/>
 	</bean>
 	
-	<bean id="container" class="com.db4o.springframework.ObjectContainerFactoryBean">
+	<bean id="container" class="org.db4ospring.ObjectContainerFactoryBean">
 		<property name="memoryFile">
 			<bean class="com.db4o.ext.MemoryFile"/>
 		</property>
 	</bean>
 
-	<bean id="db4oTemplate" class="com.db4o.springframework.Db4oTemplate">	
+	<bean id="db4oTemplate" class="org.db4ospring.Db4oTemplate">	
 		<property name="objectContainer" ref="container"/>
 	</bean>
 	
-	<bean id="db4oTransactionManager" class="com.db4o.springframework.Db4oTransactionManager">
+	<bean id="db4oTransactionManager" class="org.db4ospring.Db4oTransactionManager">
 		<property name="objectContainer" ref="container"/>
 	</bean>
 	
@@ -44,7 +44,7 @@
 	
 	<bean id="db4oService" parent="txProxyTemplate">
 		<property name="target">
-			<bean class="com.db4o.springframework.examples.Db4oService">
+			<bean class="org.db4ospring.examples.Db4oService">
 				<property name="template" ref="db4oTemplate"/>
 			</bean>
 		</property>
