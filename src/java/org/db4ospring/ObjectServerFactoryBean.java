@@ -1,8 +1,8 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: ObjectServerFactoryBean.java,v 1.1 2005-12-01 14:51:18 costin Exp $
- * $Revision: 1.1 $
+ * $Id: ObjectServerFactoryBean.java,v 1.2 2006-02-19 10:56:35 dmitter Exp $
+ * $Revision: 1.2 $
  */
 package org.db4ospring;
 
@@ -69,7 +69,7 @@ public class ObjectServerFactoryBean implements InitializingBean, DisposableBean
 		if (port < 0)
 			throw new IllegalArgumentException("port must be greater then or equal to 0");
 
-		System.out.println("Database file is " + databaseFile.getFile().getAbsolutePath());
+		log.info("Database file is " + databaseFile.getFile().getAbsolutePath());
 		server = Db4o.openServer(databaseFile.getFile().getAbsolutePath(), port);
 		log.info(Db4o.version());
 		log.info("opened db4o server @" + System.identityHashCode(server));

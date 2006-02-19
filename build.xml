@@ -137,7 +137,7 @@
 		<makejar jarfile="${dist.dir}/db4o-spring-${db4o-spring.version}.jar">
 			<jar-contents>
 				<fileset dir="${target.classes.dir}">
-					<include name="org/db4ospring/*"/>
+					<include name="org/db4ospring/**"/>
 				</fileset>
 			</jar-contents>
 		</makejar>

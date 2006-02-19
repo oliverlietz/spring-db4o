@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="sample/src"/>
+	<classpathentry kind="src" path="sample/recipemanager/src"/>
 	<classpathentry kind="src" path="src/test"/>
 	<classpathentry kind="src" path="src/java"/>
 	<classpathentry kind="lib" path="lib/db4o/db4o-4.6-java1.2.jar"/>
@@ -11,5 +12,7 @@
 	<classpathentry kind="lib" path="lib/spring/spring.jar"/>
 	<classpathentry kind="lib" path="lib/easymock/easymock.jar"/>
 	<classpathentry kind="lib" path="lib/easymock/easymockclassextension.jar"/>
+	<classpathentry kind="lib" path="lib/cglib/cglib-nodep-2.1_2.jar"/>
+	<classpathentry kind="lib" path="lib/j2ee/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
