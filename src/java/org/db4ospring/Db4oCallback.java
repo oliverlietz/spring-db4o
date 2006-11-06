@@ -1,8 +1,8 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: Db4oCallback.java,v 1.1 2005-12-01 14:51:20 costin Exp $
- * $Revision: 1.1 $
+ * $Id: Db4oCallback.java,v 1.2 2006-11-06 11:35:25 costin Exp $
+ * $Revision: 1.2 $
  */
 package org.db4ospring;
 
@@ -13,6 +13,7 @@ import com.db4o.ObjectContainer;
  * assumably often as anonymous classes within a method implementation. The typical 
  * implementation will call ObjectContainer methods  to perform some operations on 
  * the db4o object container.
+ * 
  * @author Costin Leau
  *
  */

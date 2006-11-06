@@ -18,7 +18,7 @@ import com.db4o.ObjectContainer;
  * 
  * <p>
  * This local strategy is an alternative to executing db4o operations within JTA
- * transactions. Its advantage is that it is able to work in any environment,
+ * transactions. Its advantage is the ability to work in any environment,
  * for example a standalone application or a test suite. It is <i>not</i> able
  * to provide XA transactions, for example to share transactions with data
  * access.
