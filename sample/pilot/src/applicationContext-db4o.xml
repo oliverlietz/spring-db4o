@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
     "http://www.springframework.org/dtd/spring-beans.dtd">
 <!--
-    $Id: applicationContext-db4o.xml,v 1.2 2005-12-13 21:09:00 dmitter Exp $
+    $Id: applicationContext-db4o.xml,v 1.1 2006-11-13 12:39:03 costin Exp $
     -->    
 <beans>
 

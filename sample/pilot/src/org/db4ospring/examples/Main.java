@@ -1,7 +1,7 @@
 /**
  * Created on Nov 5, 2005
  *
- * $Id: Main.java,v 1.1 2005-12-01 14:51:22 costin Exp $
+ * $Id: Main.java,v 1.1 2006-11-13 12:38:57 costin Exp $
  * $Revision: 1.1 $
  */
 package org.db4ospring.examples;

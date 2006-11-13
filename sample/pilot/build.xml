@@ -8,16 +8,33 @@
 	<property name="build.dir" value=".classes"/>
 	<property name="dist.dir" value="dist"/>
 	<property name="lib" value="lib"/>
-	
-	<property name="main.class" value="org.db4o.springframework.Main"/>
+	<property name="spring.root" value="../.."/>
+	<property name="main.class" value="org.db4ospring.examples.Main"/>
 
 
 	<path id="lib-classpath">
-
-		<fileset dir="/lib">
-			<include name="*.jar"/>
+		<fileset dir="${spring.root}/lib/db4o">
+			<include name="db4o*.jar"/>
 		</fileset>
-
+		<fileset dir="${spring.root}/lib/jakarta-commons">
+			<include name="commons-logging.jar"/>
+		</fileset>
+		<fileset dir="${spring.root}/lib/j2ee">
+			<include name="servlet-api.jar"/>
+		</fileset>
+		<fileset dir="${spring.root}/lib/spring">
+			<include name="spring.jar"/>
+		</fileset>
+		<fileset dir="${spring.root}/lib/log4j">
+			<include name="log4j*jar"/>
+		</fileset>
+		<fileset dir="${spring.root}/lib/cglib">
+			<include name="cglib*jar"/>
+		</fileset>
+		
+		<fileset dir="${spring.root}/dist">
+			<include name="db4o-spring*.jar"/>
+		</fileset>
 	</path>
 
 	<path id="dist-classpath">

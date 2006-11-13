@@ -1,7 +1,7 @@
 /**
  * Created on Nov 12, 2005
  *
- * $Id: Db4oService.java,v 1.1 2005-12-01 14:51:22 costin Exp $
+ * $Id: Db4oService.java,v 1.1 2006-11-13 12:38:57 costin Exp $
  * $Revision: 1.1 $
  */
 package org.db4ospring.examples;
