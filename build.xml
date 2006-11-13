@@ -170,6 +170,7 @@
 			<packageset dir="${src.dir}">
 				<include name="org/db4ospring/**"/>
 			</packageset>
+			<link href="http://www.db4o.com/community/ontheroad/apidocumentation/"/>			
 		</javadoc>
 
 	</target>
