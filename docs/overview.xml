@@ -1,0 +1,6 @@
+<chapter id="introduction">
+
+	<title>Introduction</title>
+
+	<para>Spring Modules is a collection of tools, add-ons and modules to extend the <ulink url="http://www.springframework.org">Spring Framework</ulink>. The core goal of Spring Modules is to facilitate integration between Spring and other projects without cluttering or expanding the Spring core.</para>
+</chapter>
