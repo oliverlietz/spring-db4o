@@ -1,0 +1,4 @@
+Bundle-SymbolicName: org.springextensions.db4o
+Bundle-Name: db4o Spring Extension
+Bundle-Vendor: SpringSource
+Bundle-ManifestVersion: 2

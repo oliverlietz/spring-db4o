@@ -2,7 +2,7 @@
 <project name="build-se-db4o" default="precommit">
 
 	<path id="bundles">
-		<!--pathelement location="../org.springextensions.db4o"/-->
+		<pathelement location="../org.springextensions.db4o"/>
 	</path>
 
 	<property file="${basedir}/../build.properties"/>
