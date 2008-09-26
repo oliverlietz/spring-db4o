@@ -2,3 +2,11 @@ Bundle-SymbolicName: org.springextensions.db4o
 Bundle-Name: db4o Spring Extension
 Bundle-Vendor: SpringSource
 Bundle-ManifestVersion: 2
+Import-Template: 
+ org.apache.commons.logging;version="[2.1.1, 2.0.0)",
+ org.springframework.beans.*;version="[2.5.4.A, 3.0.0)",
+ org.springframework.core.*;version="[2.5.4.A, 3.0.0)",
+ org.springframework.dao.*;version="[2.5.4.A, 3.0.0)",
+ org.springframework.transaction.*;version="[2.5.4.A, 3.0.0)",
+ org.springframework.util.*;version="[2.5.4.A, 3.0.0)",
+ com.db4o.*;version="[7.2.54.11278, 7.2.54.11278]",

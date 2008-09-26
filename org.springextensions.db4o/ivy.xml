@@ -7,7 +7,7 @@
 
 	<info organisation="org.springextensions.db4o" module="${ant.project.name}">
 		<license name="Apache 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
-		<ivyauthor name=""/>
+		<ivyauthor name="Chris Beams"/>
 	</info>
 
 	<configurations>
@@ -20,7 +20,15 @@
 	</publications>
 
 	<dependencies>
-		<dependency org="org.junit" name="com.springsource.org.junit" rev="4.4.0" conf="test->runtime" />
+		<dependency org="org.junit" name="com.springsource.org.junit" rev="4.4.0" conf="test->compile" />
+		<dependency org="org.easymock" name="com.springsource.org.easymock" rev="2.3.0" conf="test->compile"/>
+		<dependency org="org.easymock" name="com.springsource.org.easymock.classextension" rev="2.3.0" conf="test->compile"/>
+
+		<dependency org="org.springframework" name="org.springframework.beans" rev="2.5.4.A" conf="compile->compile"/>
+		<dependency org="org.springframework" name="org.springframework.core" rev="2.5.4.A" conf="compile->compile"/>
+		<dependency org="org.springframework" name="org.springframework.test" rev="2.5.4.A" conf="compile->compile"/>
+		<dependency org="org.springframework" name="org.springframework.transaction" rev="2.5.4.A" conf="compile->compile"/>
+		<dependency org="com.db4o" name="com.springsource.com.db4o.java5" rev="7.2.54.11278"  conf="compile->compile"/>
 	</dependencies>
 
 </ivy-module>
