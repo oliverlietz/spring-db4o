@@ -15,9 +15,11 @@
 			<property name="target.dir" value="${package.docs.dir}"/>
 		</ant>
 
+		<!--
 		<copy todir="${package.output.dir}">
 			<fileset dir="${basedir}/resources"/>
 		</copy>
+		-->
 
 		<copy todir="${package.output.dir}/projects">
 			<fileset dir="${basedir}/..">
