@@ -33,7 +33,7 @@ public class Db4oDaoSupportTests extends TestCase {
 
 	/*
 	 * Test method for
-	 * 'org.db4ospring.support.Db4oDaoSupport.setObjectContainer'
+	 * 'org.springextensions.db4o.support.Db4oDaoSupport.setObjectContainer'
 	 */
 	public void testConfigureWithObjectContainer() {
 		containerControl.replay();
@@ -51,7 +51,7 @@ public class Db4oDaoSupportTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.support.Db4oDaoSupport.setDb4oTemplate'
+	 * Test method for 'org.springextensions.db4o.support.Db4oDaoSupport.setDb4oTemplate'
 	 */
 	public void testConfigureWithTemplate() {
 		templateControl.expectAndReturn(template.getObjectContainer(), container, 2);
@@ -70,7 +70,7 @@ public class Db4oDaoSupportTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.support.Db4oDaoSupport.checkDaoConfig'
+	 * Test method for 'org.springextensions.db4o.support.Db4oDaoSupport.checkDaoConfig'
 	 */
 	public void testMissingConfiguration() {
 		containerControl.replay();

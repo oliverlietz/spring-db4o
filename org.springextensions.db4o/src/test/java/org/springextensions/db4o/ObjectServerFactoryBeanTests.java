@@ -31,21 +31,21 @@ public class ObjectServerFactoryBeanTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.ObjectServerFactoryBean.getObjectType()'
+	 * Test method for 'org.springextensions.db4o.ObjectServerFactoryBean.getObjectType()'
 	 */
 	public void testGetObjectType() {
 		assertTrue(ObjectServer.class.isAssignableFrom(serverFB.getObjectType()));
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.ObjectServerFactoryBean.isSingleton()'
+	 * Test method for 'org.springextensions.db4o.ObjectServerFactoryBean.isSingleton()'
 	 */
 	public void testIsSingleton() {
 		assertTrue(serverFB.isSingleton());
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.ObjectServerFactoryBean.afterPropertiesSet()'
+	 * Test method for 'org.springextensions.db4o.ObjectServerFactoryBean.afterPropertiesSet()'
 	 */
 	public void testAfterPropertiesSet() throws Exception {
 		serverFB.setDatabaseFile(null);

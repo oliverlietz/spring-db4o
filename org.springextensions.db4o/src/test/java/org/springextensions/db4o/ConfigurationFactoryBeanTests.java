@@ -55,7 +55,7 @@ public class ConfigurationFactoryBeanTests extends TestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.org.springextensions.db4o.ConfigurationFactoryBean#afterPropertiesSet()}.
+	 * {@link org.springextensions.db4o.ConfigurationFactoryBean#afterPropertiesSet()}.
 	 */
 	public void testAfterPropertiesSet() {
 
@@ -71,7 +71,7 @@ public class ConfigurationFactoryBeanTests extends TestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.org.springextensions.db4o.ConfigurationFactoryBean#createConfiguration(int)}.
+	 * {@link org.springextensions.db4o.ConfigurationFactoryBean#createConfiguration(int)}.
 	 */
 	public void testCreateNewConfiguration() {
 		// change the default configuration and make sure the default is not
@@ -84,7 +84,7 @@ public class ConfigurationFactoryBeanTests extends TestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.org.springextensions.db4o.ConfigurationFactoryBean#createConfiguration(int)}.
+	 * {@link org.springextensions.db4o.ConfigurationFactoryBean#createConfiguration(int)}.
 	 */
 
 	public void testCreateClonedConfiguration() {
@@ -99,7 +99,7 @@ public class ConfigurationFactoryBeanTests extends TestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.org.springextensions.db4o.ConfigurationFactoryBean#createConfiguration(int)}.
+	 * {@link org.springextensions.db4o.ConfigurationFactoryBean#createConfiguration(int)}.
 	 */
 	public void testCreateJVMConfiguration() {
 		assertSame(Db4o.configure(), cfb.createConfiguration(ConfigurationFactoryBean.CONFIGURATION_GLOBAL));
@@ -117,7 +117,7 @@ public class ConfigurationFactoryBeanTests extends TestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.org.springextensions.db4o.ConfigurationFactoryBean#setConfigurationCreationMode(java.lang.String)}.
+	 * {@link org.springextensions.db4o.ConfigurationFactoryBean#setConfigurationCreationMode(java.lang.String)}.
 	 */
 	public void testSetConfigurationCreationModeInvalid() {
 		try {
@@ -145,7 +145,7 @@ public class ConfigurationFactoryBeanTests extends TestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.org.springextensions.db4o.ConfigurationFactoryBean#setConfigurationCreationModeNumber(int)}.
+	 * {@link org.springextensions.db4o.ConfigurationFactoryBean#setConfigurationCreationModeNumber(int)}.
 	 */
 	public void testSetConfigurationCreationModeNumber() throws Exception {
 		cfb.setConfigurationCreationModeNumber(ConfigurationFactoryBean.CONFIGURATION_CLONED);

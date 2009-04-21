@@ -31,21 +31,21 @@ public class ObjectContainerFactoryBeanTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.getObjectType()'
+	 * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.getObjectType()'
 	 */
 	public void testGetObjectType() {
 		assertTrue(ObjectContainer.class.isAssignableFrom(containerFB.getObjectType()));
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.isSingleton()'
+	 * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.isSingleton()'
 	 */
 	public void testIsSingleton() {
 		assertTrue(containerFB.isSingleton());
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.afterPropertiesSet()'
+	 * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.afterPropertiesSet()'
 	 */
 	public void testAfterPropertiesSet() throws Exception {
 		containerFB.afterPropertiesSet();
@@ -61,7 +61,7 @@ public class ObjectContainerFactoryBeanTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.db4ospring.ObjectContainerFactoryBean.destroy()'
+	 * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.destroy()'
 	 */
 	public void testDestroy() throws Exception {
 		assertFalse(((ExtObjectContainer)containerFB.getObject()).isClosed());
