@@ -27,9 +27,6 @@ import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
-import com.db4o.replication.ReplicationConflictHandler;
-import com.db4o.replication.ReplicationProcess;
-import com.db4o.types.Db4oCollections;
 
 /**
  * Db4o template.
@@ -121,12 +118,12 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see org.springextensions.db4o.Db4oOperations#get(java.lang.Object)
+	 * @see org.springextensions.db4o.Db4oOperations#queryByExample(java.lang.Object)
 	 */
-	public ObjectSet get(final java.lang.Object template) {
+	public ObjectSet queryByExample(final java.lang.Object template) {
 		return (ObjectSet) execute(new Db4oCallback() {
 			public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-				return container.get(template);
+				return container.queryByExample(template);
 			}
 		}, true);
 	}
@@ -154,12 +151,12 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see org.springextensions.db4o.Db4oOperations#set(java.lang.Object)
+	 * @see org.springextensions.db4o.Db4oOperations#store(java.lang.Object)
 	 */
-	public void set(final Object obj) {
+	public void store(final Object obj) {
 		execute(new Db4oCallback() {
 			public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-				container.set(obj);
+				container.store(obj);
 				return null;
 			}
 		}, true);
@@ -199,17 +196,6 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 			public Object doInDb4o(ObjectContainer container) throws RuntimeException {
 				((ExtObjectContainer) container).bind(obj, id);
 				return null;
-			}
-		}, true);
-	}
-
-	/**
-	 * @see org.springextensions.db4o.Db4oOperations#collections()
-	 */
-	public Db4oCollections collections() {
-		return (Db4oCollections) execute(new Db4oCallback() {
-			public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-				return ((ExtObjectContainer) container).collections();
 			}
 		}, true);
 	}
@@ -419,25 +405,12 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
 	}
 
 	/**
-	 * @see org.springextensions.db4o.Db4oOperations#replicationBegin(com.db4o.ObjectContainer,
-	 * com.db4o.replication.ReplicationConflictHandler)
+	 * @see org.springextensions.db4o.Db4oOperations#store(java.lang.Object, int)
 	 */
-	public ReplicationProcess replicationBegin(final ObjectContainer peerB,
-			final ReplicationConflictHandler conflictHandler) {
-		return (ReplicationProcess) execute(new Db4oCallback() {
-			public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-				return ((ExtObjectContainer) container).replicationBegin(peerB, conflictHandler);
-			}
-		}, true);
-	}
-
-	/**
-	 * @see org.springextensions.db4o.Db4oOperations#set(java.lang.Object, int)
-	 */
-	public void set(final java.lang.Object obj, final int depth) {
+	public void store(final java.lang.Object obj, final int depth) {
 		execute(new Db4oCallback() {
 			public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-				((ExtObjectContainer) container).set(obj, depth);
+				((ExtObjectContainer) container).store(obj, depth);
 				return null;
 			}
 		}, true);

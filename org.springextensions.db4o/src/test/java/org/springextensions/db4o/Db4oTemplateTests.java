@@ -27,9 +27,6 @@ import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
 import com.db4o.reflect.jdk.JdkClass;
 import com.db4o.reflect.jdk.JdkReflector;
-import com.db4o.replication.ReplicationConflictHandler;
-import com.db4o.replication.ReplicationProcess;
-import com.db4o.types.Db4oCollections;
 
 /**
  * Db4o Template tests.
@@ -131,15 +128,15 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.springextensions.db4o.Db4oTemplate.get(Object)'
+	 * Test method for 'org.springextensions.db4o.Db4oTemplate.queryByExample(Object)'
 	 */
-	public void testGet() {
+	public void testQueryByExample() {
 		Object obj = new Object();
 		objectSetControl.replay();
-		containerControl.expectAndReturn(container.get(obj), set);
+		containerControl.expectAndReturn(container.queryByExample(obj), set);
 		containerControl.replay();
 
-		assertSame(set, template.get(obj));
+		assertSame(set, template.queryByExample(obj));
 	}
 
 	/*
@@ -175,14 +172,14 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.springextensions.db4o.Db4oTemplate.set(Object)'
+	 * Test method for 'org.springextensions.db4o.Db4oTemplate.store(Object)'
 	 */
-	public void testSetObject() {
+	public void testStoreObject() {
 		Object obj = new Object();
-		container.set(obj);
+		container.store(obj);
 		containerControl.replay();
 
-		template.set(obj);
+		template.store(obj);
 	}
 
 	/*
@@ -208,20 +205,6 @@ public class Db4oTemplateTests extends TestCase {
 		containerControl.replay();
 
 		template.bind(obj, id);
-	}
-
-	/*
-	 * Test method for 'org.springextensions.db4o.Db4oTemplate.collections()'
-	 */
-	public void testCollections() {
-		MockControl colCtrl = MockControl.createControl(Db4oCollections.class);
-		Db4oCollections col = (Db4oCollections) colCtrl.getMock();
-
-		containerControl.expectAndReturn(container.collections(), col);
-		containerControl.replay();
-		colCtrl.replay();
-
-		assertSame(col, template.collections());
 	}
 
 	/*
@@ -448,33 +431,15 @@ public class Db4oTemplateTests extends TestCase {
 	}
 
 	/*
-	 * Test method for 'org.springextensions.db4o.Db4oTemplate.replicationBegin(ObjectContainer, ReplicationConflictHandler)'
+	 * Test method for 'org.springextensions.db4o.Db4oTemplate.store(Object, int)'
 	 */
-	public void testReplicationBegin() {
-		MockControl processCtrl = MockControl.createControl(ReplicationProcess.class);
-		MockControl handlerCtrl = MockControl.createControl(ReplicationConflictHandler.class);
-		ReplicationProcess process = (ReplicationProcess)processCtrl.getMock(); 
-	    ReplicationConflictHandler handler = (ReplicationConflictHandler) handlerCtrl.getMock();
-		MockControl peerControl = MockControl.createControl(ObjectContainer.class);
-		ObjectContainer peer = (ObjectContainer) peerControl.getMock();
-		processCtrl.replay(); handlerCtrl.replay(); peerControl.replay();
-		
-		containerControl.expectAndReturn(container.replicationBegin(peer, handler), process);
-		containerControl.replay();
-		
-		assertSame(process, template.replicationBegin(peer, handler));
-	}
-
-	/*
-	 * Test method for 'org.springextensions.db4o.Db4oTemplate.set(Object, int)'
-	 */
-	public void testSetObjectInt() {
+	public void testStoreObjectInt() {
 		Object obj = new Object();
 		int depth = 123;
 
-		container.set(obj, depth);
+		container.store(obj, depth);
 		containerControl.replay();
-		template.set(obj, depth);
+		template.store(obj, depth);
 	}
 
 	/*

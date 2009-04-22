@@ -12,9 +12,6 @@ import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
-import com.db4o.replication.ReplicationConflictHandler;
-import com.db4o.replication.ReplicationProcess;
-import com.db4o.types.Db4oCollections;
 
 public interface Db4oOperations {
 
@@ -31,19 +28,17 @@ public interface Db4oOperations {
 
 	public void delete(final java.lang.Object obj);
 
-	public ObjectSet get(final java.lang.Object template);
+	public ObjectSet queryByExample(final java.lang.Object template);
 
 	public Query query();
 
 	public ObjectSet query(final Predicate predicate);
 
-	public void set(final Object obj);
+	public void store(final Object obj);
 
 	public void backup(final java.lang.String path);
 
 	public void bind(final java.lang.Object obj, final long id);
-
-	public Db4oCollections collections();
 
 	public Object getByID(final long ID);
 
@@ -81,10 +76,7 @@ public interface Db4oOperations {
 
 	public void releaseSemaphore(final java.lang.String name);
 
-	public ReplicationProcess replicationBegin(final ObjectContainer peerB,
-			final ReplicationConflictHandler conflictHandler);
-
-	public void set(final java.lang.Object obj, final int depth);
+	public void store(final java.lang.Object obj, final int depth);
 
 	public boolean setSemaphore(final java.lang.String name, final int waitForAvailability);
 
