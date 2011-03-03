@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="objectServer" class="org.springextensions.db4o.ObjectServerFactoryBean">
+    <property name="databaseFile" value="classpath:embedded.db4o"/>
+    <property name="port" value="0"/>
+  </bean>
+
+  <bean id="objectContainerFactory" class="org.springextensions.db4o.ObjectContainerFactoryBean">
+    <property name="server">
+      <bean factory-bean="objectServer" factory-method="getObject"/>
+    </property>
+  </bean>
+
+  <bean id="objectContainer" factory-bean="objectContainerFactory" factory-method="getObject"/>
+
+  <bean id="db4oTemplate" class="org.springextensions.db4o.Db4oTemplate">
+    <constructor-arg ref="objectContainer"/>
+  </bean>
+
+</beans>

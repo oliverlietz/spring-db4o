@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.springextensions.db4o</groupId>
+  <artifactId>spring-db4o</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Spring db4o Extension Project</name>
+  <packaging>pom</packaging>
+
+  <url>http://www.springsource.org/extensions/se-db4o</url>
+
+  <description>Spring extension for anyone integrating db4o into an enterprise application wishing to achieve declarative transaction management, exception translation and ease of configuration.</description>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>Spring db4o Community</name>
+    <url>http://www.springsource.org/extensions/se-db4o</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <name>Costin Leau</name>
+    </developer>
+    <developer>
+      <name>Oliver Lietz</name>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://src.springframework.org/svn/se-db4o/</url>
+  </scm>
+
+  <issueManagement>
+    <url>http://jira.springframework.org/browse/SEDBFO</url>
+  </issueManagement>
+
+  <ciManagement>
+    <url>http://build.springframework.org/browse/EXT-DB4OSNAPSHOT</url>
+  </ciManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <org.springframework.version>3.0.0.RELEASE</org.springframework.version>
+    <com.db4o.version>8.0.184.15484</com.db4o.version>
+  </properties>
+
+  <modules>
+    <module>org.springextensions.db4o</module>
+    <module>org.springextensions.db4o-it-spring</module>
+    <module>org.springextensions.db4o-it-osgi</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Spring db4o Extension -->
+      <dependency>
+        <groupId>org.springextensions.db4o</groupId>
+        <artifactId>org.springextensions.db4o</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!-- Spring Framework -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.beans</artifactId>
+        <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.core</artifactId>
+        <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.transaction</artifactId>
+        <version>${org.springframework.version}</version>
+      </dependency>
+      <!-- db4o -->
+      <dependency>
+        <groupId>com.db4o</groupId>
+        <artifactId>db4o-full-java5</artifactId>
+        <version>${com.db4o.version}</version>
+      </dependency>
+      <!-- logging -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.5.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.5.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>1.5.11</version>
+      </dependency>
+      <!-- testing -->
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>5.14.10</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.test</artifactId>
+        <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.easymock</groupId>
+        <artifactId>com.springsource.org.easymock</artifactId>
+        <version>2.3.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.easymock</groupId>
+        <artifactId>com.springsource.org.easymock.classextension</artifactId>
+        <version>2.3.0</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <links>
+            <link>http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/api/</link>
+            <link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api/</link>
+          </links>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>2.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.1</version>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <distributionManagement>
+    <repository>
+      <id>de.oliverlietz.maven</id>
+      <url>ftp://maven.oliverlietz.de/</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <version>1.0-beta-7</version>
+      </extension>
+    </extensions>
+  </build>
+
+</project>

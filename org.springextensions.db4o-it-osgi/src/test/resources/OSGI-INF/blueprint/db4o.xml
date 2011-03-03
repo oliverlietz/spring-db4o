@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+  <bean id="embeddedConfiguration" class="org.springextensions.db4o.config.EmbeddedConfigurationFactoryBean">
+    <property name="file.storage">
+      <bean class="com.db4o.io.PagingMemoryStorage"/>
+    </property>
+  </bean>
+
+  <bean id="objectContainerFactory" class="org.springextensions.db4o.ObjectContainerFactoryBean" init-method="initialize" destroy-method="destroy">
+    <property name="name" value="memory"/>
+    <property name="embeddedConfiguration">
+      <bean factory-ref="embeddedConfiguration" factory-method="getObject"/>
+    </property>
+  </bean>
+
+  <bean id="objectContainer" factory-ref="objectContainerFactory" factory-method="getObject"/>
+
+  <bean id="db4oTemplate" class="org.springextensions.db4o.Db4oTemplate">
+    <argument ref="objectContainer"/>
+  </bean>
+
+  <bean id="eventRegistry" class="com.db4o.events.EventRegistryFactory" factory-method="forObjectContainer">
+    <argument ref="objectContainer"/>
+  </bean>
+
+  <service ref="db4oTemplate" interface="org.springextensions.db4o.Db4oOperations"/>
+
+  <service ref="eventRegistry" interface="com.db4o.events.EventRegistry"/>
+
+</blueprint>
