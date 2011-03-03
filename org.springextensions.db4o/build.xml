@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="org.springextensions.db4o">
-
-	<property file="${basedir}/../build.properties"/>
-	<import file="${basedir}/../build-se-db4o/package-bundle.xml"/>
-	<import file="${basedir}/../spring-build/standard/default.xml"/>
-
-</project>
-
