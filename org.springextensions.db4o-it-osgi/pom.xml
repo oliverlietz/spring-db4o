@@ -129,6 +129,7 @@
         <executions>
           <execution>
             <id>generate-config</id>
+            <phase>test</phase>
             <goals>
               <goal>generate-config</goal>
             </goals>
