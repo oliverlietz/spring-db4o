@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2009 the original author or authors.
+ * Copyright 2005-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,21 @@
  */
 package org.springextensions.db4o;
 
+import org.springextensions.db4o.config.FileConfigurer;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.ext.ExtObjectContainer;
 import com.db4o.io.PagingMemoryStorage;
-import org.springextensions.db4o.config.FileConfigurer;
-import org.testng.AssertJUnit;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
- * ObjectContainer FactoryBean tests.
- *
  * @author Costin Leau
+ * @author olli
  */
 public class ObjectContainerFactoryBeanTest {
 
@@ -46,55 +46,36 @@ public class ObjectContainerFactoryBeanTest {
         objectContainerFactoryBean.initialize();
     }
 
-    @AfterTest
+    @AfterMethod
     public void tearDown() throws Exception {
         objectContainerFactoryBean.destroy();
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.getObjectType()'
-      */
-
     @Test
     public void testGetObjectType() {
-        AssertJUnit.assertTrue(ObjectContainer.class.isAssignableFrom(objectContainerFactoryBean.getObjectType()));
+        Assert.assertTrue(ObjectContainer.class.isAssignableFrom(objectContainerFactoryBean.getObjectType()));
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.isSingleton()'
-      */
 
     @Test
     public void testIsSingleton() {
-        AssertJUnit.assertTrue(objectContainerFactoryBean.isSingleton());
+        Assert.assertTrue(objectContainerFactoryBean.isSingleton());
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.afterPropertiesSet()'
-      */
-    /*
     @Test
-    public void testAfterPropertiesSet() throws Exception {
-        objectContainerFactoryBean.afterPropertiesSet();
+    public void testTaintedConfiguration() throws Exception {
         try {
-            objectContainerFactoryBean.setName(null);
-            objectContainerFactoryBean.afterPropertiesSet();
-            AssertJUnit.fail("expected illegal argument exception");
-        } catch (IllegalArgumentException iae) {
-            // it's okay
+            objectContainerFactoryBean.initialize();
+            Assert.fail("expected illegal argument exception: tainted configuration");
+        } catch (IllegalArgumentException e) {
+            // expected "Configuration already used."
         }
     }
-    */
-
-    /*
-      * Test method for 'org.springextensions.db4o.ObjectContainerFactoryBean.destroy()'
-      */
 
     @Test
     public void testDestroy() throws Exception {
-        AssertJUnit.assertFalse(((ExtObjectContainer) objectContainerFactoryBean.getObject()).isClosed());
+        Assert.assertFalse(((ExtObjectContainer) objectContainerFactoryBean.getObject()).isClosed());
         objectContainerFactoryBean.destroy();
-        AssertJUnit.assertTrue(((ExtObjectContainer) objectContainerFactoryBean.getObject()).isClosed());
+        Assert.assertTrue(((ExtObjectContainer) objectContainerFactoryBean.getObject()).isClosed());
     }
 
 }
