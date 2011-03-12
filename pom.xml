@@ -6,7 +6,7 @@
 
   <groupId>org.springextensions.db4o</groupId>
   <artifactId>spring-db4o</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0.BUILD-SNAPSHOT</version>
   <name>Spring db4o Extension Project</name>
   <packaging>pom</packaging>
 
@@ -51,7 +51,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <org.springframework.version>3.0.0.RELEASE</org.springframework.version>
+    <org.slf4j.version>1.5.11</org.slf4j.version>
     <com.db4o.version>8.0.184.15484</com.db4o.version>
+    <maven-bundle-plugin.version>2.3.4</maven-bundle-plugin.version>
+    <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+    <maven-dependency-plugin.version>2.2</maven-dependency-plugin.version>
+    <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version>
+    <maven-project-info-reports-plugin.version>2.3.1</maven-project-info-reports-plugin.version>
+    <maven-site-plugin.version>3.0-beta-3</maven-site-plugin.version>
+    <maven-surefire-plugin.version>2.7.2</maven-surefire-plugin.version>
   </properties>
 
   <modules>
@@ -94,17 +102,17 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>1.5.11</version>
+        <version>${org.slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-simple</artifactId>
-        <version>1.5.11</version>
+        <version>${org.slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
-        <version>1.5.11</version>
+        <version>${org.slf4j.version}</version>
       </dependency>
       <!-- testing -->
       <dependency>
@@ -132,32 +140,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <links>
-            <link>http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/api/</link>
-            <link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api/</link>
-          </links>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>2.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.1</version>
-      </plugin>
-    </plugins>
-  </reporting>
 
   <distributionManagement>
     <repository>

@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.springextensions.db4o</groupId>
     <artifactId>spring-db4o</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0.BUILD-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -25,7 +25,7 @@
     <dependency>
       <groupId>org.springextensions.db4o</groupId>
       <artifactId>org.springextensions.db4o</artifactId>
-      <version>${version}</version>
+      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <!-- Spring Framework -->
@@ -84,7 +84,7 @@
     <dependency>
       <groupId>org.junit</groupId>
       <artifactId>com.springsource.org.junit</artifactId>
-      <version>4.7.0</version>
+      <version>4.8.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -112,6 +112,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
@@ -120,7 +121,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.6</version>
+        <version>${maven-surefire-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.ops4j.pax.exam</groupId>
