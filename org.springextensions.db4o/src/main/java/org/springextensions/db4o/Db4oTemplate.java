@@ -306,10 +306,10 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
     /**
      * @see org.springextensions.db4o.Db4oOperations#getByID(long)
      */
-    public Object getByID(final long ID) {
+    public Object getByID(final long id) {
         return execute(new Db4oCallback() {
             public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-                return ((ExtObjectContainer) container).getByID(ID);
+                return ((ExtObjectContainer) container).getByID(id);
             }
         }, true);
     }
