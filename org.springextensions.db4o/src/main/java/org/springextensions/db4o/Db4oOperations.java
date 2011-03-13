@@ -38,98 +38,98 @@ import com.db4o.reflect.generic.GenericReflector;
  */
 public interface Db4oOperations {
 
-    public Object execute(Db4oCallback callback) throws DataAccessException;
+    Object execute(Db4oCallback callback) throws DataAccessException;
 
-    public Object execute(Db4oCallback callback, boolean exposeNativeContainer) throws DataAccessException;
+    Object execute(Db4oCallback callback, boolean exposeNativeContainer) throws DataAccessException;
 
     //
     // ObjectContainer interface methods
     //
 
-    public void activate(final Object obj, final int depth);
+    void activate(final Object object, final int depth);
 
-    public void deactivate(final Object obj, final int depth);
+    void deactivate(final Object object, final int depth);
 
-    public void delete(final Object obj);
+    void delete(final Object object);
 
-    public <T> ObjectSet<T> queryByExample(final Object template);
+    <T> ObjectSet<T> queryByExample(final Object template);
 
-    public Query query();
+    Query query();
 
-    public <TargetType> ObjectSet<TargetType> query(final Class<TargetType> clazz);
+    <TargetType> ObjectSet<TargetType> query(final Class<TargetType> clazz);
 
-    public <TargetType> ObjectSet<TargetType> query(final Predicate<TargetType> predicate);
+    <TargetType> ObjectSet<TargetType> query(final Predicate<TargetType> predicate);
 
-    public <TargetType> ObjectSet<TargetType> query(final Predicate<TargetType> predicate, final QueryComparator<TargetType> comparator);
+    <TargetType> ObjectSet<TargetType> query(final Predicate<TargetType> predicate, final QueryComparator<TargetType> comparator);
 
-    public <TargetType> ObjectSet<TargetType> query(final Predicate<TargetType> predicate, final Comparator<TargetType> comparator);
+    <TargetType> ObjectSet<TargetType> query(final Predicate<TargetType> predicate, final Comparator<TargetType> comparator);
 
-    public void store(final Object obj);
+    void store(final Object object);
 
     //
     // ExtObjectContainer interface methods
     //
 
-    public void activate(final Object obj);
+    void activate(final Object object);
 
-    public void deactivate(final Object obj);
+    void deactivate(final Object object);
 
-    public void backup(final String path);
+    void backup(final String path);
 
-    public void backup(final Storage targetStorage, final String path);
+    void backup(final Storage targetStorage, final String path);
 
-    public void bind(final Object obj, final long id);
+    void bind(final Object object, final long id);
 
-    // public Configuration configure();
+    // Configuration configure();
 
-    public Object descend(final Object obj, final String[] path);
+    Object descend(final Object object, final String[] path);
 
-    public <T> T getByID(final long ID);
+    <T> T getByID(final long id);
 
-    public <T> T getByUUID(final Db4oUUID uuid);
+    <T> T getByUUID(final Db4oUUID uuid);
 
-    public long getID(final Object obj);
+    long getID(final Object object);
 
-    public ObjectInfo getObjectInfo(final Object obj);
+    ObjectInfo getObjectInfo(final Object object);
 
-    public Db4oDatabase identity();
+    Db4oDatabase identity();
 
-    public boolean isActive(final Object obj);
+    boolean isActive(final Object object);
 
-    public boolean isCached(final long ID);
+    boolean isCached(final long id);
 
-    public boolean isClosed();
+    boolean isClosed();
 
-    public boolean isStored(final Object obj);
+    boolean isStored(final Object object);
 
-    public ReflectClass[] knownClasses();
+    ReflectClass[] knownClasses();
 
-    public Object lock();
+    Object lock();
 
-    public ObjectContainer openSession();
+    ObjectContainer openSession();
 
-    public <T> T peekPersisted(final T object, final int depth, final boolean committed);
+    <T> T peekPersisted(final T object, final int depth, final boolean committed);
 
-    public void purge();
+    void purge();
 
-    public void purge(final Object obj);
+    void purge(final Object object);
 
-    public GenericReflector reflector();
+    GenericReflector reflector();
 
-    public void refresh(final Object obj, final int depth);
+    void refresh(final Object object, final int depth);
 
-    public void releaseSemaphore(final String name);
+    void releaseSemaphore(final String name);
 
-    public void store(final Object obj, final int depth);
+    void store(final Object object, final int depth);
 
-    public boolean setSemaphore(final String name, final int waitForAvailability);
+    boolean setSemaphore(final String name, final int waitForAvailability);
 
-    public StoredClass storedClass(final Object clazz);
+    StoredClass storedClass(final Object clazz);
 
-    public StoredClass[] storedClasses();
+    StoredClass[] storedClasses();
 
-    // public SystemInfo systemInfo();
+    // SystemInfo systemInfo();
 
-    public long version();
+    long version();
 
 }

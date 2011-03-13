@@ -36,6 +36,6 @@ public interface Db4oCallback {
      * callback, i.e. a domain object or a collection of domain
      * objects.
      */
-    public Object doInDb4o(ObjectContainer container) throws RuntimeException;
+    Object doInDb4o(ObjectContainer container) throws RuntimeException;
 
 }
