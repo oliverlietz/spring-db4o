@@ -15,13 +15,14 @@
  */
 package org.springextensions.db4o.config;
 
-import com.db4o.ObjectContainer;
-import com.db4o.config.EmbeddedConfiguration;
-import com.db4o.io.PagingMemoryStorage;
 import org.springextensions.db4o.ObjectContainerFactoryBean;
 import org.springextensions.db4o.example.Person;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.db4o.ObjectContainer;
+import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.io.PagingMemoryStorage;
 
 /**
  * @author olli

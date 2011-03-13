@@ -21,14 +21,15 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import com.db4o.Db4o;
-import com.db4o.ObjectServer;
-import com.db4o.cs.Db4oClientServer;
-import com.db4o.cs.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ObjectUtils;
+
+import com.db4o.Db4o;
+import com.db4o.ObjectServer;
+import com.db4o.cs.Db4oClientServer;
+import com.db4o.cs.config.ServerConfiguration;
 
 /**
  * FactoryBean for creating {@link com.db4o.ObjectServer}s.

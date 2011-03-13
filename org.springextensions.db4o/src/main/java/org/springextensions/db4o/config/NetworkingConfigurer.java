@@ -40,7 +40,6 @@ public class NetworkingConfigurer {
     }
 
     /**
-     *
      * @param clientServerFactory
      * @see com.db4o.cs.config.NetworkingConfiguration#clientServerFactory(com.db4o.cs.config.ClientServerFactory)
      */
@@ -49,7 +48,6 @@ public class NetworkingConfigurer {
     }
 
     /**
-     *
      * @param maxSize
      * @see com.db4o.cs.config.NetworkingConfiguration#maxBatchQueueSize(int)
      */
@@ -58,7 +56,6 @@ public class NetworkingConfigurer {
     }
 
     /**
-     *
      * @param messageRecipient
      * @see com.db4o.cs.config.NetworkingConfiguration#messageRecipient(com.db4o.messaging.MessageRecipient)
      */

@@ -212,6 +212,7 @@ public class CommonConfigurer {
 
     /**
      * @param weakReferenceCollectionInterval
+     *
      * @see com.db4o.config.CommonConfiguration#weakReferenceCollectionInterval(int)
      */
     public void setWeakReferenceCollectionInterval(int weakReferenceCollectionInterval) {

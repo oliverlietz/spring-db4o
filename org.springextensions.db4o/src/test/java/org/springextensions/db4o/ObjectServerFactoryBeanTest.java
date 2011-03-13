@@ -15,17 +15,19 @@
  */
 package org.springextensions.db4o;
 
-import com.db4o.ObjectServer;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.db4o.ObjectServer;
+
 /**
  * Test class for ObjectServerFactoryBean.
  *
  * @author Costin Leau
+ * @author olli
  */
 public class ObjectServerFactoryBeanTest {
 

@@ -15,12 +15,13 @@
  */
 package org.springextensions.db4o;
 
-import com.db4o.events.EventRegistry;
 import org.apache.karaf.testing.AbstractIntegrationTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.junit.MavenConfiguredJUnit4TestRunner;
+
+import com.db4o.events.EventRegistry;
 
 /**
  * @author olli

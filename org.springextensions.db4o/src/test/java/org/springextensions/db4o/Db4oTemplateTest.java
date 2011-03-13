@@ -23,6 +23,7 @@ import com.db4o.ObjectSet;
 import com.db4o.ext.ExtClient;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

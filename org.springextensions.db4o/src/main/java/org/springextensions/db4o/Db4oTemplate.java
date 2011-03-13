@@ -40,8 +40,6 @@ import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
 
 /**
- * Db4o template.
- *
  * @author Costin Leau
  * @author olli
  */

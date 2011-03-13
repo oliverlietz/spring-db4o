@@ -15,12 +15,6 @@
  */
 package org.springextensions.db4o;
 
-import com.db4o.ObjectContainer;
-import com.db4o.ext.ExtObjectContainer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import org.springframework.transaction.InvalidIsolationLevelException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -30,6 +24,11 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import org.springframework.transaction.support.TransactionTemplate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.db4o.ObjectContainer;
+import com.db4o.ext.ExtObjectContainer;
+
+import static org.mockito.Mockito.*;
 
 /**
  * @author Costin Leau

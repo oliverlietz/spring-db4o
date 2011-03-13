@@ -26,7 +26,6 @@ public class IdSystemConfigurer {
     protected IdSystemConfiguration idSystemConfiguration;
 
     public enum System {
-
         InMemory,
         PointerBased,
         SingleBTree,

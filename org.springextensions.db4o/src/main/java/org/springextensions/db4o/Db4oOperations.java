@@ -45,6 +45,7 @@ public interface Db4oOperations {
     //
     // ObjectContainer interface methods
     //
+
     public void activate(final Object obj, final int depth);
 
     public void deactivate(final Object obj, final int depth);
@@ -68,6 +69,7 @@ public interface Db4oOperations {
     //
     // ExtObjectContainer interface methods
     //
+
     public void activate(final Object obj);
 
     public void deactivate(final Object obj);
