@@ -36,7 +36,7 @@
   </developers>
 
   <scm>
-    <url>https://src.springframework.org/svn/se-db4o/</url>
+    <url>https://src.springsource.org/svn/se-db4o/</url>
   </scm>
 
   <issueManagement>
@@ -44,8 +44,15 @@
   </issueManagement>
 
   <ciManagement>
-    <url>http://build.springframework.org/browse/EXT-DB4OSNAPSHOT</url>
+    <url>http://build.springsource.org/browse/EXT-DB4OSNAPSHOT</url>
   </ciManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>de.oliverlietz.maven</id>
+      <url>ftp://maven.oliverlietz.de/</url>
+    </repository>
+  </distributionManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -148,13 +155,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <distributionManagement>
-    <repository>
-      <id>de.oliverlietz.maven</id>
-      <url>ftp://maven.oliverlietz.de/</url>
-    </repository>
-  </distributionManagement>
 
   <build>
     <extensions>
