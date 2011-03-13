@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2009 the original author or authors.
+ * Copyright 2005-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,10 @@ package org.springextensions.db4o;
 
 import com.db4o.ObjectContainer;
 import com.db4o.ext.ExtObjectContainer;
-import org.easymock.MockControl;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.springframework.transaction.InvalidIsolationLevelException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -25,58 +28,56 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
-import org.testng.AssertJUnit;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/**
+ * @author Costin Leau
+ * @author olli
+ */
 public class Db4oTransactionManagerTest {
 
     @Test
     public void testTransactionCommit() throws Exception {
-        MockControl containerControl = MockControl.createControl(ExtObjectContainer.class);
-        final ExtObjectContainer container = (ExtObjectContainer) containerControl.getMock();
-
-        containerControl.expectAndReturn(container.identity(), null);
-        container.commit();
-        containerControl.replay();
+        final ExtObjectContainer container = mock(ExtObjectContainer.class);
+        when(container.identity()).thenReturn(null);
 
         PlatformTransactionManager tm = new Db4oTransactionManager(container);
         TransactionTemplate tt = new TransactionTemplate(tm);
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive(), "JTA synchronizations not active");
 
         tt.execute(new TransactionCallbackWithoutResult() {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
-                AssertJUnit.assertTrue("Has thread session", TransactionSynchronizationManager.hasResource(container));
+                Assert.assertTrue(TransactionSynchronizationManager.hasResource(container), "Has thread session");
                 Db4oTemplate template = new Db4oTemplate(container);
                 template.identity();
             }
         });
 
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive(), "JTA synchronizations not active");
 
-        containerControl.verify();
+        verify(container).commit();
     }
 
     @Test
     public void testTransactionRollback() throws Exception {
-        MockControl containerControl = MockControl.createControl(ExtObjectContainer.class);
-        final ExtObjectContainer container = (ExtObjectContainer) containerControl.getMock();
-
-        containerControl.expectAndReturn(container.ext(), container);
-        containerControl.expectAndReturn(container.identity(), null);
-        container.rollback();
-        containerControl.replay();
+        final ExtObjectContainer container = mock(ExtObjectContainer.class);
+        when(container.identity()).thenReturn(null);
+        when(container.ext()).thenReturn(container);
 
         PlatformTransactionManager tm = new Db4oTransactionManager(container);
         TransactionTemplate tt = new TransactionTemplate(tm);
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive(), "JTA synchronizations not active");
 
         try {
             tt.execute(new TransactionCallbackWithoutResult() {
                 protected void doInTransactionWithoutResult(TransactionStatus status) {
-                    AssertJUnit.assertTrue("Has thread session", TransactionSynchronizationManager.hasResource(container));
+                    Assert.assertTrue(TransactionSynchronizationManager.hasResource(container), "Has thread session");
                     Db4oTemplate template = new Db4oTemplate(container);
                     template.execute(new Db4oCallback() {
                         public Object doInDb4o(ObjectContainer cont) {
@@ -91,31 +92,28 @@ public class Db4oTransactionManagerTest {
             // it's okay
         }
 
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive(), "JTA synchronizations not active");
 
-        containerControl.verify();
+        verify(container).rollback();
     }
 
     @Test
     public void testTransactionRollbackOnly() throws Exception {
-        MockControl containerControl = MockControl.createControl(ExtObjectContainer.class);
-        final ExtObjectContainer container = (ExtObjectContainer) containerControl.getMock();
-
-        containerControl.expectAndReturn(container.ext(), container);
-        containerControl.expectAndReturn(container.identity(), null);
-        container.rollback();
-        containerControl.replay();
+        final ExtObjectContainer container = mock(ExtObjectContainer.class);
+        when(container.identity()).thenReturn(null);
+        when(container.ext()).thenReturn(container);
 
         PlatformTransactionManager tm = new Db4oTransactionManager(container);
         TransactionTemplate tt = new TransactionTemplate(tm);
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive());
 
         try {
             tt.execute(new TransactionCallbackWithoutResult() {
                 protected void doInTransactionWithoutResult(TransactionStatus status) {
-                    AssertJUnit.assertTrue("Has thread session", TransactionSynchronizationManager.hasResource(container));
+                    Assert.assertTrue(TransactionSynchronizationManager.hasResource(container), "Has thread session");
                     Db4oTemplate template = new Db4oTemplate(container);
                     template.execute(new Db4oCallback() {
                         public Object doInDb4o(ObjectContainer cont) {
@@ -131,30 +129,27 @@ public class Db4oTransactionManagerTest {
             // it's okay
         }
 
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive(), "JTA synchronizations not active");
 
-        containerControl.verify();
+        verify(container).rollback();
     }
-
 
     @Test
     public void testInvalidIsolation() throws Exception {
-        MockControl containerControl = MockControl.createControl(ExtObjectContainer.class);
-        final ExtObjectContainer container = (ExtObjectContainer) containerControl.getMock();
-
-        containerControl.replay();
+        final ExtObjectContainer container = mock(ExtObjectContainer.class);
 
         PlatformTransactionManager tm = new Db4oTransactionManager(container);
         TransactionTemplate tt = new TransactionTemplate(tm);
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive(), "JTA synchronizations not active");
 
         tt.setIsolationLevel(TransactionDefinition.ISOLATION_SERIALIZABLE);
         try {
             tt.execute(new TransactionCallbackWithoutResult() {
                 protected void doInTransactionWithoutResult(TransactionStatus status) {
-                    AssertJUnit.assertTrue("Has thread session", TransactionSynchronizationManager.hasResource(container));
+                    Assert.assertTrue(TransactionSynchronizationManager.hasResource(container), "Has thread session");
                     Db4oTemplate template = new Db4oTemplate(container);
                     template.execute(new Db4oCallback() {
                         public Object doInDb4o(ObjectContainer cont) {
@@ -163,16 +158,15 @@ public class Db4oTransactionManagerTest {
                     });
                 }
             });
-            AssertJUnit.fail("Should have thrown InvalidIsolationLevelException");
-
+            Assert.fail("Should have thrown InvalidIsolationLevelException");
         } catch (InvalidIsolationLevelException e) {
             // it's okay
         }
 
-        AssertJUnit.assertTrue("Has no container", !TransactionSynchronizationManager.hasResource(container));
-        AssertJUnit.assertTrue("JTA synchronizations not active", !TransactionSynchronizationManager.isSynchronizationActive());
+        Assert.assertTrue(!TransactionSynchronizationManager.hasResource(container), "Has no container");
+        Assert.assertTrue(!TransactionSynchronizationManager.isSynchronizationActive(), "JTA synchronizations not active");
 
-        containerControl.verify();
+        // TODO verify(container)....; exception thrown?
     }
 
 }

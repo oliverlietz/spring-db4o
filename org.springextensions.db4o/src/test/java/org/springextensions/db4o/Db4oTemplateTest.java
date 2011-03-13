@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2009 the original author or authors.
+ * Copyright 2005-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,67 +15,35 @@
  */
 package org.springextensions.db4o;
 
-import java.io.IOException;
-
-import org.easymock.MockControl;
-import org.easymock.classextension.MockClassControl;
-import org.testng.AssertJUnit;
-import org.testng.annotations.AfterMethod;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.ext.Db4oDatabase;
-import com.db4o.ext.Db4oUUID;
 import com.db4o.ext.ExtClient;
-import com.db4o.ext.ObjectInfo;
-import com.db4o.ext.StoredClass;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
-import com.db4o.reflect.ReflectClass;
-import com.db4o.reflect.generic.GenericReflector;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
- * Db4o Template tests.
- *
  * @author Costin Leau
+ * @author olli
  */
 public class Db4oTemplateTest {
 
-    private MockControl containerControl, objectSetControl;
-
     private ExtClient container;
-
-    private ObjectSet set;
 
     private Db4oTemplate template;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        containerControl = MockControl.createControl(ExtClient.class);
-        container = (ExtClient) containerControl.getMock();
-        objectSetControl = MockControl.createControl(ObjectSet.class);
-        set = (ObjectSet) objectSetControl.getMock();
-
+        container = mock(ExtClient.class);
         template = new Db4oTemplate(container);
     }
 
-    @AfterMethod
-    public void tearDown() throws Exception {
-        try {
-            containerControl.verify();
-            objectSetControl.verify();
-        }
-        catch (IllegalStateException ex) {
-            // ignore: test method didn't call replay
-        }
-    }
-
     /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.execute(Db4oCallback)'
-      */
-
     @Test
     public void testExecuteDb4oCallback() {
         final Object result = new Object();
@@ -106,113 +74,66 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(result, template.execute(action, true));
         AssertJUnit.assertSame(result, template.execute(proxiedAction, false));
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.activate(Object, int)'
-      */
+    */
 
     @Test
     public void testActivate() {
-        Object obj = new Object();
+        Object object = new Object();
         int depth = 10;
-        container.activate(obj, depth);
-        containerControl.replay();
-        template.activate(obj, depth);
+        template.activate(object, depth);
+        verify(container).activate(object, depth);
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.deactivate(Object, int)'
-      */
 
     @Test
     public void testDeactivate() {
-        Object obj = new Object();
+        Object object = new Object();
         int depth = 10;
-        container.deactivate(obj, depth);
-        containerControl.replay();
-        template.deactivate(obj, depth);
+        template.deactivate(object, depth);
+        verify(container).deactivate(object, depth);
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.delete(Object)'
-      */
 
     @Test
     public void testDelete() {
-        Object obj = new Object();
-        container.delete(obj);
-        containerControl.replay();
-        template.delete(obj);
+        Object object = new Object();
+        template.delete(object);
+        verify(container).delete(object);
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.queryByExample(Object)'
-      */
 
     @Test
     public void testQueryByExample() {
-        Object obj = new Object();
-        objectSetControl.replay();
-        containerControl.expectAndReturn(container.queryByExample(obj), set);
-        containerControl.replay();
-
-        AssertJUnit.assertSame(set, template.queryByExample(obj));
+        ObjectSet<Object> objectSet = mock(ObjectSet.class);
+        Object object = new Object();
+        when(container.queryByExample(object)).thenReturn(objectSet);
+        Assert.assertSame(objectSet, template.queryByExample(object));
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.query()'
-      */
-
+    @Test
     public void testQuery() {
-
-        MockControl queryCtrl = MockControl.createControl(Query.class);
-        Query query = (Query) queryCtrl.getMock();
-        queryCtrl.replay();
-
-        containerControl.expectAndReturn(container.query(), query);
-        containerControl.replay();
-
-        AssertJUnit.assertSame(query, template.query());
+        Query query = mock(Query.class);
+        when(container.query()).thenReturn(query);
+        Assert.assertSame(query, template.query());
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.query(Predicate)'
-      */
 
     @Test
     public void testQueryPredicate() {
-        Predicate predicate = new Predicate() {
+        ObjectSet<Object> objectSet = mock(ObjectSet.class);
+        Predicate<Object> predicate = new Predicate<Object>() {
             public boolean match(Object candidate) {
                 return false;
             }
-
-            ;
         };
-
-        objectSetControl.replay();
-        containerControl.expectAndReturn(container.query(predicate), set);
-        containerControl.replay();
-
-        AssertJUnit.assertSame(set, template.query(predicate));
+        when(container.query(predicate)).thenReturn(objectSet);
+        Assert.assertSame(objectSet, template.query(predicate));
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.store(Object)'
-      */
 
     @Test
-    public void testStoreObject() {
-        Object obj = new Object();
-        container.store(obj);
-        containerControl.replay();
-
-        template.store(obj);
+    public void testStore() {
+        Object object = new Object();
+        template.store(object);
+        verify(container).store(object);
     }
 
     /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.backup(String)'
-      */
-
     @Test
     public void testBackup() throws IOException {
         String backup = "";
@@ -220,12 +141,7 @@ public class Db4oTemplateTest {
         containerControl.replay();
 
         template.backup(backup);
-
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.bind(Object, long)'
-      */
 
     @Test
     public void testBind() {
@@ -238,10 +154,6 @@ public class Db4oTemplateTest {
         template.bind(obj, id);
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.getByID(long)'
-      */
-
     @Test
     public void testGetByID() {
         Object result = new Object();
@@ -252,10 +164,6 @@ public class Db4oTemplateTest {
 
         AssertJUnit.assertSame(result, template.getByID(id));
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.getByUUID(Db4oUUID)'
-      */
 
     @Test
     public void testGetByUUID() {
@@ -270,10 +178,6 @@ public class Db4oTemplateTest {
 
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.getID(Object)'
-      */
-
     @Test
     public void testGetID() {
         long id = 1234l;
@@ -285,10 +189,6 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(result, template.getByID(id));
 
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.getObjectInfo(Object)'
-      */
 
     @Test
     public void testGetObjectInfo() {
@@ -305,10 +205,6 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(info, template.getObjectInfo(obj));
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.identity()'
-      */
-
     @Test
     public void testIdentity() {
         Db4oDatabase result = new Db4oDatabase();
@@ -317,10 +213,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         AssertJUnit.assertSame(result, template.identity());
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.isActive(Object)'
-      */
 
     @Test
     public void testIsActive() {
@@ -333,10 +225,6 @@ public class Db4oTemplateTest {
 
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.isCached(long)'
-      */
-
     public void testIsCached() {
         boolean result = false;
         long id = 12345l;
@@ -345,10 +233,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         AssertJUnit.assertFalse(template.isCached(id));
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.isClosed()'
-      */
 
     @Test
     public void testIsClosed() {
@@ -359,10 +243,6 @@ public class Db4oTemplateTest {
         AssertJUnit.assertFalse(template.isClosed());
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.isStored(Object)'
-      */
-
     public void testIsStored() {
         boolean result = false;
         Object obj = new Object();
@@ -371,10 +251,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         AssertJUnit.assertFalse(template.isStored(obj));
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.knownClasses()'
-      */
 
     @Test
     public void testKnownClasses() {
@@ -385,10 +261,6 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(result, template.knownClasses());
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.lock()'
-      */
-
     @Test
     public void testLock() {
         Object lock = new Object();
@@ -397,10 +269,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         AssertJUnit.assertSame(lock, template.lock());
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.peekPersisted(Object, int, boolean)'
-      */
 
     @Test
     public void testPeekPersisted() {
@@ -415,20 +283,12 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(result, template.peekPersisted(obj, depth, committed));
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.purge()'
-      */
-
     @Test
     public void testPurge() {
         container.purge();
         containerControl.replay();
         template.purge();
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.purge(Object)'
-      */
 
     @Test
     public void testPurgeObject() {
@@ -438,10 +298,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         template.purge(obj);
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.reflector()'
-      */
 
     @Test
     public void testReflector() {
@@ -454,10 +310,6 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(reflector, template.reflector());
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.refresh(Object, int)'
-      */
-
     @Test
     public void testRefresh() {
         Object obj = new Object();
@@ -468,10 +320,6 @@ public class Db4oTemplateTest {
         template.refresh(obj, depth);
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.releaseSemaphore(String)'
-      */
-
     @Test
     public void testReleaseSemaphore() {
         String name = "";
@@ -480,10 +328,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         template.releaseSemaphore(name);
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.store(Object, int)'
-      */
 
     @Test
     public void testStoreObjectInt() {
@@ -494,10 +338,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         template.store(obj, depth);
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.setSemaphore(String, int)'
-      */
 
     @Test
     public void testSetSemaphore() {
@@ -511,10 +351,6 @@ public class Db4oTemplateTest {
 
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.storedClass(Object)'
-      */
-
     @Test
     public void testStoredClass() {
         MockControl classCtrl = MockControl.createControl(StoredClass.class);
@@ -527,10 +363,6 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(clazz, template.storedClass(obj));
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.storedClasses()'
-      */
-
     @Test
     public void testStoredClasses() {
         StoredClass[] result = new StoredClass[]{};
@@ -542,10 +374,6 @@ public class Db4oTemplateTest {
         AssertJUnit.assertSame(result, template.storedClasses());
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oTemplate.version()'
-      */
-
     @Test
     public void testVersion() {
         long result = 1234;
@@ -554,10 +382,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         AssertJUnit.assertEquals(result, template.version());
     }
-
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oAccessor.afterPropertiesSet()'
-      */
 
     @Test
     public void testAfterPropertiesSet() {
@@ -571,9 +395,6 @@ public class Db4oTemplateTest {
         }
     }
 
-    /*
-      * Test method for 'org.springextensions.db4o.Db4oAccessor.convertDb4oAccessException(Exception)'
-      */
     /*
     @Test
 	public void testConvertDb4oAccessException() {
@@ -606,6 +427,7 @@ public class Db4oTemplateTest {
 	}
 	*/
 
+    /*
     private Db4oOperations createTemplate() {
         containerControl.reset();
 
@@ -613,5 +435,6 @@ public class Db4oTemplateTest {
         containerControl.replay();
         return tmpl;
     }
+    */
 
 }
