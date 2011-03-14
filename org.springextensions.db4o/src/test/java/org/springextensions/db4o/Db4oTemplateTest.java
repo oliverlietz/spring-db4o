@@ -19,10 +19,17 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.ext.ExtClient;
+import com.db4o.ext.Db4oDatabase;
+import com.db4o.ext.Db4oUUID;
+import com.db4o.ext.ExtObjectContainer;
+import com.db4o.ext.ObjectInfo;
+import com.db4o.ext.StoredClass;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
+import com.db4o.reflect.ReflectClass;
+import com.db4o.reflect.generic.GenericReflector;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -34,48 +41,40 @@ import static org.mockito.Mockito.when;
  */
 public class Db4oTemplateTest {
 
-    private ExtClient container;
+    private ExtObjectContainer container;
 
     private Db4oTemplate template;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        container = mock(ExtClient.class);
+        container = mock(ExtObjectContainer.class);
         template = new Db4oTemplate(container);
     }
 
-    /*
     @Test
     public void testExecuteDb4oCallback() {
         final Object result = new Object();
 
-        containerControl.replay();
-        // callback for unproxied container
-        Db4oCallback action = new Db4oCallback() {
-            public Object doInDb4o(ObjectContainer cont) throws RuntimeException {
-                AssertJUnit.assertEquals(container, cont);
-                // compare proxy / native
+        Db4oCallback callback = new Db4oCallback() {
+            public Object doInDb4o(ObjectContainer nativeContainer) throws RuntimeException {
+                Assert.assertEquals(container, nativeContainer);
                 return result;
             }
         };
 
-        // callback for proxied callback
-        Db4oCallback proxiedAction = new Db4oCallback() {
-            public Object doInDb4o(ObjectContainer cont) throws RuntimeException {
-                // compare proxy / native
-                AssertJUnit.assertFalse(container == cont);
-                AssertJUnit.assertFalse(container.hashCode() == cont.hashCode());
+        Db4oCallback proxiedCallback = new Db4oCallback() {
+            public Object doInDb4o(ObjectContainer proxiedContainer) throws RuntimeException {
+                Assert.assertFalse(container == proxiedContainer);
+                Assert.assertFalse(container.hashCode() == proxiedContainer.hashCode());
                 // if not proxied, mock control will throw an error
-                AssertJUnit.assertFalse(cont.close());
+                Assert.assertFalse(proxiedContainer.close());
                 return result;
             }
         };
 
-        // compare results
-        AssertJUnit.assertSame(result, template.execute(action, true));
-        AssertJUnit.assertSame(result, template.execute(proxiedAction, false));
+        Assert.assertSame(result, template.execute(callback, true));
+        Assert.assertSame(result, template.execute(proxiedCallback, false));
     }
-    */
 
     @Test
     public void testActivate() {
@@ -106,6 +105,7 @@ public class Db4oTemplateTest {
         Object object = new Object();
         when(container.queryByExample(object)).thenReturn(objectSet);
         Assert.assertSame(objectSet, template.queryByExample(object));
+        verify(container).queryByExample(object);
     }
 
     @Test
@@ -113,6 +113,7 @@ public class Db4oTemplateTest {
         Query query = mock(Query.class);
         when(container.query()).thenReturn(query);
         Assert.assertSame(query, template.query());
+        verify(container).query();
     }
 
     @Test
@@ -125,6 +126,7 @@ public class Db4oTemplateTest {
         };
         when(container.query(predicate)).thenReturn(objectSet);
         Assert.assertSame(objectSet, template.query(predicate));
+        verify(container).query(predicate);
     }
 
     @Test
@@ -134,210 +136,171 @@ public class Db4oTemplateTest {
         verify(container).store(object);
     }
 
-    /*
     @Test
-    public void testBackup() throws IOException {
-        String backup = "";
-        container.backup(backup);
-        containerControl.replay();
-
-        template.backup(backup);
+    public void testBackup() {
+        String path = "";
+        template.backup(path);
+        verify(container).backup(path);
     }
 
     @Test
     public void testBind() {
-        Object obj = new Object();
+        Object object = new Object();
         long id = 1234l;
-
-        container.bind(obj, id);
-        containerControl.replay();
-
-        template.bind(obj, id);
+        template.bind(object, id);
+        verify(container).bind(object, id);
     }
 
     @Test
     public void testGetByID() {
         Object result = new Object();
         long id = 1234l;
-
-        containerControl.expectAndReturn(container.getByID(id), result);
-        containerControl.replay();
-
-        AssertJUnit.assertSame(result, template.getByID(id));
+        when(container.getByID(id)).thenReturn(result);
+        Assert.assertSame(result, template.getByID(id));
+        verify(container).getByID(id);
     }
 
     @Test
     public void testGetByUUID() {
+        Object result = new Object();
         long id = 1234l;
         Db4oUUID uuid = new Db4oUUID(id, new byte[]{});
-        Object result = new Object();
-
-        containerControl.expectAndReturn(container.getByUUID(uuid), result);
-        containerControl.replay();
-
-        AssertJUnit.assertSame(result, template.getByUUID(uuid));
-
+        when(container.getByUUID(uuid)).thenReturn(result);
+        Assert.assertSame(result, template.getByUUID(uuid));
+        verify(container).getByUUID(uuid);
     }
 
     @Test
     public void testGetID() {
+        Object object = new Object();
         long id = 1234l;
-        Object result = new Object();
-
-        containerControl.expectAndReturn(container.getByID(id), result);
-        containerControl.replay();
-
-        AssertJUnit.assertSame(result, template.getByID(id));
-
+        when(container.getID(object)).thenReturn(id);
+        // TODO Assert.assertSame(id, template.getID(object)); // (Long)
+        Assert.assertEquals(id, template.getID(object));
+        verify(container).getID(object);
     }
 
     @Test
     public void testGetObjectInfo() {
-
-        MockControl infoCtrl = MockControl.createControl(ObjectInfo.class);
-        ObjectInfo info = (ObjectInfo) infoCtrl.getMock();
-
-        Object obj = new Object();
-
-        containerControl.expectAndReturn(container.getObjectInfo(obj), info);
-        containerControl.replay();
-        infoCtrl.replay();
-
-        AssertJUnit.assertSame(info, template.getObjectInfo(obj));
+        Object object = new Object();
+        ObjectInfo objectInfo = mock(ObjectInfo.class);
+        when(container.getObjectInfo(object)).thenReturn(objectInfo);
+        Assert.assertSame(objectInfo, template.getObjectInfo(object));
+        verify(container).getObjectInfo(object);
     }
 
     @Test
     public void testIdentity() {
         Db4oDatabase result = new Db4oDatabase();
-
-        containerControl.expectAndReturn(container.identity(), result);
-        containerControl.replay();
-        AssertJUnit.assertSame(result, template.identity());
+        when(container.identity()).thenReturn(result);
+        Assert.assertSame(result, template.identity());
+        verify(container).identity();
     }
 
     @Test
     public void testIsActive() {
         boolean result = false;
-        Object obj = new Object();
-
-        containerControl.expectAndReturn(container.isActive(obj), result);
-        containerControl.replay();
-        AssertJUnit.assertFalse(template.isActive(obj));
-
+        Object object = new Object();
+        when(container.isActive(object)).thenReturn(result);
+        Assert.assertFalse(template.isActive(object));
+        verify(container).isActive(object);
     }
 
+    @Test
     public void testIsCached() {
         boolean result = false;
         long id = 12345l;
-
-        containerControl.expectAndReturn(container.isCached(id), result);
-        containerControl.replay();
-        AssertJUnit.assertFalse(template.isCached(id));
+        when(container.isCached(id)).thenReturn(result);
+        Assert.assertFalse(template.isCached(id));
+        verify(container).isCached(id);
     }
 
     @Test
     public void testIsClosed() {
         boolean result = false;
-
-        containerControl.expectAndReturn(container.isClosed(), result);
-        containerControl.replay();
-        AssertJUnit.assertFalse(template.isClosed());
+        when(container.isClosed()).thenReturn(result);
+        Assert.assertFalse(template.isClosed());
+        verify(container).isClosed();
     }
 
+    @Test
     public void testIsStored() {
         boolean result = false;
-        Object obj = new Object();
-
-        containerControl.expectAndReturn(container.isStored(obj), result);
-        containerControl.replay();
-        AssertJUnit.assertFalse(template.isStored(obj));
+        Object object = new Object();
+        when(container.isStored(object)).thenReturn(result);
+        Assert.assertFalse(template.isStored(object));
+        verify(container).isStored(object);
     }
 
     @Test
     public void testKnownClasses() {
         ReflectClass[] result = new ReflectClass[]{};
-
-        containerControl.expectAndReturn(container.knownClasses(), result);
-        containerControl.replay();
-        AssertJUnit.assertSame(result, template.knownClasses());
+        when(container.knownClasses()).thenReturn(result);
+        Assert.assertSame(result, template.knownClasses());
+        verify(container).knownClasses();
     }
 
     @Test
     public void testLock() {
         Object lock = new Object();
-
-        containerControl.expectAndReturn(container.lock(), lock);
-        containerControl.replay();
-        AssertJUnit.assertSame(lock, template.lock());
+        when(container.lock()).thenReturn(lock);
+        Assert.assertSame(lock, template.lock());
+        verify(container).lock();
     }
 
     @Test
     public void testPeekPersisted() {
-        Object obj = new Object();
+        Object object = new Object();
         int depth = 123;
         boolean committed = false;
-
         Object result = new Object();
-
-        containerControl.expectAndReturn(container.peekPersisted(obj, depth, committed), result);
-        containerControl.replay();
-        AssertJUnit.assertSame(result, template.peekPersisted(obj, depth, committed));
+        when(container.peekPersisted(object, depth, committed)).thenReturn(result);
+        Assert.assertSame(result, template.peekPersisted(object, depth, committed));
+        verify(container).peekPersisted(object, depth, committed);
     }
 
     @Test
     public void testPurge() {
-        container.purge();
-        containerControl.replay();
         template.purge();
+        verify(container).purge();
     }
 
     @Test
     public void testPurgeObject() {
-        Object obj = new Object();
-
-        container.purge(obj);
-        containerControl.replay();
-        template.purge(obj);
+        Object object = new Object();
+        template.purge(object);
+        verify(container).purge(object);
     }
 
     @Test
     public void testReflector() {
-        MockControl refCtrl = MockClassControl.createControl(GenericReflector.class);
-        GenericReflector reflector = (GenericReflector) refCtrl.getMock();
-        refCtrl.replay();
-
-        containerControl.expectAndReturn(container.reflector(), reflector);
-        containerControl.replay();
-        AssertJUnit.assertSame(reflector, template.reflector());
+        GenericReflector reflector = mock(GenericReflector.class);
+        when(container.reflector()).thenReturn(reflector);
+        Assert.assertSame(reflector, template.reflector());
+        verify(container).reflector();
     }
 
     @Test
     public void testRefresh() {
-        Object obj = new Object();
+        Object object = new Object();
         int depth = 1234;
-
-        container.refresh(obj, depth);
-        containerControl.replay();
-        template.refresh(obj, depth);
+        template.refresh(object, depth);
+        verify(container).refresh(object, depth);
     }
 
     @Test
     public void testReleaseSemaphore() {
         String name = "";
-
-        container.releaseSemaphore(name);
-        containerControl.replay();
         template.releaseSemaphore(name);
+        verify(container).releaseSemaphore(name);
     }
 
     @Test
-    public void testStoreObjectInt() {
-        Object obj = new Object();
+    public void testStoreObjectWithDepth() {
+        Object object = new Object();
         int depth = 123;
-
-        container.store(obj, depth);
-        containerControl.replay();
-        template.store(obj, depth);
+        template.store(object, depth);
+        verify(container).store(object, depth);
     }
 
     @Test
@@ -345,43 +308,34 @@ public class Db4oTemplateTest {
         boolean result = false;
         String name = "";
         int wait = 123;
-
-        containerControl.expectAndReturn(container.setSemaphore(name, wait), result);
-        containerControl.replay();
-        AssertJUnit.assertFalse(template.setSemaphore(name, wait));
-
+        when(container.setSemaphore(name, wait)).thenReturn(result);
+        Assert.assertFalse(template.setSemaphore(name, wait));
+        verify(container).setSemaphore(name, wait);
     }
 
     @Test
     public void testStoredClass() {
-        MockControl classCtrl = MockControl.createControl(StoredClass.class);
-        StoredClass clazz = (StoredClass) classCtrl.getMock();
-
-        Object obj = new Object();
-
-        containerControl.expectAndReturn(container.storedClass(obj), clazz);
-        containerControl.replay();
-        AssertJUnit.assertSame(clazz, template.storedClass(obj));
+        Object object = new Object();
+        StoredClass storedClass = mock(StoredClass.class);
+        when(container.storedClass(object)).thenReturn(storedClass);
+        Assert.assertSame(storedClass, template.storedClass(object));
+        verify(container).storedClass(object);
     }
 
     @Test
     public void testStoredClasses() {
         StoredClass[] result = new StoredClass[]{};
-
-        Object obj = new Object();
-
-        containerControl.expectAndReturn(container.storedClasses(), result);
-        containerControl.replay();
-        AssertJUnit.assertSame(result, template.storedClasses());
+        when(container.storedClasses()).thenReturn(result);
+        Assert.assertSame(result, template.storedClasses());
+        verify(container).storedClasses();
     }
 
     @Test
     public void testVersion() {
         long result = 1234;
-
-        containerControl.expectAndReturn(container.version(), result);
-        containerControl.replay();
-        AssertJUnit.assertEquals(result, template.version());
+        when(container.version()).thenReturn(result);
+        Assert.assertEquals(result, template.version());
+        verify(container).version();
     }
 
     @Test
@@ -389,10 +343,9 @@ public class Db4oTemplateTest {
         try {
             template.setObjectContainer(null);
             template.afterPropertiesSet();
-            AssertJUnit.fail("expected illegal argument exception");
-        }
-        catch (RuntimeException e) {
-            // it's okay. it's expected exception
+            Assert.fail("expected illegal argument exception");
+        } catch (IllegalArgumentException e) {
+            // expected
         }
     }
 
