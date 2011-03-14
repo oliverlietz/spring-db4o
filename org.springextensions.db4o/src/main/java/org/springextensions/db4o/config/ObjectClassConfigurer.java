@@ -62,24 +62,10 @@ public class ObjectClassConfigurer {
     }
 
     /**
-     * @see com.db4o.config.ObjectClass#enableReplication(boolean)
-     */
-    public void setEnableReplication(boolean enableReplication) {
-        objectClass.enableReplication(enableReplication);
-    }
-
-    /**
      * @see com.db4o.config.ObjectClass#generateUUIDs(boolean)
      */
     public void setGenerateUUIDs(boolean generateUUIDs) {
         objectClass.generateUUIDs(generateUUIDs);
-    }
-
-    /**
-     * @see com.db4o.config.ObjectClass#generateVersionNumbers(boolean)
-     */
-    public void setGenerateVersionNumbers(boolean generateVersionNumbers) {
-        objectClass.generateVersionNumbers(generateVersionNumbers);
     }
 
     /**
