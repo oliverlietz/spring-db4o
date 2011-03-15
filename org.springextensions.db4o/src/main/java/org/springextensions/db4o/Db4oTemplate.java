@@ -248,18 +248,8 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
     public void backup(final String path) {
         execute(new Db4oCallback() {
             public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-                // special hack
-                // the IOException appears out of the blue inside the API which
-                // has only RuntimeExceptions
-                //try {
                 ((ExtObjectContainer) container).backup(path);
                 return null;
-                //}
-                // TODO: apparently the latest version of db4o no longer throws IOException
-                // from the backup() method
-                //catch (IOException e) {
-                //	throw convertDb4oAccessException(e);
-                //}
             }
         }, true);
     }
