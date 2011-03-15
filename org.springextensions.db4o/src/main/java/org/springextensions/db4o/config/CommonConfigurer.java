@@ -40,6 +40,10 @@ public class CommonConfigurer {
         this.commonConfiguration = commonConfiguration;
     }
 
+    public CommonConfiguration getConfiguration() {
+        return commonConfiguration;
+    }
+
     public void addAlias(Alias alias) {
         // TODO
         throw new UnsupportedOperationException();
