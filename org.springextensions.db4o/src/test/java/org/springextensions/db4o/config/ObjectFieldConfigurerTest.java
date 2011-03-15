@@ -15,32 +15,75 @@
  */
 package org.springextensions.db4o.config;
 
-import org.springextensions.db4o.example.Person;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.db4o.config.ObjectClass;
 import com.db4o.config.ObjectField;
-import com.db4o.io.PagingMemoryStorage;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * author: olli
  */
-// TODO: write proper tests
 public class ObjectFieldConfigurerTest {
 
+    private ObjectClass objectClass;
+
+    private ObjectField objectField;
+
+    private ObjectFieldConfigurer objectFieldConfigurer;
+
+    @BeforeMethod
+    public void setup() throws Exception {
+        objectField = mock(ObjectField.class);
+
+        objectClass = mock(ObjectClass.class);
+        when(objectClass.objectField("")).thenReturn(objectField);
+
+        objectFieldConfigurer = new ObjectFieldConfigurer(objectClass, "");
+    }
+
     @Test
-    public void testObjectField() throws Exception {
-        EmbeddedConfigurationFactoryBean embeddedConfigurationFactoryBean = new EmbeddedConfigurationFactoryBean();
-        embeddedConfigurationFactoryBean.getFile().setStorage(new PagingMemoryStorage());
+    public void testGetObjectField() throws Exception {
+        Assert.assertSame(objectField, objectFieldConfigurer.getObjectField());
+    }
 
-        ObjectClassConfigurer objectClassConfigurer = new ObjectClassConfigurer(embeddedConfigurationFactoryBean.getCommon(), Person.class);
-        ObjectClass objectClass = objectClassConfigurer.getObjectClass();
+    @Test
+    public void testSetCascadeOnActivate() throws Exception {
+        boolean cascadeOnActivate = true;
+        objectFieldConfigurer.setCascadeOnActivate(cascadeOnActivate);
+        verify(objectField).cascadeOnActivate(cascadeOnActivate);
+    }
 
-        ObjectFieldConfigurer objectFieldConfigurer = new ObjectFieldConfigurer(objectClass, "name");
-        ObjectField objectField = objectFieldConfigurer.getObjectField();
+    @Test
+    public void testSetCascadeOnDelete() throws Exception {
+        boolean cascadeOnDelete = true;
+        objectFieldConfigurer.setCascadeOnDelete(cascadeOnDelete);
+        verify(objectField).cascadeOnDelete(cascadeOnDelete);
+    }
 
-        Assert.assertNotNull(objectField);
+    @Test
+    public void testSetCascadeOnUpdate() throws Exception {
+        boolean cascadeOnUpdate = true;
+        objectFieldConfigurer.setCascadeOnUpdate(cascadeOnUpdate);
+        verify(objectField).cascadeOnUpdate(cascadeOnUpdate);
+    }
+
+    @Test
+    public void testSetIndexed() throws Exception {
+        boolean indexed = true;
+        objectFieldConfigurer.setIndexed(indexed);
+        verify(objectField).indexed(indexed);
+    }
+
+    @Test
+    public void testSetRename() throws Exception {
+        String rename = "";
+        objectFieldConfigurer.setRename(rename);
+        verify(objectField).rename(rename);
     }
 
 }
