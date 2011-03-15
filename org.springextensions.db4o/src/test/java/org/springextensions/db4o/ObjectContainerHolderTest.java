@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,21 @@
 package org.springextensions.db4o;
 
 import com.db4o.ObjectContainer;
-import org.springframework.transaction.support.ResourceHolderSupport;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
- * db4o ObjectContainer holder support
- *
- * @author Costin Leau
+ * @author olli
  */
-public class ObjectContainerHolder extends ResourceHolderSupport {
+public class ObjectContainerHolderTest {
 
-    private final ObjectContainer objectContainer;
-
-    public ObjectContainerHolder(ObjectContainer container) {
-        objectContainer = container;
-    }
-
-    public ObjectContainer getObjectContainer() {
-        return objectContainer;
+    @Test
+    public void testGetObjectContainer() {
+        ObjectContainer objectContainer = mock(ObjectContainer.class);
+        ObjectContainerHolder objectContainerHolder = new ObjectContainerHolder(objectContainer);
+        Assert.assertSame(objectContainer, objectContainerHolder.getObjectContainer());
     }
 
 }
