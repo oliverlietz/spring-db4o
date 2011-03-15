@@ -30,6 +30,7 @@ import com.db4o.ext.ExtClient;
 import com.db4o.ext.ExtObjectContainer;
 import com.db4o.ext.ObjectInfo;
 import com.db4o.ext.StoredClass;
+import com.db4o.ext.SystemInfo;
 import com.db4o.io.Storage;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
@@ -541,6 +542,17 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
         return (StoredClass[]) execute(new Db4oCallback() {
             public Object doInDb4o(ObjectContainer container) throws RuntimeException {
                 return ((ExtObjectContainer) container).storedClasses();
+            }
+        }, true);
+    }
+
+    /**
+     * @see org.springextensions.db4o.Db4oOperations#systemInfo()
+     */
+    public SystemInfo systemInfo() {
+        return (SystemInfo) execute(new Db4oCallback() {
+            public Object doInDb4o(ObjectContainer container) throws RuntimeException {
+                return ((ExtObjectContainer) container).systemInfo();
             }
         }, true);
     }

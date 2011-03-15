@@ -22,6 +22,7 @@ import com.db4o.ext.Db4oUUID;
 import com.db4o.ext.ExtClient;
 import com.db4o.ext.ObjectInfo;
 import com.db4o.ext.StoredClass;
+import com.db4o.ext.SystemInfo;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.reflect.ReflectClass;
@@ -327,6 +328,14 @@ public class Db4oTemplateTest {
         when(container.storedClasses()).thenReturn(result);
         Assert.assertSame(result, template.storedClasses());
         verify(container).storedClasses();
+    }
+
+    @Test
+    public void testSystemInfo() {
+        SystemInfo result = mock(SystemInfo.class);
+        when(container.systemInfo()).thenReturn(result);
+        Assert.assertSame(result, template.systemInfo());
+        verify(container).systemInfo();
     }
 
     @Test
