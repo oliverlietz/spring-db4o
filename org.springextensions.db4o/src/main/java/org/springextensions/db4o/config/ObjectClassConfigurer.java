@@ -26,7 +26,7 @@ public class ObjectClassConfigurer {
     private final ObjectClass objectClass;
 
     public ObjectClassConfigurer(CommonConfigurer commonConfigurer, Class clazz) {
-        objectClass = commonConfigurer.commonConfiguration.objectClass(clazz);
+        objectClass = commonConfigurer.getConfiguration().objectClass(clazz);
     }
 
     public ObjectClass getObjectClass() {

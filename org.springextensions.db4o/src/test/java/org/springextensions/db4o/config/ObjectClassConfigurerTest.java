@@ -15,39 +15,146 @@
  */
 package org.springextensions.db4o.config;
 
-import org.springextensions.db4o.example.Person;
+import com.db4o.config.CommonConfiguration;
+import com.db4o.config.ObjectClass;
+import com.db4o.config.ObjectTranslator;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.db4o.config.ObjectClass;
-import com.db4o.io.PagingMemoryStorage;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * author: olli
  */
-// TODO: write proper tests
 public class ObjectClassConfigurerTest {
 
-    public static final int MAXIMUM_ACTIVATION_DEPTH = 100;
+    private CommonConfiguration commonConfiguration;
 
-    public static final int MINIMUM_ACTIVATION_DEPTH = 10;
+    private CommonConfigurer commonConfigurer;
+
+    private ObjectClass objectClass;
+
+    private ObjectClassConfigurer objectClassConfigurer;
+
+    @BeforeMethod
+    public void setup() {
+        objectClass = mock(ObjectClass.class);
+
+        commonConfiguration = mock(CommonConfiguration.class);
+        when(commonConfiguration.objectClass(Object.class)).thenReturn(objectClass);
+
+
+        commonConfigurer = mock(CommonConfigurer.class);
+        when(commonConfigurer.getConfiguration()).thenReturn(commonConfiguration);
+
+        objectClassConfigurer = new ObjectClassConfigurer(commonConfigurer, Object.class);
+    }
 
     @Test
-    public void testObjectClass() throws Exception {
-        EmbeddedConfigurationFactoryBean embeddedConfigurationFactoryBean = new EmbeddedConfigurationFactoryBean();
-        embeddedConfigurationFactoryBean.getFile().setStorage(new PagingMemoryStorage());
+    public void testGetObjectClass() {
+        Assert.assertSame(objectClass, objectClassConfigurer.getObjectClass());
+    }
 
-        ObjectClassConfigurer objectClassConfigurer = new ObjectClassConfigurer(embeddedConfigurationFactoryBean.getCommon(), Person.class);
-        ObjectClass objectClass = objectClassConfigurer.getObjectClass();
+    @Test
+    public void testSetCallConstructor() {
+        boolean callConstructor = true;
+        objectClassConfigurer.setCallConstructor(callConstructor);
+        verify(objectClass).callConstructor(callConstructor);
+    }
 
-        objectClassConfigurer.setMaximumActivationDepth(MAXIMUM_ACTIVATION_DEPTH);
-        objectClassConfigurer.setMinimumActivationDepth(MINIMUM_ACTIVATION_DEPTH);
+    @Test
+    public void testSetCascadeOnActivate() {
+        boolean cascadeOnActivate = true;
+        objectClassConfigurer.setCascadeOnActivate(cascadeOnActivate);
+        verify(objectClass).cascadeOnActivate(cascadeOnActivate);
+    }
 
-        Assert.assertNotNull(objectClass);
+    @Test
+    public void testSetCascadeOnDelete() {
+        boolean cascadeOnDelete = true;
+        objectClassConfigurer.setCascadeOnDelete(cascadeOnDelete);
+        verify(objectClass).cascadeOnDelete(cascadeOnDelete);
+    }
 
-        // Assert.assertEquals(MAXIMUM_ACTIVATION_DEPTH, objectClass. ???);
+    @Test
+    public void testSetCascadeOnUpdate() {
+        boolean cascadeOnUpdate = true;
+        objectClassConfigurer.setCascadeOnUpdate(cascadeOnUpdate);
+        verify(objectClass).cascadeOnUpdate(cascadeOnUpdate);
+    }
 
-        Assert.assertEquals(MINIMUM_ACTIVATION_DEPTH, objectClass.minimumActivationDepth());
+    @Test
+    public void testSetGenerateUUIDs() {
+        boolean generateUUIDs = true;
+        objectClassConfigurer.setGenerateUUIDs(generateUUIDs);
+        verify(objectClass).generateUUIDs(generateUUIDs);
+    }
+
+    @Test
+    public void testSetIndexed() {
+        boolean indexed = true;
+        objectClassConfigurer.setIndexed(indexed);
+        verify(objectClass).indexed(indexed);
+    }
+
+    @Test
+    public void testSetMaximumActivationDepth() {
+        int maximumActivationDepth = 123;
+        objectClassConfigurer.setMaximumActivationDepth(maximumActivationDepth);
+        verify(objectClass).maximumActivationDepth(maximumActivationDepth);
+    }
+
+    @Test
+    public void testSetMinimumActivationDepth() {
+        int minimumActivationDepth = 12;
+        objectClassConfigurer.setMinimumActivationDepth(minimumActivationDepth);
+        verify(objectClass).minimumActivationDepth(minimumActivationDepth);
+    }
+
+    @Test
+    public void testSetPersistStaticFieldValuesToTrue() {
+        boolean persistStaticFieldValues = true;
+        objectClassConfigurer.setPersistStaticFieldValues(persistStaticFieldValues);
+        verify(objectClass).persistStaticFieldValues();
+    }
+
+    @Test
+    public void testSetPersistStaticFieldValuesToFalse() {
+        boolean persistStaticFieldValues = false;
+        objectClassConfigurer.setPersistStaticFieldValues(persistStaticFieldValues);
+        verify(objectClass, never()).persistStaticFieldValues();
+    }
+
+    @Test
+    public void testSetRename() {
+        String rename = "";
+        objectClassConfigurer.setRename(rename);
+        verify(objectClass).rename(rename);
+    }
+
+    @Test
+    public void testSetStoreTransientFields() {
+        boolean storeTransientFields = true;
+        objectClassConfigurer.setStoreTransientFields(storeTransientFields);
+        verify(objectClass).storeTransientFields(storeTransientFields);
+    }
+
+    @Test
+    public void testSetTranslate() {
+        ObjectTranslator objectTranslator = mock(ObjectTranslator.class);
+        objectClassConfigurer.setTranslate(objectTranslator);
+        verify(objectClass).translate(objectTranslator);
+    }
+
+    @Test
+    public void testSetUpdateDepth() {
+        int updateDepth = 1234;
+        objectClassConfigurer.setUpdateDepth(updateDepth);
+        verify(objectClass).updateDepth(updateDepth);
     }
 
 }
