@@ -611,16 +611,9 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
                 return Boolean.FALSE;
             }
 
-            // Invoke method on target Session.
+            // invoke method on target container
             try {
-                Object retVal = method.invoke(this.target, args);
-
-                // TODO: watch out for Query returned
-                /*
-                 * if (retVal instanceof Query) { prepareQuery(((Query)
-                 * retVal)); }
-                 */
-                return retVal;
+                return method.invoke(this.target, args);
             } catch (InvocationTargetException ex) {
                 throw ex.getTargetException();
             }
