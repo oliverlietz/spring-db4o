@@ -21,8 +21,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Comparator;
 
-import org.springframework.dao.DataAccessException;
-
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.ext.Db4oDatabase;
@@ -38,6 +36,7 @@ import com.db4o.query.Query;
 import com.db4o.query.QueryComparator;
 import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
+import org.springframework.dao.DataAccessException;
 
 /**
  * @author Costin Leau
@@ -215,7 +214,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
     }
 
     //
-    // ExtObjectContainer interface
+    // ExtObjectContainer interface methods
     //
 
     /**
@@ -558,30 +557,40 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
     }
 
     //
-    // Ext Client interface
+    // ExtClient interface methods
+    //
+
+    public boolean isAlive() {
+        return (Boolean) execute(new Db4oCallback() {
+            public Object doInDb4o(ObjectContainer container) throws RuntimeException {
+                return ((ExtClient) container).isAlive();
+            }
+        }, true);
+    }
+
+    //
+    // Proxy
     //
 
     /**
-     * Create a close-suppressing proxy for the given object container.
+     * Create a close-suppressing proxy for the given ObjectContainer.
      *
      * @param container the Db4o ObjectContainer to create a proxy for
      * @return the ObjectContainer proxy
      * @see com.db4o.ObjectContainer#close()
      */
     protected ObjectContainer createContainerProxy(ObjectContainer container) {
-        Class intrf = ExtObjectContainer.class;
-
-        // the documentation states that the container always implements
-        // the following interface but we do this here just to make sure
-
-        if (container instanceof ExtClient)
-            intrf = ExtClient.class;
-
-        return (ObjectContainer) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{intrf}, new CloseSuppressingInvocationHandler(container));
+        // every db4o ObjectContainer always is an ExtObjectContainer
+        Class intrface = ExtObjectContainer.class;
+        if (container instanceof ExtClient) {
+            // both Db4oClientServer.openClient() methods always return an ExtClient object
+            intrface = ExtClient.class;
+        }
+        return (ObjectContainer) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{intrface}, new CloseSuppressingInvocationHandler(container));
     }
 
     /**
-     * Invocation handler that suppresses close calls on Object Container.
+     * Invocation handler that suppresses close calls on ObjectContainer.
      *
      * @see com.db4o.ObjectContainer#close()
      */
@@ -594,9 +603,6 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
         }
 
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            // Invocation on ObjectContainer interface (or vendor-specific
-            // extension) coming in...
-
             if (method.getName().equals("equals")) {
                 // Only consider equal when proxies are identical.
                 return (proxy == args[0] ? Boolean.TRUE : Boolean.FALSE);

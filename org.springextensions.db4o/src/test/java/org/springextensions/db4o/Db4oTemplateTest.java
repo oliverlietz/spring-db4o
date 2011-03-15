@@ -15,21 +15,20 @@
  */
 package org.springextensions.db4o;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.ext.Db4oDatabase;
 import com.db4o.ext.Db4oUUID;
-import com.db4o.ext.ExtObjectContainer;
+import com.db4o.ext.ExtClient;
 import com.db4o.ext.ObjectInfo;
 import com.db4o.ext.StoredClass;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -41,13 +40,13 @@ import static org.mockito.Mockito.when;
  */
 public class Db4oTemplateTest {
 
-    private ExtObjectContainer container;
+    private ExtClient container;
 
     private Db4oTemplate template;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        container = mock(ExtObjectContainer.class);
+        container = mock(ExtClient.class);
         template = new Db4oTemplate(container);
     }
 
@@ -336,6 +335,14 @@ public class Db4oTemplateTest {
         when(container.version()).thenReturn(result);
         Assert.assertEquals(result, template.version());
         verify(container).version();
+    }
+
+    @Test
+    public void testIsAlive() {
+        boolean result = true;
+        when(container.isAlive()).thenReturn(result);
+        Assert.assertTrue(template.isAlive());
+        verify(container).isAlive();
     }
 
     @Test

@@ -132,4 +132,10 @@ public interface Db4oOperations {
 
     long version();
 
+    //
+    // ExtClient interface methods
+    //
+
+    boolean isAlive();
+
 }
