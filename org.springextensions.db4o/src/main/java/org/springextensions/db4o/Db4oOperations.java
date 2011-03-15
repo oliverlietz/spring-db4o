@@ -17,20 +17,20 @@ package org.springextensions.db4o;
 
 import java.util.Comparator;
 
-import org.springframework.dao.DataAccessException;
-
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.ext.Db4oDatabase;
 import com.db4o.ext.Db4oUUID;
 import com.db4o.ext.ObjectInfo;
 import com.db4o.ext.StoredClass;
+import com.db4o.ext.SystemInfo;
 import com.db4o.io.Storage;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.query.QueryComparator;
 import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
+import org.springframework.dao.DataAccessException;
 
 /**
  * @author Costin Leau
@@ -128,7 +128,7 @@ public interface Db4oOperations {
 
     StoredClass[] storedClasses();
 
-    // SystemInfo systemInfo();
+    SystemInfo systemInfo();
 
     long version();
 
