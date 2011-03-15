@@ -83,9 +83,7 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
         ObjectContainer cont = getObjectContainer();
         try {
             ObjectContainer container = (exposeNativeContainer ? cont : createContainerProxy(cont));
-            Object result = callback.doInDb4o(container);
-            // check out caching/query support
-            return result;
+            return callback.doInDb4o(container);
         } catch (Db4oException ex) {
             throw convertDb4oAccessException(ex);
         } catch (RuntimeException ex) {
