@@ -358,10 +358,10 @@ public class Db4oTemplate extends Db4oAccessor implements Db4oOperations {
     /**
      * @see org.springextensions.db4o.Db4oOperations#isCached(long)
      */
-    public boolean isCached(final long ID) {
+    public boolean isCached(final long id) {
         return (Boolean) execute(new Db4oCallback() {
             public Object doInDb4o(ObjectContainer container) throws RuntimeException {
-                return ((ExtObjectContainer) container).isCached(ID);
+                return ((ExtObjectContainer) container).isCached(id);
             }
         }, true);
     }
