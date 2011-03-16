@@ -23,6 +23,7 @@ import com.db4o.ext.ExtClient;
 import com.db4o.ext.ObjectInfo;
 import com.db4o.ext.StoredClass;
 import com.db4o.ext.SystemInfo;
+import com.db4o.io.Storage;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.reflect.ReflectClass;
@@ -52,6 +53,30 @@ public class Db4oTemplateTest {
     }
 
     @Test
+    public void testSetObjectContainer() {
+        template = new Db4oTemplate();
+        template.setObjectContainer(container);
+    }
+
+    @Test
+    public void testAfterPropertiesSet() {
+        try {
+            template.setObjectContainer(null);
+            template.afterPropertiesSet();
+            Assert.fail("expected illegal argument exception");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+    }
+
+    @Test
+    public void testExposeNativeContainer() {
+        boolean exposeNativeContainer = true;
+        template.setExposeNativeContainer(exposeNativeContainer);
+        Assert.assertSame(exposeNativeContainer, template.isExposeNativeContainer());
+    }
+
+    @Test
     public void testExecuteDb4oCallback() {
         final Object result = new Object();
 
@@ -76,8 +101,12 @@ public class Db4oTemplateTest {
         Assert.assertSame(result, template.execute(proxiedCallback, false));
     }
 
+    //
+    // ObjectContainer interface methods
+    //
+
     @Test
-    public void testActivate() {
+    public void testActivateWithDepth() {
         Object object = new Object();
         int depth = 10;
         template.activate(object, depth);
@@ -85,7 +114,7 @@ public class Db4oTemplateTest {
     }
 
     @Test
-    public void testDeactivate() {
+    public void testDeactivateWithDepth() {
         Object object = new Object();
         int depth = 10;
         template.deactivate(object, depth);
@@ -136,6 +165,24 @@ public class Db4oTemplateTest {
         verify(container).store(object);
     }
 
+    //
+    // ExtObjectContainer interface methods
+    //
+
+    @Test
+    public void testActivate() {
+        Object object = new Object();
+        template.activate(object);
+        verify(container).activate(object);
+    }
+
+    @Test
+    public void testDeactivate() {
+        Object object = new Object();
+        template.deactivate(object);
+        verify(container).deactivate(object);
+    }
+
     @Test
     public void testBackup() {
         String path = "";
@@ -144,11 +191,29 @@ public class Db4oTemplateTest {
     }
 
     @Test
+    public void testBackupWithStorage() {
+        Storage targetStorage = mock(Storage.class);
+        String path = "";
+        template.backup(targetStorage, path);
+        verify(container).backup(targetStorage, path);
+    }
+
+    @Test
     public void testBind() {
         Object object = new Object();
         long id = 1234l;
         template.bind(object, id);
         verify(container).bind(object, id);
+    }
+
+    @Test
+    public void testDescend() {
+        Object object = new Object();
+        String[] path = new String[]{};
+        Object result = new Object();
+        when(container.descend(object, path)).thenReturn(result);
+        Assert.assertSame(result, template.descend(object, path));
+        verify(container).descend(object, path);
     }
 
     @Test
@@ -249,6 +314,14 @@ public class Db4oTemplateTest {
     }
 
     @Test
+    public void testOpenSession() {
+        ObjectContainer objectContainer = mock(ObjectContainer.class);
+        when(container.openSession()).thenReturn(objectContainer);
+        Assert.assertSame(objectContainer, template.openSession());
+        verify(container).openSession();
+    }
+
+    @Test
     public void testPeekPersisted() {
         Object object = new Object();
         int depth = 123;
@@ -296,7 +369,7 @@ public class Db4oTemplateTest {
     }
 
     @Test
-    public void testStoreObjectWithDepth() {
+    public void testStoreWithDepth() {
         Object object = new Object();
         int depth = 123;
         template.store(object, depth);
@@ -346,6 +419,10 @@ public class Db4oTemplateTest {
         verify(container).version();
     }
 
+    //
+    // ExtClient interface methods
+    //
+
     @Test
     public void testIsAlive() {
         boolean result = true;
@@ -354,16 +431,13 @@ public class Db4oTemplateTest {
         verify(container).isAlive();
     }
 
-    @Test
-    public void testAfterPropertiesSet() {
-        try {
-            template.setObjectContainer(null);
-            template.afterPropertiesSet();
-            Assert.fail("expected illegal argument exception");
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
-    }
+    //
+    // Proxy
+    //
+
+    //
+    //
+    //
 
     /*
     @Test
