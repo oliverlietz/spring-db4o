@@ -166,6 +166,10 @@
       <url>http://repository.springsource.com/maven/bundles/release</url>
     </repository>
     <repository>
+      <id>com.springsource.repository.bundles.external</id>
+      <url>http://repository.springsource.com/maven/bundles/external</url>
+    </repository>
+    <repository>
       <id>de.oliverlietz.maven</id>
       <url>http://maven.oliverlietz.de</url>
     </repository>
