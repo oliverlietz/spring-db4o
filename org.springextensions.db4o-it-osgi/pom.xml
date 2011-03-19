@@ -17,7 +17,7 @@
   <url>http://www.springsource.org/extensions/se-db4o</url>
 
   <properties>
-    <org.ops4j.pax.exam.version>1.2.3</org.ops4j.pax.exam.version>
+    <org.ops4j.pax.exam.version>1.2.4</org.ops4j.pax.exam.version>
   </properties>
 
   <dependencies>
