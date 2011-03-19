@@ -105,6 +105,12 @@
       <version>${org.ops4j.pax.exam.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- workaround, should be fixed in Pax Exam 1.2.5 -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
