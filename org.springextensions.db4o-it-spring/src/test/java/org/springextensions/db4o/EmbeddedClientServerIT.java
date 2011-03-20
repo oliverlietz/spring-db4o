@@ -23,7 +23,7 @@ import org.testng.annotations.Test;
  * @author olli
  */
 @ContextConfiguration
-public class EmbeddedTest extends ObjectContainerTest {
+public class EmbeddedClientServerIT extends ObjectContainerIT {
 
     @Test
     public void testObjectContainer() {

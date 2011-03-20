@@ -13,22 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springextensions.db4o;
+package org.springextensions.db4o.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-
-import com.db4o.ObjectContainer;
+import org.springextensions.db4o.ObjectContainerIT;
+import org.springextensions.db4o.example.Person;
+import org.springframework.test.context.ContextConfiguration;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
- * @author olli
+ * author: olli
  */
-public class ObjectContainerTest extends AbstractTestNGSpringContextTests {
+@ContextConfiguration
+public class ObjectClassConfigurerIT extends ObjectContainerIT {
 
-    @Autowired
-    protected ObjectContainer objectContainer;
-
-    @Autowired
-    protected Db4oOperations db4oOperations;
+    @Test
+    public void testObjectContainer() {
+        Assert.assertNotNull(objectContainer);
+        Assert.assertNotNull(db4oOperations);
+        Person person = new Person();
+        db4oOperations.store(person);
+    }
 
 }

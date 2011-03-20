@@ -15,22 +15,19 @@
  */
 package org.springextensions.db4o;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import com.db4o.ObjectContainer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 /**
  * @author olli
  */
-@ContextConfiguration
-public class EmbeddedClientServerTest extends ObjectContainerTest {
+public class ObjectContainerIT extends AbstractTestNGSpringContextTests {
 
-    @Test
-    public void testObjectContainer() {
-        Assert.assertNotNull(objectContainer);
-        Assert.assertNotNull(db4oOperations);
-        Object object = new Object();
-        db4oOperations.store(object);
-    }
+    @Autowired
+    protected ObjectContainer objectContainer;
+
+    @Autowired
+    protected Db4oOperations db4oOperations;
 
 }
