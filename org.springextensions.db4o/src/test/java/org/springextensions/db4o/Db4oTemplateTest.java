@@ -15,6 +15,8 @@
  */
 package org.springextensions.db4o;
 
+import java.util.Comparator;
+
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.ext.Db4oDatabase;
@@ -26,6 +28,7 @@ import com.db4o.ext.SystemInfo;
 import com.db4o.io.Storage;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
+import com.db4o.query.QueryComparator;
 import com.db4o.reflect.ReflectClass;
 import com.db4o.reflect.generic.GenericReflector;
 import org.testng.Assert;
@@ -146,16 +149,41 @@ public class Db4oTemplateTest {
     }
 
     @Test
+    public void queryClass() {
+        Class clazz = Object.class;
+        ObjectSet<Object> objectSet = mock(ObjectSet.class);
+        when(container.query(clazz)).thenReturn(objectSet);
+        Assert.assertSame(objectSet, template.query(clazz));
+        verify(container).query(clazz);
+    }
+
+    @Test
     public void testQueryPredicate() {
         ObjectSet<Object> objectSet = mock(ObjectSet.class);
-        Predicate<Object> predicate = new Predicate<Object>() {
-            public boolean match(Object candidate) {
-                return false;
-            }
-        };
+        Predicate<Object> predicate = mock(Predicate.class);
         when(container.query(predicate)).thenReturn(objectSet);
         Assert.assertSame(objectSet, template.query(predicate));
         verify(container).query(predicate);
+    }
+
+    @Test
+    public void testQueryPredicateWithQueryComparator() {
+        ObjectSet<Object> objectSet = mock(ObjectSet.class);
+        Predicate<Object> predicate = mock(Predicate.class);
+        QueryComparator<Object> comparator = mock(QueryComparator.class);
+        when(container.query(predicate, comparator)).thenReturn(objectSet);
+        Assert.assertSame(objectSet, template.query(predicate, comparator));
+        verify(container).query(predicate, comparator);
+    }
+
+    @Test
+    public void testQueryPredicateWithComparator() {
+        ObjectSet<Object> objectSet = mock(ObjectSet.class);
+        Predicate<Object> predicate = mock(Predicate.class);
+        Comparator<Object> comparator = mock(Comparator.class);
+        when(container.query(predicate, comparator)).thenReturn(objectSet);
+        Assert.assertSame(objectSet, template.query(predicate, comparator));
+        verify(container).query(predicate, comparator);
     }
 
     @Test
