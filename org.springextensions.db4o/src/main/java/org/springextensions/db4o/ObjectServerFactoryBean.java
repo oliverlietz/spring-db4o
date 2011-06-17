@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2005-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import javax.annotation.PreDestroy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
 import org.springframework.util.ObjectUtils;
 
 import com.db4o.Db4o;
@@ -43,7 +42,7 @@ public class ObjectServerFactoryBean { // implements FactoryBean<ObjectServer> {
 
     private ObjectServer server;
 
-    private Resource databaseFile;
+    private String filename;
 
     private int port;
 
@@ -59,8 +58,8 @@ public class ObjectServerFactoryBean { // implements FactoryBean<ObjectServer> {
     /**
      * @see com.db4o.cs.Db4oClientServer#openServer(String, int)
      */
-    public void setDatabaseFile(Resource databaseFile) {
-        this.databaseFile = databaseFile;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     /**
@@ -107,17 +106,15 @@ public class ObjectServerFactoryBean { // implements FactoryBean<ObjectServer> {
 
     @PostConstruct
     public void initialize() throws Exception {
-        if (databaseFile == null) {
-            throw new IllegalArgumentException("database file is required");
+        if (filename == null) {
+            throw new IllegalArgumentException("filename is required");
         }
 
-        logger.info("database file is {}", databaseFile.getFile().getAbsolutePath());
-
         if (serverConfiguration == null) {
-            server = Db4oClientServer.openServer(databaseFile.getFile().getAbsolutePath(), port);
+            server = Db4oClientServer.openServer(filename, port);
         } else {
             logger.info("using configuration: server");
-            server = Db4oClientServer.openServer(serverConfiguration, databaseFile.getFile().getAbsolutePath(), port);
+            server = Db4oClientServer.openServer(serverConfiguration, filename, port);
         }
 
         logger.info("opened object server {} at port {}", ObjectUtils.getIdentityHexString(server), server.ext().port());

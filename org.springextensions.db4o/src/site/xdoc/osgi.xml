@@ -25,7 +25,7 @@
   </bean>
 
   <bean id="objectContainerFactory" class="org.springextensions.db4o.ObjectContainerFactoryBean" init-method="initialize" destroy-method="destroy">
-    <property name="name" value="memory"/>
+    <property name="filename" value="memory"/>
     <property name="embeddedConfiguration">
       <bean factory-ref="embeddedConfiguration" factory-method="getObject"/>
     </property>

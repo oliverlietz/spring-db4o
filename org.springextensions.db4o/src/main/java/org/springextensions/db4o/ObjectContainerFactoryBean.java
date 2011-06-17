@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2005-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class ObjectContainerFactoryBean { // implements FactoryBean<ObjectContai
     /**
      * @see com.db4o.Db4oEmbedded#openFile(String)
      */
-    private String name;
+    private String filename;
 
     /**
      * @see com.db4o.ObjectServer#openClient()
@@ -75,8 +75,8 @@ public class ObjectContainerFactoryBean { // implements FactoryBean<ObjectContai
 
     private final Logger logger = LoggerFactory.getLogger(ObjectContainerFactoryBean.class);
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public void setServer(ObjectServer server) {
@@ -133,14 +133,14 @@ public class ObjectContainerFactoryBean { // implements FactoryBean<ObjectContai
 
     @PostConstruct
     public void initialize() {
-        if (name != null) {
-            container = openEmbeddedContainer(embeddedConfiguration, name);
+        if (filename != null) {
+            container = openEmbeddedContainer(embeddedConfiguration, filename);
         } else if (server != null) {
             container = openEmbeddedClientContainer(server);
         } else if (hostname != null && port > 0 && username != null) {
             container = openRemoteClientContainer(clientConfiguration, hostname, port, username, password);
         } else {
-            throw new IllegalArgumentException("mandatory fields are not set: database name or embedded database server or remote database server (hostname, port, username)");
+            throw new IllegalArgumentException("mandatory fields are not set: database filename or embedded database server or remote database server (hostname, port, username)");
         }
         logger.info(Db4o.version());
     }
@@ -151,13 +151,13 @@ public class ObjectContainerFactoryBean { // implements FactoryBean<ObjectContai
         container.close();
     }
 
-    protected ObjectContainer openEmbeddedContainer(EmbeddedConfiguration embeddedConfiguration, String name) {
+    protected ObjectContainer openEmbeddedContainer(EmbeddedConfiguration embeddedConfiguration, String filename) {
         ObjectContainer container;
         if (embeddedConfiguration == null) {
-            container = Db4oEmbedded.openFile(name);
+            container = Db4oEmbedded.openFile(filename);
         } else {
             logger.info("using configuration: embedded");
-            container = Db4oEmbedded.openFile(embeddedConfiguration, name);
+            container = Db4oEmbedded.openFile(embeddedConfiguration, filename);
         }
         logger.info("embedded container opened: {}", ObjectUtils.getIdentityHexString(container));
         return container;

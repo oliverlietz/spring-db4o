@@ -41,7 +41,7 @@ public class EmbeddedConfigurationFactoryBeanTest {
         Assert.assertTrue(embeddedConfiguration.file().storage() instanceof PagingMemoryStorage);
 
         ObjectContainerFactoryBean objectContainerFactoryBean = new ObjectContainerFactoryBean();
-        objectContainerFactoryBean.setName("EmbeddedConfigurationFactoryBeanTest");
+        objectContainerFactoryBean.setFilename("EmbeddedConfigurationFactoryBeanTest");
         objectContainerFactoryBean.setEmbeddedConfiguration(embeddedConfigurationFactoryBean.getObject());
         objectContainerFactoryBean.initialize();
 

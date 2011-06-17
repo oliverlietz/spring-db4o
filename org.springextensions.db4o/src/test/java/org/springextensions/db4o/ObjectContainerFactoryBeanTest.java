@@ -41,7 +41,7 @@ public class ObjectContainerFactoryBeanTest {
         FileConfigurer fileConfigurer = new FileConfigurer(embeddedConfiguration.file());
         fileConfigurer.setStorage(new PagingMemoryStorage());
         objectContainerFactoryBean = new ObjectContainerFactoryBean();
-        objectContainerFactoryBean.setName("ObjectContainerFactoryBeanTest");
+        objectContainerFactoryBean.setFilename("ObjectContainerFactoryBeanTest");
         objectContainerFactoryBean.setEmbeddedConfiguration(embeddedConfiguration);
         objectContainerFactoryBean.initialize();
     }

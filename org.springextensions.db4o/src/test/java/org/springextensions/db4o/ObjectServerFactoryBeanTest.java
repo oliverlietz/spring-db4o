@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2005-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,16 @@
  */
 package org.springextensions.db4o;
 
-import org.springframework.core.io.ClassPathResource;
+import org.springextensions.db4o.config.FileConfigurer;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.db4o.ObjectServer;
+import com.db4o.cs.Db4oClientServer;
+import com.db4o.cs.config.ServerConfiguration;
+import com.db4o.io.PagingMemoryStorage;
 
 /**
  * Test class for ObjectServerFactoryBean.
@@ -35,9 +38,13 @@ public class ObjectServerFactoryBeanTest {
 
     @BeforeMethod
     public void setUp() throws Exception {
+        ServerConfiguration serverConfiguration = Db4oClientServer.newServerConfiguration();
+        FileConfigurer fileConfigurer = new FileConfigurer(serverConfiguration.file());
+        fileConfigurer.setStorage(new PagingMemoryStorage());
         objectServerFactoryBean = new ObjectServerFactoryBean();
-        objectServerFactoryBean.setDatabaseFile(new ClassPathResource("testdb.file"));
+        objectServerFactoryBean.setFilename("ObjectServerFactoryBeanTest");
         objectServerFactoryBean.setPort(0);
+        objectServerFactoryBean.setServerConfiguration(serverConfiguration);
         objectServerFactoryBean.initialize();
     }
 
@@ -58,7 +65,7 @@ public class ObjectServerFactoryBeanTest {
 
     @Test
     public void testInitialize() throws Exception {
-        objectServerFactoryBean.setDatabaseFile(null);
+        objectServerFactoryBean.setFilename(null);
         try {
             objectServerFactoryBean.initialize();
             Assert.fail("expected IllegalArgumentException");
