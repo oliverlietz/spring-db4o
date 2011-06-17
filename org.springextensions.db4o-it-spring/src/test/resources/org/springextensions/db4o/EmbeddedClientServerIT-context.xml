@@ -4,9 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+  <bean id="serverConfiguration" class="org.springextensions.db4o.config.ServerConfigurationFactoryBean">
+    <property name="file.storage">
+      <bean class="com.db4o.io.PagingMemoryStorage"/>
+    </property>
+  </bean>
+
   <bean id="objectServer" class="org.springextensions.db4o.ObjectServerFactoryBean">
-    <property name="databaseFile" value="classpath:embedded.db4o"/>
+    <property name="filename" value="memory"/>
     <property name="port" value="0"/>
+    <property name="serverConfiguration">
+      <bean factory-bean="serverConfiguration" factory-method="getObject"/>
+    </property>
   </bean>
 
   <bean id="objectContainerFactory" class="org.springextensions.db4o.ObjectContainerFactoryBean">
