@@ -75,6 +75,9 @@ public class ObjectContainerFactoryBean { // implements FactoryBean<ObjectContai
 
     private final Logger logger = LoggerFactory.getLogger(ObjectContainerFactoryBean.class);
 
+    public ObjectContainerFactoryBean() {
+    }
+
     public void setFilename(String filename) {
         this.filename = filename;
     }
