@@ -36,6 +36,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -462,6 +463,30 @@ public class Db4oTemplateTest {
     //
     // Proxy
     //
+
+    @Test
+    public void testClose() {
+        when(container.close()).thenReturn(true);
+        Db4oCallback callback = new Db4oCallback() {
+            public Object doInDb4o(ObjectContainer container) throws RuntimeException {
+                return container.close();
+            }
+        };
+        Assert.assertEquals(true, template.execute(callback, true));
+        verify(container).close();
+    }
+
+    @Test
+    public void testCloseSuppressingInvocationHandlerClose() {
+        when(container.close()).thenReturn(true);
+        Db4oCallback callback = new Db4oCallback() {
+            public Object doInDb4o(ObjectContainer container) throws RuntimeException {
+                return container.close();
+            }
+        };
+        Assert.assertEquals(false, template.execute(callback, false));
+        verify(container, never()).close();
+    }
 
     //
     //
