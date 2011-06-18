@@ -16,6 +16,8 @@
 
   <url>http://www.springsource.org/extensions/se-db4o</url>
 
+  <description>OSGi Integration Tests for Spring db4o Extension</description>
+
   <properties>
     <org.ops4j.pax.exam.version>1.2.4</org.ops4j.pax.exam.version>
   </properties>
@@ -117,17 +119,7 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${maven-failsafe-plugin.version}</version>
         <executions>
           <execution>
             <id>integration-test</id>
