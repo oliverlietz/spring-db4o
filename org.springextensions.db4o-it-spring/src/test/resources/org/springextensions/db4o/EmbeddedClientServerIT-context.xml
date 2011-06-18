@@ -5,6 +5,7 @@
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <bean id="serverConfiguration" class="org.springextensions.db4o.config.ServerConfigurationFactoryBean">
+    <property name="common.automaticShutDown" value="false"/>
     <property name="file.storage">
       <bean class="com.db4o.io.PagingMemoryStorage"/>
     </property>

@@ -30,12 +30,20 @@
     </section>
 
     <section name="ObjectServer">
+      <p>You should disable <code>automaticShutDown</code> when running an <code>ObjectServer</code> in a container (Spring, OSGi Blueprint) to prevent premature closing of <code>ObjectContainer</code>.</p>
       <h2>
         <code>applicationContext.xml</code>
       </h2>
       <source><![CDATA[
+  <bean id="serverConfiguration" class="org.springextensions.db4o.config.ServerConfigurationFactoryBean">
+    <property name="common.automaticShutDown" value="false"/>
+  </bean>
+
   <bean id="objectServer" class="org.springextensions.db4o.ObjectServerFactoryBean">
     [...]
+    <property name="serverConfiguration">
+      <bean factory-bean="serverConfiguration" factory-method="getObject"/>
+    </property>
   </bean>
       ]]></source>
     </section>
@@ -92,9 +100,16 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <bean id="serverConfiguration" class="org.springextensions.db4o.config.ServerConfigurationFactoryBean">
+    <property name="common.automaticShutDown" value="false"/>
+  </bean>
+
   <bean id="objectServer" class="org.springextensions.db4o.ObjectServerFactoryBean">
     <property name="filename" value="/var/db/embedded.db4o"/>
     <property name="port" value="0"/>
+    <property name="serverConfiguration">
+      <bean factory-bean="serverConfiguration" factory-method="getObject"/>
+    </property>
   </bean>
 
   <bean id="objectContainerFactory" class="org.springextensions.db4o.ObjectContainerFactoryBean">
@@ -130,11 +145,18 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util.xsd">
 
+  <bean id="serverConfiguration" class="org.springextensions.db4o.config.ServerConfigurationFactoryBean">
+    <property name="common.automaticShutDown" value="false"/>
+  </bean>
+
   <bean id="objectServer" class="org.springextensions.db4o.ObjectServerFactoryBean">
     <property name="filename" value="/var/db/remote.db4o"/>
     <property name="port" value="#{config.port}"/>
     <property name="users">
       <util:properties location="classpath:users.properties"/>
+    </property>
+    <property name="serverConfiguration">
+      <bean factory-bean="serverConfiguration" factory-method="getObject"/>
     </property>
   </bean>
 
