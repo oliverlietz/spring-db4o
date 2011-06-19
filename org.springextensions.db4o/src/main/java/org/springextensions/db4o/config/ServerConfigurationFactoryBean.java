@@ -25,13 +25,13 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
 
     private ServerConfiguration configuration = Db4oClientServer.newServerConfiguration();
 
-    private CommonConfigurer commonConfigurer = new CommonConfigurer(configuration.common());
+    private CommonConfigurer commonConfigurer;
 
-    private NetworkingConfigurer networkingConfigurer = new NetworkingConfigurer(configuration.networking());
+    private NetworkingConfigurer networkingConfigurer;
 
-    private FileConfigurer fileConfigurer = new FileConfigurer(configuration.file());
+    private FileConfigurer fileConfigurer;
 
-    private IdSystemConfigurer idSystemConfigurer = new IdSystemConfigurer(configuration.idSystem());
+    private IdSystemConfigurer idSystemConfigurer;
 
     public ServerConfigurationFactoryBean() {
     }
@@ -70,6 +70,9 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
      * @see com.db4o.cs.config.ServerConfiguration#common()
      */
     public CommonConfigurer getCommon() {
+        if (commonConfigurer == null) {
+            commonConfigurer = new CommonConfigurer(configuration.common());
+        }
         return commonConfigurer;
     }
 
@@ -78,6 +81,9 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
      * @see com.db4o.cs.config.ServerConfiguration#networking()
      */
     public NetworkingConfigurer getNetworking() {
+        if (networkingConfigurer == null) {
+            networkingConfigurer = new NetworkingConfigurer(configuration.networking());
+        }
         return networkingConfigurer;
     }
 
@@ -86,6 +92,9 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
      * @see com.db4o.cs.config.ServerConfiguration#file()
      */
     public FileConfigurer getFile() {
+        if (fileConfigurer == null) {
+            fileConfigurer = new FileConfigurer(configuration.file());
+        }
         return fileConfigurer;
     }
 
@@ -94,6 +103,9 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
      * @see com.db4o.cs.config.ServerConfiguration#idSystem()
      */
     public IdSystemConfigurer getIdSystem() {
+        if (idSystemConfigurer == null) {
+            idSystemConfigurer = new IdSystemConfigurer(configuration.idSystem());
+        }
         return idSystemConfigurer;
     }
 
