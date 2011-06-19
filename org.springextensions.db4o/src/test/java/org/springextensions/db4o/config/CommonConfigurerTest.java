@@ -25,6 +25,7 @@ import com.db4o.config.encoding.StringEncoding;
 import com.db4o.diagnostic.DiagnosticConfiguration;
 import com.db4o.reflect.Reflector;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.mock;
@@ -40,7 +41,7 @@ public class CommonConfigurerTest {
 
     private CommonConfigurer commonConfigurer;
 
-    @Test
+    @BeforeClass
     public void setup() {
         commonConfiguration = mock(CommonConfiguration.class);
         commonConfigurer = new CommonConfigurer(commonConfiguration);
@@ -48,12 +49,12 @@ public class CommonConfigurerTest {
 
     @Test
     public void testGetConfiguration() {
-
+        // TODO
     }
 
     @Test
     public void testAddAlias() {
-
+        // TODO
     }
 
     @Test
@@ -65,7 +66,7 @@ public class CommonConfigurerTest {
 
     @Test
     public void testAdd() {
-
+        // TODO
     }
 
     @Test
@@ -210,7 +211,7 @@ public class CommonConfigurerTest {
 
     @Test
     public void testRegisterTypeHandler() {
-
+        // TODO
     }
 
     @Test
