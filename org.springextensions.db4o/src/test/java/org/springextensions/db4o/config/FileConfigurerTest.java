@@ -37,9 +37,6 @@ public class FileConfigurerTest {
 
     private FileConfigurer fileConfigurer;
 
-    /**
-     * run before every method because of testSetDisableCommitRecoveryToFalse
-     */
     @BeforeMethod
     public void setup() {
         fileConfiguration = mock(FileConfiguration.class);
