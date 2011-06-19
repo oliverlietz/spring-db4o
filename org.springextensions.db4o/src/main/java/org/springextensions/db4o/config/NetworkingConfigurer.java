@@ -32,11 +32,11 @@ public class NetworkingConfigurer {
     }
 
     /**
-     * @param flag
+     * @param batchMessages
      * @see com.db4o.cs.config.NetworkingConfiguration#batchMessages(boolean)
      */
-    public void setBatchMessages(boolean flag) {
-        networkingConfiguration.batchMessages(flag);
+    public void setBatchMessages(boolean batchMessages) {
+        networkingConfiguration.batchMessages(batchMessages);
     }
 
     /**
@@ -64,11 +64,11 @@ public class NetworkingConfigurer {
     }
 
     /**
-     * @param flag
+     * @param singleThreadedClient
      * @see com.db4o.cs.config.NetworkingConfiguration#singleThreadedClient(boolean)
      */
-    public void setSingleThreadedClient(boolean flag) {
-        networkingConfiguration.singleThreadedClient(flag);
+    public void setSingleThreadedClient(boolean singleThreadedClient) {
+        networkingConfiguration.singleThreadedClient(singleThreadedClient);
     }
 
     /**
