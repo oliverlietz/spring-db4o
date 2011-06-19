@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="embeddedConfiguration" class="org.springextensions.db4o.config.EmbeddedConfigurationFactoryBean">
+    <property name="file.asynchronousSync" value="true"/>
+    <property name="file.blobPath" value="/tmp/"/>
+    <property name="file.blockSize" value="8"/>
+    <property name="file.databaseGrowthSize" value="4096"/>
+    <property name="file.disableCommitRecovery" value="true"/>
+    <property name="file.generateCommitTimestamps" value="true"/>
+    <property name="file.generateUUIDs" value="globally"/>
+    <property name="file.lockDatabaseFile" value="true"/>
+    <property name="file.readOnly" value="true"/>
+    <property name="file.recoveryMode" value="true"/>
+    <property name="file.reserveStorageSpace" value="1048576"/>
+    <property name="file.storage">
+      <bean class="com.db4o.io.PagingMemoryStorage"/>
+    </property>
+  </bean>
+
+</beans>
