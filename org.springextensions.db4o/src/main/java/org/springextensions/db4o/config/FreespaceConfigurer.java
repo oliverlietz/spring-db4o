@@ -63,6 +63,7 @@ public class FreespaceConfigurer {
             case Ram:
                 freespaceConfiguration.useRamSystem();
                 break;
+            // log warning
         }
     }
 
