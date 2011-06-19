@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import com.db4o.config.ConfigScope;
 import com.db4o.config.FileConfiguration;
-import com.db4o.config.FreespaceConfiguration;
 import com.db4o.config.GlobalOnlyConfigException;
 import com.db4o.ext.DatabaseReadOnlyException;
 import com.db4o.foundation.NotSupportedException;
@@ -32,8 +31,23 @@ public class FileConfigurer {
 
     protected FileConfiguration fileConfiguration;
 
+    protected FreespaceConfigurer freespaceConfigurer;
+
+    public enum Scope {
+        disabled,
+        individually,
+        globally
+    }
+
     public FileConfigurer(FileConfiguration fileConfiguration) {
         this.fileConfiguration = fileConfiguration;
+    }
+
+    public FreespaceConfigurer getFreespace() {
+        if (freespaceConfigurer == null) {
+            freespaceConfigurer = new FreespaceConfigurer(fileConfiguration.freespace());
+        }
+        return freespaceConfigurer;
     }
 
     /**
@@ -60,29 +74,41 @@ public class FileConfigurer {
         fileConfiguration.databaseGrowthSize(databaseGrowthSize);
     }
 
-    // TODO
-    // @see com.db4o.config.FileConfiguration#disableCommitRecovery
-    // disableCommitRecovery();
-
     /**
-     * @return
-     * @see com.db4o.config.FileConfiguration#freespace()
+     * @param disableCommitRecovery
+     * @see com.db4o.config.FileConfiguration#disableCommitRecovery
      */
-    public FreespaceConfiguration freespace() {
-        return fileConfiguration.freespace();
-    }
-
-    public void setGenerateUUIDs(ConfigScope configScope) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public void setDisableCommitRecovery(boolean disableCommitRecovery) {
+        if (disableCommitRecovery) {
+            fileConfiguration.disableCommitRecovery();
+        }
     }
 
     /**
-     * @return
+     * @param scope
+     * @see com.db4o.config.FileConfiguration#generateUUIDs(com.db4o.config.ConfigScope)
+     */
+    public void setGenerateUUIDs(Scope scope) {
+        switch (scope) {
+            case disabled:
+                fileConfiguration.generateUUIDs(ConfigScope.DISABLED);
+                break;
+            case individually:
+                fileConfiguration.generateUUIDs(ConfigScope.INDIVIDUALLY);
+                break;
+            case globally:
+                fileConfiguration.generateUUIDs(ConfigScope.GLOBALLY);
+                break;
+            // log warning
+        }
+    }
+
+    /**
+     * @param generateCommitTimestamps
      * @see com.db4o.config.FileConfiguration#generateCommitTimestamps(boolean)
      */
-    public void setGenerateCommitTimestamps(boolean flag) {
-        fileConfiguration.generateCommitTimestamps(flag);
+    public void setGenerateCommitTimestamps(boolean generateCommitTimestamps) {
+        fileConfiguration.generateCommitTimestamps(generateCommitTimestamps);
     }
 
     /**
