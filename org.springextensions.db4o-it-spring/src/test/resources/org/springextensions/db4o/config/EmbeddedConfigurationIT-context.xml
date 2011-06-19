@@ -19,6 +19,14 @@
     <property name="file.storage">
       <bean class="com.db4o.io.PagingMemoryStorage"/>
     </property>
+    <property name="file.freespace.discardSmallerThan" value="256"/>
+    <!--
+    <property name="file.freespace.freespaceFiller">
+      <bean class="com.db4o.config.FreespaceFiller"/>
+    </property>
+    -->
+    <property name="file.freespace.system" value="BTree"/>
+    <property name="idSystem.system" value="PointerBased"/>
   </bean>
 
 </beans>
