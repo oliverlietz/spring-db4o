@@ -25,11 +25,11 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
 
     private EmbeddedConfiguration configuration = Db4oEmbedded.newConfiguration();
 
-    private CommonConfigurer commonConfigurer = new CommonConfigurer(configuration.common());
+    private CommonConfigurer commonConfigurer;
 
-    private FileConfigurer fileConfigurer = new FileConfigurer(configuration.file());
+    private FileConfigurer fileConfigurer;
 
-    private IdSystemConfigurer idSystemConfigurer = new IdSystemConfigurer(configuration.idSystem());
+    private IdSystemConfigurer idSystemConfigurer;
 
     public EmbeddedConfigurationFactoryBean() {
     }
@@ -68,6 +68,9 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
      * @see com.db4o.config.EmbeddedConfiguration#common()
      */
     public CommonConfigurer getCommon() {
+        if (commonConfigurer == null) {
+            commonConfigurer = new CommonConfigurer(configuration.common());
+        }
         return commonConfigurer;
     }
 
@@ -76,6 +79,9 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
      * @see com.db4o.config.EmbeddedConfiguration#file()
      */
     public FileConfigurer getFile() {
+        if (fileConfigurer == null) {
+            fileConfigurer = new FileConfigurer(configuration.file());
+        }
         return fileConfigurer;
     }
 
@@ -84,6 +90,9 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
      * @see com.db4o.config.EmbeddedConfiguration#idSystem()
      */
     public IdSystemConfigurer getIdSystem() {
+        if (idSystemConfigurer == null) {
+            idSystemConfigurer = new IdSystemConfigurer(configuration.idSystem());
+        }
         return idSystemConfigurer;
     }
 
