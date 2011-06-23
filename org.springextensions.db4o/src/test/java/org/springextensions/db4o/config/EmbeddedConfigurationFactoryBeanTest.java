@@ -15,40 +15,61 @@
  */
 package org.springextensions.db4o.config;
 
-import org.springextensions.db4o.ObjectContainerFactoryBean;
-import org.springextensions.db4o.example.Person;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import com.db4o.ObjectContainer;
 import com.db4o.config.EmbeddedConfiguration;
-import com.db4o.io.PagingMemoryStorage;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 /**
  * @author olli
  */
 public class EmbeddedConfigurationFactoryBeanTest {
 
+    private EmbeddedConfigurationFactoryBean embeddedConfigurationFactoryBean;
+
+    @BeforeClass
+    public void setup() {
+        embeddedConfigurationFactoryBean = new EmbeddedConfigurationFactoryBean();
+    }
+
     @Test
-    public void testFileConfigurator() throws Exception {
-        EmbeddedConfigurationFactoryBean embeddedConfigurationFactoryBean = new EmbeddedConfigurationFactoryBean();
-        embeddedConfigurationFactoryBean.getFile().setStorage(new PagingMemoryStorage());
+    public void testGetConfiguration() {
+        Assert.assertNotNull(embeddedConfigurationFactoryBean.getConfiguration());
+        Assert.assertTrue(embeddedConfigurationFactoryBean.getConfiguration() instanceof EmbeddedConfiguration);
+    }
 
-        EmbeddedConfiguration embeddedConfiguration = embeddedConfigurationFactoryBean.getObject();
-        Assert.assertNotNull(embeddedConfiguration, "embeddedConfiguration is null");
-        Assert.assertNotNull(embeddedConfiguration.file(), "file config is null");
-        Assert.assertNotNull(embeddedConfiguration.file().storage(), "storage config is null");
-        Assert.assertTrue(embeddedConfiguration.file().storage() instanceof PagingMemoryStorage);
+    @Test
+    public void testGetObject() {
+        Assert.assertNotNull(embeddedConfigurationFactoryBean.getObject());
+        Assert.assertTrue(embeddedConfigurationFactoryBean.getObject() instanceof EmbeddedConfiguration);
+    }
 
-        ObjectContainerFactoryBean objectContainerFactoryBean = new ObjectContainerFactoryBean();
-        objectContainerFactoryBean.setFilename("EmbeddedConfigurationFactoryBeanTest");
-        objectContainerFactoryBean.setEmbeddedConfiguration(embeddedConfigurationFactoryBean.getObject());
-        objectContainerFactoryBean.initialize();
+    @Test
+    public void testGetObjectType() {
+        Assert.assertTrue(embeddedConfigurationFactoryBean.getObjectType().isAssignableFrom(EmbeddedConfiguration.class));
+    }
 
-        ObjectContainer objectContainer = objectContainerFactoryBean.getObject();
-        Person person = new Person();
-        person.setName("olli");
-        objectContainer.store(person);
+    @Test
+    public void testIsSingleton() {
+        Assert.assertTrue(embeddedConfigurationFactoryBean.isSingleton());
+    }
+
+    @Test
+    public void testGetCommon() {
+        Assert.assertNotNull(embeddedConfigurationFactoryBean.getCommon());
+        Assert.assertTrue(embeddedConfigurationFactoryBean.getCommon() instanceof CommonConfigurer);
+    }
+
+    @Test
+    public void testGetFile() {
+        Assert.assertNotNull(embeddedConfigurationFactoryBean.getFile());
+        Assert.assertTrue(embeddedConfigurationFactoryBean.getFile() instanceof FileConfigurer);
+    }
+
+    @Test
+    public void testGetIdSystem() {
+        Assert.assertNotNull(embeddedConfigurationFactoryBean.getIdSystem());
+        Assert.assertTrue(embeddedConfigurationFactoryBean.getIdSystem() instanceof IdSystemConfigurer);
     }
 
 }

@@ -16,21 +16,24 @@
 package org.springextensions.db4o.config;
 
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 
+import com.db4o.config.Alias;
 import com.db4o.config.CommonConfiguration;
-import com.db4o.config.EnvironmentConfiguration;
+import com.db4o.config.ConfigurationItem;
 import com.db4o.config.NameProvider;
-import com.db4o.config.QueryConfiguration;
 import com.db4o.config.encoding.StringEncoding;
-import com.db4o.diagnostic.DiagnosticConfiguration;
 import com.db4o.reflect.Reflector;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * author: olli
@@ -41,7 +44,7 @@ public class CommonConfigurerTest {
 
     private CommonConfigurer commonConfigurer;
 
-    @BeforeClass
+    @BeforeMethod
     public void setup() {
         commonConfiguration = mock(CommonConfiguration.class);
         commonConfigurer = new CommonConfigurer(commonConfiguration);
@@ -49,12 +52,36 @@ public class CommonConfigurerTest {
 
     @Test
     public void testGetConfiguration() {
-        // TODO
+        Assert.assertEquals(commonConfigurer.getConfiguration(), commonConfiguration);
     }
 
     @Test
-    public void testAddAlias() {
-        // TODO
+    public void testGetDiagnostic() {
+        Assert.assertEquals(commonConfigurer.getDiagnostic().diagnosticConfiguration, commonConfiguration.diagnostic());
+    }
+
+    @Test
+    public void tesGetQueries() {
+        Assert.assertEquals(commonConfigurer.getQuery().queryConfiguration, commonConfiguration.queries());
+    }
+
+    @Test
+    public void testGetEnvironment() {
+        Assert.assertEquals(commonConfigurer.getEnvironment().environmentConfiguration, commonConfiguration.environment());
+    }
+
+    @Test
+    public void testSetAlias() {
+        Alias alias = mock(Alias.class);
+        commonConfigurer.setAlias(alias);
+        verify(commonConfiguration).addAlias(alias);
+    }
+
+    @Test
+    public void testSetAliases() {
+        List<Alias> aliases = Arrays.asList(mock(Alias.class), mock(Alias.class), mock(Alias.class), mock(Alias.class));
+        commonConfigurer.setAlias(aliases);
+        verify(commonConfiguration, times(aliases.size())).addAlias(any(Alias.class));
     }
 
     @Test
@@ -65,8 +92,17 @@ public class CommonConfigurerTest {
     }
 
     @Test
-    public void testAdd() {
-        // TODO
+    public void testSetConfigurationItem() {
+        ConfigurationItem configurationItem = mock(ConfigurationItem.class);
+        commonConfigurer.setConfigurationItem(configurationItem);
+        verify(commonConfiguration).add(configurationItem);
+    }
+
+    @Test
+    public void testSetConfigurationItems() {
+        List<ConfigurationItem> configurationItems = Arrays.asList(mock(ConfigurationItem.class), mock(ConfigurationItem.class), mock(ConfigurationItem.class));
+        commonConfigurer.setConfigurationItem(configurationItems);
+        verify(commonConfiguration, times(configurationItems.size())).add(any(ConfigurationItem.class));
     }
 
     @Test
@@ -112,13 +148,6 @@ public class CommonConfigurerTest {
     }
 
     @Test
-    public void testDiagnostic() {
-        DiagnosticConfiguration diagnosticConfiguration = mock(DiagnosticConfiguration.class);
-        when(commonConfiguration.diagnostic()).thenReturn(diagnosticConfiguration);
-        Assert.assertEquals(diagnosticConfiguration, commonConfigurer.diagnostic());
-    }
-
-    @Test
     public void testSetExceptionsOnNotStorable() {
         boolean exceptionsOnNotStorable = true;
         commonConfigurer.setExceptionsOnNotStorable(exceptionsOnNotStorable);
@@ -140,6 +169,13 @@ public class CommonConfigurerTest {
     }
 
     @Test
+    public void testSetMarkTransients() {
+        List<String> markTransient = Arrays.asList("", "", "", "", "");
+        commonConfigurer.setMarkTransient(markTransient);
+        verify(commonConfiguration, times(markTransient.size())).markTransient(anyString());
+    }
+
+    @Test
     public void testSetMessageLevel() {
         int messageLevel = 123;
         commonConfigurer.setMessageLevel(messageLevel);
@@ -151,13 +187,6 @@ public class CommonConfigurerTest {
         boolean optimizeNativeQueries = true;
         commonConfigurer.setOptimizeNativeQueries(optimizeNativeQueries);
         verify(commonConfiguration).optimizeNativeQueries(optimizeNativeQueries);
-    }
-
-    @Test
-    public void testQueries() {
-        QueryConfiguration queryConfiguration = mock(QueryConfiguration.class);
-        when(commonConfiguration.queries()).thenReturn(queryConfiguration);
-        Assert.assertEquals(queryConfiguration, commonConfigurer.queries());
     }
 
     @Test
@@ -212,13 +241,6 @@ public class CommonConfigurerTest {
     @Test
     public void testRegisterTypeHandler() {
         // TODO
-    }
-
-    @Test
-    public void testEnvironment() {
-        EnvironmentConfiguration environmentConfiguration = mock(EnvironmentConfiguration.class);
-        when(commonConfiguration.environment()).thenReturn(environmentConfiguration);
-        Assert.assertEquals(environmentConfiguration, commonConfigurer.environment());
     }
 
     @Test
