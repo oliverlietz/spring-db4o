@@ -20,6 +20,7 @@ import com.db4o.config.IdSystemFactory;
 
 /**
  * @author olli
+ * @see <a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/id_system.htm">Id System</a>
  */
 public class IdSystemConfigurer {
 
@@ -37,7 +38,7 @@ public class IdSystemConfigurer {
     }
 
     /**
-     * @param factory
+     * @param factory the factory for a custom Id System to use
      * @see com.db4o.config.IdSystemConfiguration#useCustomSystem(com.db4o.config.IdSystemFactory)
      */
     public void setCustomSystem(IdSystemFactory factory) {
@@ -45,7 +46,7 @@ public class IdSystemConfigurer {
     }
 
     /**
-     * @param system
+     * @param system the Id System to use, one of <code>InMemory</code>, <code>PointerBased</code>, <code>SingleBTree</code> or <code>StackedBTree</code>
      * @see com.db4o.config.IdSystemConfiguration#useInMemorySystem()
      * @see com.db4o.config.IdSystemConfiguration#usePointerBasedSystem()
      * @see com.db4o.config.IdSystemConfiguration#useSingleBTreeSystem()

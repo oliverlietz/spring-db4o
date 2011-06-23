@@ -16,18 +16,38 @@
 package org.springextensions.db4o.config;
 
 import com.db4o.config.QueryConfiguration;
+import com.db4o.config.QueryEvaluationMode;
 
 /**
- * TODO
- *
  * @author olli
+ * @see <a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/common/query_modes.htm">Query Modes</a>
  */
 public class QueryConfigurer {
 
     protected QueryConfiguration queryConfiguration;
 
+    public enum EvaluationMode {
+        Immediate,
+        Lazy,
+        Snapshot
+    }
+
     public QueryConfigurer(QueryConfiguration queryConfiguration) {
         this.queryConfiguration = queryConfiguration;
+    }
+
+    public void setEvaluationMode(EvaluationMode evaluationMode) {
+        switch (evaluationMode) {
+            case Immediate:
+                queryConfiguration.evaluationMode(QueryEvaluationMode.IMMEDIATE);
+                break;
+            case Lazy:
+                queryConfiguration.evaluationMode(QueryEvaluationMode.LAZY);
+                break;
+            case Snapshot:
+                queryConfiguration.evaluationMode(QueryEvaluationMode.SNAPSHOT);
+                break;
+        }
     }
 
 }

@@ -36,16 +36,18 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
     public ServerConfigurationFactoryBean() {
     }
 
-    public ServerConfiguration getConfiguration() throws Exception {
+    /**
+     * @return
+     */
+    public ServerConfiguration getConfiguration() {
         return configuration;
     }
 
     /**
      * @return
-     * @throws Exception
      * @see org.springframework.beans.factory.FactoryBean#getObject()
      */
-    public ServerConfiguration getObject() throws Exception {
+    public ServerConfiguration getObject() {
         return configuration;
     }
 

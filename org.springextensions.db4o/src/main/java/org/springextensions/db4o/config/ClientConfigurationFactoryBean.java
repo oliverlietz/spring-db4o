@@ -25,23 +25,25 @@ public class ClientConfigurationFactoryBean { // implements FactoryBean<ClientCo
 
     private ClientConfiguration configuration = Db4oClientServer.newClientConfiguration();
 
-    private CommonConfigurer commonConfigurer = new CommonConfigurer(configuration.common());
+    private CommonConfigurer commonConfigurer;
 
-    private NetworkingConfigurer networkingConfigurer = new NetworkingConfigurer(configuration.networking());
+    private NetworkingConfigurer networkingConfigurer;
 
     public ClientConfigurationFactoryBean() {
     }
 
-    public ClientConfiguration getConfiguration() throws Exception {
+    /**
+     * @return
+     */
+    public ClientConfiguration getConfiguration() {
         return configuration;
     }
 
     /**
      * @return
-     * @throws Exception
      * @see org.springframework.beans.factory.FactoryBean#getObject()
      */
-    public ClientConfiguration getObject() throws Exception {
+    public ClientConfiguration getObject() {
         return configuration;
     }
 
@@ -66,6 +68,9 @@ public class ClientConfigurationFactoryBean { // implements FactoryBean<ClientCo
      * @see com.db4o.cs.config.ClientConfiguration#common()
      */
     public CommonConfigurer getCommon() {
+        if (commonConfigurer == null) {
+            commonConfigurer = new CommonConfigurer(configuration.common());
+        }
         return commonConfigurer;
     }
 
@@ -74,6 +79,9 @@ public class ClientConfigurationFactoryBean { // implements FactoryBean<ClientCo
      * @see com.db4o.cs.config.ClientConfiguration#networking()
      */
     public NetworkingConfigurer getNetworking() {
+        if (networkingConfigurer == null) {
+            networkingConfigurer = new NetworkingConfigurer(configuration.networking());
+        }
         return networkingConfigurer;
     }
 

@@ -22,6 +22,7 @@ import com.db4o.messaging.MessageRecipient;
 
 /**
  * @author olli
+ * @see <a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/network_configuration.htm">Networking Configuration</a>
  */
 public class NetworkingConfigurer {
 

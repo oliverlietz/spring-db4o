@@ -34,7 +34,10 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
     public EmbeddedConfigurationFactoryBean() {
     }
 
-    public EmbeddedConfiguration getConfiguration() throws Exception {
+    /**
+     * @return
+     */
+    public EmbeddedConfiguration getConfiguration() {
         return configuration;
     }
 
@@ -43,7 +46,7 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
      * @throws Exception
      * @see org.springframework.beans.factory.FactoryBean#getObject()
      */
-    public EmbeddedConfiguration getObject() throws Exception {
+    public EmbeddedConfiguration getObject() {
         return configuration;
     }
 

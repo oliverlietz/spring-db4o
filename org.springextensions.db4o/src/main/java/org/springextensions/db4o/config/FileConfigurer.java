@@ -26,6 +26,7 @@ import com.db4o.io.Storage;
 
 /**
  * @author olli
+ * @see <a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/file_configuration.htm">File Configuration</a>
  */
 public class FileConfigurer {
 
@@ -85,7 +86,7 @@ public class FileConfigurer {
     }
 
     /**
-     * @param scope
+     * @param scope the scope to generate UUIDs for, one of <code>disabled</code>, <code>individually</code> or <code>globally</code>
      * @see com.db4o.config.FileConfiguration#generateUUIDs(com.db4o.config.ConfigScope)
      */
     public void setGenerateUUIDs(Scope scope) {
@@ -99,7 +100,6 @@ public class FileConfigurer {
             case globally:
                 fileConfiguration.generateUUIDs(ConfigScope.GLOBALLY);
                 break;
-            // log warning
         }
     }
 

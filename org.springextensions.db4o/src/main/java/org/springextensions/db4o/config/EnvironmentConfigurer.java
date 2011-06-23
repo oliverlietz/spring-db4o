@@ -15,11 +15,11 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.List;
+
 import com.db4o.config.EnvironmentConfiguration;
 
 /**
- * TODO
- *
  * @author olli
  */
 public class EnvironmentConfigurer {
@@ -28,6 +28,24 @@ public class EnvironmentConfigurer {
 
     public EnvironmentConfigurer(EnvironmentConfiguration environmentConfiguration) {
         this.environmentConfiguration = environmentConfiguration;
+    }
+
+    /**
+     * @param service
+     * @see com.db4o.config.EnvironmentConfiguration#add(Object)
+     */
+    public void setService(Object service) {
+        environmentConfiguration.add(service);
+    }
+
+    /**
+     * @param services
+     * @see com.db4o.config.EnvironmentConfiguration#add(Object)
+     */
+    public void setService(List<Object> services) {
+        for (Object service : services) {
+            environmentConfiguration.add(service);
+        }
     }
 
 }

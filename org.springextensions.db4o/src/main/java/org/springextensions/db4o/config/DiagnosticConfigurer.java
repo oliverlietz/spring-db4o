@@ -15,12 +15,14 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.List;
+
 import com.db4o.diagnostic.DiagnosticConfiguration;
+import com.db4o.diagnostic.DiagnosticListener;
 
 /**
- * TODO
- *
  * @author olli
+ * @see <a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/common/diagnostics.htm">Diagnostics</a>
  */
 public class DiagnosticConfigurer {
 
@@ -28,6 +30,16 @@ public class DiagnosticConfigurer {
 
     public DiagnosticConfigurer(DiagnosticConfiguration diagnosticConfiguration) {
         this.diagnosticConfiguration = diagnosticConfiguration;
+    }
+
+    public void setListener(DiagnosticListener diagnosticListener) {
+        diagnosticConfiguration.addListener(diagnosticListener);
+    }
+
+    public void setListener(List<DiagnosticListener> diagnosticListeners) {
+        for (DiagnosticListener diagnosticListener : diagnosticListeners) {
+            diagnosticConfiguration.addListener(diagnosticListener);
+        }
     }
 
 }

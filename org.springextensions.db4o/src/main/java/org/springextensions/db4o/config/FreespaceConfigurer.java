@@ -20,6 +20,7 @@ import com.db4o.config.FreespaceFiller;
 
 /**
  * @author olli
+ * @see <a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/file/freespace_configuration.htm">Freespace Configuration</a>
  */
 public class FreespaceConfigurer {
 
@@ -51,7 +52,7 @@ public class FreespaceConfigurer {
     }
 
     /**
-     * @param system
+     * @param system the freespace system to use, one of <code>BTree</code> or <code>Ram</code>
      * @see com.db4o.config.FreespaceConfiguration#useBTreeSystem()
      * @see com.db4o.config.FreespaceConfiguration#useRamSystem()
      */
@@ -63,7 +64,6 @@ public class FreespaceConfigurer {
             case Ram:
                 freespaceConfiguration.useRamSystem();
                 break;
-            // log warning
         }
     }
 

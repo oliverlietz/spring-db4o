@@ -16,25 +16,30 @@
 package org.springextensions.db4o.config;
 
 import java.io.PrintStream;
+import java.util.List;
 
 import com.db4o.config.Alias;
 import com.db4o.config.CommonConfiguration;
 import com.db4o.config.ConfigurationItem;
-import com.db4o.config.EnvironmentConfiguration;
 import com.db4o.config.NameProvider;
-import com.db4o.config.QueryConfiguration;
 import com.db4o.config.encoding.StringEncoding;
-import com.db4o.diagnostic.DiagnosticConfiguration;
 import com.db4o.reflect.Reflector;
 import com.db4o.typehandlers.TypeHandler4;
 import com.db4o.typehandlers.TypeHandlerPredicate;
 
 /**
  * @author olli
+ * @see <a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/common_configuration.htm">Common Configuration</a>
  */
 public class CommonConfigurer {
 
     protected CommonConfiguration commonConfiguration;
+
+    protected QueryConfigurer queryConfigurer;
+
+    protected DiagnosticConfigurer diagnosticConfigurer;
+
+    protected EnvironmentConfigurer environmentConfigurer;
 
     public CommonConfigurer(CommonConfiguration commonConfiguration) {
         this.commonConfiguration = commonConfiguration;
@@ -44,9 +49,43 @@ public class CommonConfigurer {
         return commonConfiguration;
     }
 
-    public void addAlias(Alias alias) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public QueryConfigurer getQuery() {
+        if (queryConfigurer == null) {
+            queryConfigurer = new QueryConfigurer(commonConfiguration.queries());
+        }
+        return queryConfigurer;
+    }
+
+    public DiagnosticConfigurer getDiagnostic() {
+        if (diagnosticConfigurer == null) {
+            diagnosticConfigurer = new DiagnosticConfigurer(commonConfiguration.diagnostic());
+        }
+        return diagnosticConfigurer;
+    }
+
+    public EnvironmentConfigurer getEnvironment() {
+        if (environmentConfigurer == null) {
+            environmentConfigurer = new EnvironmentConfigurer(commonConfiguration.environment());
+        }
+        return environmentConfigurer;
+    }
+
+    /**
+     * @param alias
+     * @see com.db4o.config.CommonConfiguration#addAlias(com.db4o.config.Alias)
+     */
+    public void setAlias(Alias alias) {
+        commonConfiguration.addAlias(alias);
+    }
+
+    /**
+     * @param aliases
+     * @see com.db4o.config.CommonConfiguration#addAlias(com.db4o.config.Alias)
+     */
+    public void setAlias(List<Alias> aliases) {
+        for (Alias alias : aliases) {
+            commonConfiguration.addAlias(alias);
+        }
     }
 
     /**
@@ -57,9 +96,22 @@ public class CommonConfigurer {
         commonConfiguration.activationDepth(activationDepth);
     }
 
-    public void add(ConfigurationItem configurationItem) {
-        // TODO
-        throw new UnsupportedOperationException();
+    /**
+     * @param configurationItem
+     * @see com.db4o.config.CommonConfiguration#add(com.db4o.config.ConfigurationItem)
+     */
+    public void setConfigurationItem(ConfigurationItem configurationItem) {
+        commonConfiguration.add(configurationItem);
+    }
+
+    /**
+     * @param configurationItems
+     * @see com.db4o.config.CommonConfiguration#add(com.db4o.config.ConfigurationItem)
+     */
+    public void setConfigurationItem(List<ConfigurationItem> configurationItems) {
+        for (ConfigurationItem configurationItem : configurationItems) {
+            commonConfiguration.add(configurationItem);
+        }
     }
 
     /**
@@ -111,14 +163,6 @@ public class CommonConfigurer {
     }
 
     /**
-     * @return
-     * @see com.db4o.config.CommonConfiguration#diagnostic()
-     */
-    public DiagnosticConfiguration diagnostic() {
-        return commonConfiguration.diagnostic();
-    }
-
-    /**
      * @param exceptionsOnNotStorable
      * @see com.db4o.config.CommonConfiguration#exceptionsOnNotStorable(boolean)
      */
@@ -143,6 +187,16 @@ public class CommonConfigurer {
     }
 
     /**
+     * @param markTransients
+     * @see com.db4o.config.CommonConfiguration#markTransient(String)
+     */
+    public void setMarkTransient(List<String> markTransients) {
+        for (String markTransient : markTransients) {
+            commonConfiguration.markTransient(markTransient);
+        }
+    }
+
+    /**
      * @param messageLevel
      * @see com.db4o.config.CommonConfiguration#messageLevel(int)
      */
@@ -156,14 +210,6 @@ public class CommonConfigurer {
      */
     public void setOptimizeNativeQueries(boolean optimizeNativeQueries) {
         commonConfiguration.optimizeNativeQueries(optimizeNativeQueries);
-    }
-
-    /**
-     * @return
-     * @see com.db4o.config.CommonConfiguration#queries()
-     */
-    public QueryConfiguration queries() {
-        return commonConfiguration.queries();
     }
 
     /**
@@ -226,14 +272,6 @@ public class CommonConfigurer {
     public void registerTypeHandler(TypeHandlerPredicate typeHandlerPredicate, TypeHandler4 typeHandler4) {
         // TODO
         throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @return
-     * @see com.db4o.config.CommonConfiguration#environment()
-     */
-    public EnvironmentConfiguration environment() {
-        return commonConfiguration.environment();
     }
 
     /**
