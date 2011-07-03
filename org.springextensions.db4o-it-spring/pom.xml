@@ -25,6 +25,12 @@
       <artifactId>org.springextensions.db4o</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springextensions.db4o</groupId>
+      <artifactId>org.springextensions.db4o</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
     <!-- logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
