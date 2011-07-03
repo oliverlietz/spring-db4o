@@ -16,7 +16,7 @@
 package org.springextensions.db4o.config;
 
 import org.springextensions.db4o.ObjectContainerIT;
-import org.springextensions.db4o.example.Person;
+import org.springextensions.db4o.Person;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 import org.testng.annotations.Test;

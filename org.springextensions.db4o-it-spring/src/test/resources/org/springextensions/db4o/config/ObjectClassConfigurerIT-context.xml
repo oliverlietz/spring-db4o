@@ -14,7 +14,7 @@
     <constructor-arg>
       <bean factory-bean="embeddedConfiguration" factory-method="getCommon"/>
     </constructor-arg>
-    <constructor-arg value="org.springextensions.db4o.example.Person"/>
+    <constructor-arg value="org.springextensions.db4o.Person"/>
     <property name="indexed" value="true"/>
   </bean>
 
