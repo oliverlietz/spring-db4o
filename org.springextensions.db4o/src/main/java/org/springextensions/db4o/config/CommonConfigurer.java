@@ -197,6 +197,14 @@ public class CommonConfigurer {
     }
 
     /**
+     * @param maxStackDepth
+     * @see com.db4o.config.CommonConfiguration#maxStackDepth(int)
+     */
+    public void setMaxStackDepth(int maxStackDepth) {
+        commonConfiguration.maxStackDepth(maxStackDepth);
+    }
+
+    /**
      * @param messageLevel
      * @see com.db4o.config.CommonConfiguration#messageLevel(int)
      */

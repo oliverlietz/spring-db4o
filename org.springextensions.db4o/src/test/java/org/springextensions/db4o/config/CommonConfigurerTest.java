@@ -176,6 +176,13 @@ public class CommonConfigurerTest {
     }
 
     @Test
+    public void testSetMaxStackDepth() {
+        int maxStackDepth = 20;
+        commonConfigurer.setMaxStackDepth(maxStackDepth);
+        verify(commonConfiguration).maxStackDepth(maxStackDepth);
+    }
+
+    @Test
     public void testSetMessageLevel() {
         int messageLevel = 123;
         commonConfigurer.setMessageLevel(messageLevel);
