@@ -13,26 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springextensions.db4o.config;
-
-import org.springextensions.db4o.ObjectContainerIT;
-import org.springextensions.db4o.example.Person;
-import org.springframework.test.context.ContextConfiguration;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+package org.springextensions.db4o.example;
 
 /**
- * author: olli
+ * @author olli
  */
-@ContextConfiguration
-public class ObjectClassConfigurerIT extends ObjectContainerIT {
+public class Person {
 
-    @Test
-    public void testObjectContainer() {
-        Assert.assertNotNull(objectContainer);
-        Assert.assertNotNull(db4oOperations);
-        Person person = new Person();
-        db4oOperations.store(person);
+    private String name;
+
+    public Person() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

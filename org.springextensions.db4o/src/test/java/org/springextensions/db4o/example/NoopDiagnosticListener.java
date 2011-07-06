@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 the original author or authors.
+ * Copyright 2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springextensions.db4o;
+package org.springextensions.db4o.example;
+
+import com.db4o.diagnostic.Diagnostic;
+import com.db4o.diagnostic.DiagnosticListener;
 
 /**
- * @author olli
+ * author: olli
  */
-public class Person {
+public class NoopDiagnosticListener implements DiagnosticListener {
 
-    private String name;
-
-    public Person() {
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+    @Override
+    public void onDiagnostic(Diagnostic diagnostic) {
+        //
     }
 
 }
