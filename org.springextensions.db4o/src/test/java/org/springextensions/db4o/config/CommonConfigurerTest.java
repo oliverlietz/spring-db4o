@@ -86,7 +86,7 @@ public class CommonConfigurerTest {
 
     @Test
     public void testSetActivationDepth() {
-        int activationDepth = 123;
+        int activationDepth = 2;
         commonConfigurer.setActivationDepth(activationDepth);
         verify(commonConfiguration).activationDepth(activationDepth);
     }
@@ -121,7 +121,7 @@ public class CommonConfigurerTest {
 
     @Test
     public void testSetBTreeNodeSize() {
-        int bTreeNodeSize = 123;
+        int bTreeNodeSize = 256;
         commonConfigurer.setBTreeNodeSize(bTreeNodeSize);
         verify(commonConfiguration).bTreeNodeSize(bTreeNodeSize);
     }
@@ -184,7 +184,7 @@ public class CommonConfigurerTest {
 
     @Test
     public void testSetMessageLevel() {
-        int messageLevel = 123;
+        int messageLevel = 1;
         commonConfigurer.setMessageLevel(messageLevel);
         verify(commonConfiguration).messageLevel(messageLevel);
     }
@@ -226,7 +226,7 @@ public class CommonConfigurerTest {
 
     @Test
     public void testSetUpdateDepth() {
-        int updateDepth = 123;
+        int updateDepth = 2;
         commonConfigurer.setUpdateDepth(updateDepth);
         verify(commonConfiguration).updateDepth(updateDepth);
     }
@@ -240,7 +240,7 @@ public class CommonConfigurerTest {
 
     @Test
     public void testSetWeakReferenceCollectionInterval() {
-        int weakReferenceCollectionInterval = 1234;
+        int weakReferenceCollectionInterval = 10000;
         commonConfigurer.setWeakReferenceCollectionInterval(weakReferenceCollectionInterval);
         verify(commonConfiguration).weakReferenceCollectionInterval(weakReferenceCollectionInterval);
     }
