@@ -15,10 +15,16 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.db4o.cs.config.ClientConfiguration;
+import com.db4o.cs.config.ClientConfigurationItem;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * author: olli
@@ -64,6 +70,55 @@ public class ClientConfigurationFactoryBeanTest {
     public void testGetNetworking() {
         Assert.assertNotNull(clientConfigurationFactoryBean.getNetworking());
         Assert.assertTrue(clientConfigurationFactoryBean.getNetworking() instanceof NetworkingConfigurer);
+    }
+
+    @Test
+    public void testSetPrefetchDepth() {
+        int prefetchDepth = 5;
+        clientConfigurationFactoryBean.setPrefetchDepth(prefetchDepth);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetPrefetchIDCount() {
+        int prefetchIDCount = 10;
+        clientConfigurationFactoryBean.setPrefetchIDCount(prefetchIDCount);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetPrefetchObjectCount() {
+        int prefetchObjectCount = 500;
+        clientConfigurationFactoryBean.setPrefetchObjectCount(prefetchObjectCount);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetPrefetchSlotCacheSize() {
+        int prefetchSlotCacheSize = 1024;
+        clientConfigurationFactoryBean.setPrefetchSlotCacheSize(prefetchSlotCacheSize);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetTimeoutClientSocket() {
+        int timeoutClientSocket = 60000;
+        clientConfigurationFactoryBean.setTimeoutClientSocket(timeoutClientSocket);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetConfigurationItem() {
+        ClientConfigurationItem clientConfigurationItem = mock(ClientConfigurationItem.class);
+        clientConfigurationFactoryBean.setConfigurationItem(clientConfigurationItem);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetConfigurationItems() {
+        List<ClientConfigurationItem> clientConfigurationItems = Arrays.asList(mock(ClientConfigurationItem.class), mock(ClientConfigurationItem.class), mock(ClientConfigurationItem.class));
+        clientConfigurationFactoryBean.setConfigurationItem(clientConfigurationItems);
+        // TODO verify
     }
 
 }

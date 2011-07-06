@@ -15,8 +15,11 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.List;
+
 import com.db4o.cs.Db4oClientServer;
 import com.db4o.cs.config.ClientConfiguration;
+import com.db4o.cs.config.ClientConfigurationItem;
 
 /**
  * @author olli
@@ -85,10 +88,62 @@ public class ClientConfigurationFactoryBean { // implements FactoryBean<ClientCo
         return networkingConfigurer;
     }
 
-    /* TODO
-    public void addConfigurationItem(ClientConfigurationItem clientConfigurationItem) {
+    /**
+     * @param prefetchDepth
+     * @see com.db4o.cs.config.ClientConfiguration#prefetchDepth(int)
+     */
+    public void setPrefetchDepth(int prefetchDepth) {
+        configuration.prefetchDepth(prefetchDepth);
+    }
+
+    /**
+     * @param prefetchIDCount
+     * @see com.db4o.cs.config.ClientConfiguration#prefetchIDCount(int)
+     */
+    public void setPrefetchIDCount(int prefetchIDCount) {
+        configuration.prefetchIDCount(prefetchIDCount);
+    }
+
+    /**
+     * @param prefetchObjectCount
+     * @see com.db4o.cs.config.ClientConfiguration#prefetchObjectCount(int)
+     */
+    public void setPrefetchObjectCount(int prefetchObjectCount) {
+        configuration.prefetchObjectCount(prefetchObjectCount);
+    }
+
+    /**
+     * @param prefetchSlotCacheSize
+     * @see com.db4o.cs.config.ClientConfiguration#prefetchSlotCacheSize(int)
+     */
+    public void setPrefetchSlotCacheSize(int prefetchSlotCacheSize) {
+        configuration.prefetchSlotCacheSize(prefetchSlotCacheSize);
+    }
+
+    /**
+     * @param timeoutClientSocket
+     * @see com.db4o.cs.config.ClientConfiguration#timeoutClientSocket(int)
+     */
+    public void setTimeoutClientSocket(int timeoutClientSocket) {
+        configuration.timeoutClientSocket(timeoutClientSocket);
+    }
+
+    /**
+     * @param clientConfigurationItem
+     * @see com.db4o.cs.config.ClientConfiguration#addConfigurationItem(com.db4o.cs.config.ClientConfigurationItem)
+     */
+    public void setConfigurationItem(ClientConfigurationItem clientConfigurationItem) {
         configuration.addConfigurationItem(clientConfigurationItem);
     }
-    */
+
+    /**
+     * @param clientConfigurationItems
+     * @see com.db4o.cs.config.ClientConfiguration#addConfigurationItem(com.db4o.cs.config.ClientConfigurationItem)
+     */
+    public void setConfigurationItem(List<ClientConfigurationItem> clientConfigurationItems) {
+        for (ClientConfigurationItem clientConfigurationItem : clientConfigurationItems) {
+            configuration.addConfigurationItem(clientConfigurationItem);
+        }
+    }
 
 }

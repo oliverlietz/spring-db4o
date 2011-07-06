@@ -15,10 +15,16 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.db4o.cs.config.ServerConfiguration;
+import com.db4o.cs.config.ServerConfigurationItem;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * author: olli
@@ -80,7 +86,22 @@ public class ServerConfigurationFactoryBeanTest {
 
     @Test
     public void testSetTimeoutServerSocket() {
+        serverConfigurationFactoryBean.setTimeoutServerSocket(600000);
+        // TODO verify
+    }
 
+    @Test
+    public void testSetConfigurationItem() {
+        ServerConfigurationItem serverConfigurationItem = mock(ServerConfigurationItem.class);
+        serverConfigurationFactoryBean.setConfigurationItem(serverConfigurationItem);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetConfigurationItems() {
+        List<ServerConfigurationItem> serverConfigurationItems = Arrays.asList(mock(ServerConfigurationItem.class), mock(ServerConfigurationItem.class), mock(ServerConfigurationItem.class));
+        serverConfigurationFactoryBean.setConfigurationItem(serverConfigurationItems);
+        // TODO verify
     }
 
 }

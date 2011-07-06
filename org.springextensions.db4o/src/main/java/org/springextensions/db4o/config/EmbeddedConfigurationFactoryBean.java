@@ -15,8 +15,11 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.List;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.config.EmbeddedConfigurationItem;
 
 /**
  * @author olli
@@ -99,10 +102,22 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
         return idSystemConfigurer;
     }
 
-    /* TODO
-    public void addConfigurationItem(EmbeddedConfigurationItem embeddedConfigurationItem) {
+    /**
+     * @param embeddedConfigurationItem
+     * @see com.db4o.config.EmbeddedConfiguration#addConfigurationItem(com.db4o.config.EmbeddedConfigurationItem)
+     */
+    public void setConfigurationItem(EmbeddedConfigurationItem embeddedConfigurationItem) {
         configuration.addConfigurationItem(embeddedConfigurationItem);
     }
-    */
+
+    /**
+     * @param embeddedConfigurationItems
+     * @see com.db4o.config.EmbeddedConfiguration#addConfigurationItem(com.db4o.config.EmbeddedConfigurationItem)
+     */
+    public void setConfigurationItem(List<EmbeddedConfigurationItem> embeddedConfigurationItems) {
+        for (EmbeddedConfigurationItem embeddedConfigurationItem : embeddedConfigurationItems) {
+            configuration.addConfigurationItem(embeddedConfigurationItem);
+        }
+    }
 
 }

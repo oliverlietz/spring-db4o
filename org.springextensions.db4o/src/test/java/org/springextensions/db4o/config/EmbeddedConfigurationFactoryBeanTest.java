@@ -15,10 +15,16 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.config.EmbeddedConfigurationItem;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * @author olli
@@ -70,6 +76,20 @@ public class EmbeddedConfigurationFactoryBeanTest {
     public void testGetIdSystem() {
         Assert.assertNotNull(embeddedConfigurationFactoryBean.getIdSystem());
         Assert.assertTrue(embeddedConfigurationFactoryBean.getIdSystem() instanceof IdSystemConfigurer);
+    }
+
+    @Test
+    public void testSetConfigurationItem() {
+        EmbeddedConfigurationItem embeddedConfigurationItem = mock(EmbeddedConfigurationItem.class);
+        embeddedConfigurationFactoryBean.setConfigurationItem(embeddedConfigurationItem);
+        // TODO verify
+    }
+
+    @Test
+    public void testSetConfigurationItems() {
+        List<EmbeddedConfigurationItem> embeddedConfigurationItems = Arrays.asList(mock(EmbeddedConfigurationItem.class), mock(EmbeddedConfigurationItem.class), mock(EmbeddedConfigurationItem.class));
+        embeddedConfigurationFactoryBean.setConfigurationItem(embeddedConfigurationItems);
+        // TODO verify
     }
 
 }

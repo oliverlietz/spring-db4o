@@ -15,8 +15,11 @@
  */
 package org.springextensions.db4o.config;
 
+import java.util.List;
+
 import com.db4o.cs.Db4oClientServer;
 import com.db4o.cs.config.ServerConfiguration;
+import com.db4o.cs.config.ServerConfigurationItem;
 
 /**
  * @author olli
@@ -119,10 +122,22 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
         configuration.timeoutServerSocket(milliseconds);
     }
 
-    /* TODO
-    public void addConfigurationItem(ServerConfigurationItem serverConfigurationItem) {
+    /**
+     * @param serverConfigurationItem
+     * @see com.db4o.cs.config.ServerConfiguration#addConfigurationItem(com.db4o.cs.config.ServerConfigurationItem)
+     */
+    public void setConfigurationItem(ServerConfigurationItem serverConfigurationItem) {
         configuration.addConfigurationItem(serverConfigurationItem);
     }
-    */
+
+    /**
+     * @param serverConfigurationItems
+     * @see com.db4o.cs.config.ServerConfiguration#addConfigurationItem(com.db4o.cs.config.ServerConfigurationItem)
+     */
+    public void setConfigurationItem(List<ServerConfigurationItem> serverConfigurationItems) {
+        for (ServerConfigurationItem serverConfigurationItem : serverConfigurationItems) {
+            configuration.addConfigurationItem(serverConfigurationItem);
+        }
+    }
 
 }
