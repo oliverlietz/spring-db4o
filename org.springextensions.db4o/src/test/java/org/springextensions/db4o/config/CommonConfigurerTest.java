@@ -17,7 +17,9 @@ package org.springextensions.db4o.config;
 
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.db4o.config.Alias;
 import com.db4o.config.CommonConfiguration;
@@ -25,6 +27,8 @@ import com.db4o.config.ConfigurationItem;
 import com.db4o.config.NameProvider;
 import com.db4o.config.encoding.StringEncoding;
 import com.db4o.reflect.Reflector;
+import com.db4o.typehandlers.TypeHandler4;
+import com.db4o.typehandlers.TypeHandlerPredicate;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -246,8 +250,13 @@ public class CommonConfigurerTest {
     }
 
     @Test
-    public void testRegisterTypeHandler() {
-        // TODO
+    public void testSetTypeHandlers() {
+        TypeHandlerPredicate typeHandlerPredicate = mock(TypeHandlerPredicate.class);
+        TypeHandler4 typeHandler4 = mock(TypeHandler4.class);
+        Map<TypeHandlerPredicate, TypeHandler4> typeHandlers = new HashMap<TypeHandlerPredicate, TypeHandler4>();
+        typeHandlers.put(typeHandlerPredicate, typeHandler4);
+        commonConfigurer.setTypeHandlers(typeHandlers);
+        verify(commonConfiguration).registerTypeHandler(typeHandlerPredicate, typeHandler4);
     }
 
     @Test

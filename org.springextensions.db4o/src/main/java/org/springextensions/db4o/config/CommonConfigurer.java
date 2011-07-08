@@ -17,6 +17,7 @@ package org.springextensions.db4o.config;
 
 import java.io.PrintStream;
 import java.util.List;
+import java.util.Map;
 
 import com.db4o.config.Alias;
 import com.db4o.config.CommonConfiguration;
@@ -270,16 +271,20 @@ public class CommonConfigurer {
 
     /**
      * @param weakReferenceCollectionInterval
-     *
      * @see com.db4o.config.CommonConfiguration#weakReferenceCollectionInterval(int)
      */
     public void setWeakReferenceCollectionInterval(int weakReferenceCollectionInterval) {
         commonConfiguration.weakReferenceCollectionInterval(weakReferenceCollectionInterval);
     }
 
-    public void registerTypeHandler(TypeHandlerPredicate typeHandlerPredicate, TypeHandler4 typeHandler4) {
-        // TODO
-        throw new UnsupportedOperationException();
+    /**
+     * @param typeHandlers
+     * @see com.db4o.config.CommonConfiguration#registerTypeHandler(com.db4o.typehandlers.TypeHandlerPredicate, com.db4o.typehandlers.TypeHandler4)
+     */
+    public void setTypeHandlers(Map<TypeHandlerPredicate, TypeHandler4> typeHandlers) {
+        for (Map.Entry<TypeHandlerPredicate, TypeHandler4> entry : typeHandlers.entrySet()) {
+            commonConfiguration.registerTypeHandler(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
