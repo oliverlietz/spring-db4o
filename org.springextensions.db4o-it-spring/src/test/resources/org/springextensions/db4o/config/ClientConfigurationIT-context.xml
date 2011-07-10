@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="clientConfiguration" class="org.springextensions.db4o.config.ClientConfigurationFactoryBean">
+    <property name="prefetchDepth" value="5"/>
+    <property name="prefetchIDCount" value="10"/>
+    <property name="prefetchObjectCount" value="500"/>
+    <property name="prefetchSlotCacheSize" value="1024"/>
+    <property name="timeoutClientSocket" value="60000"/>
+    <property name="configurationItem">
+      <bean class="org.springextensions.db4o.example.NoopClientConfigurationItem"/>
+    </property>
+    <!-- common -->
+    <!-- networking -->
+  </bean>
+
+</beans>
