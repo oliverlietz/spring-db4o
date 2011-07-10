@@ -36,7 +36,7 @@ public class DiagnosticConfigurer {
         diagnosticConfiguration.addListener(diagnosticListener);
     }
 
-    public void setListener(List<DiagnosticListener> diagnosticListeners) {
+    public void setListeners(List<DiagnosticListener> diagnosticListeners) {
         for (DiagnosticListener diagnosticListener : diagnosticListeners) {
             diagnosticConfiguration.addListener(diagnosticListener);
         }

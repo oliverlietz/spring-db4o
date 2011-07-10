@@ -134,7 +134,7 @@ public class ServerConfigurationFactoryBean { // implements FactoryBean<ServerCo
      * @param serverConfigurationItems
      * @see com.db4o.cs.config.ServerConfiguration#addConfigurationItem(com.db4o.cs.config.ServerConfigurationItem)
      */
-    public void setConfigurationItem(List<ServerConfigurationItem> serverConfigurationItems) {
+    public void setConfigurationItems(List<ServerConfigurationItem> serverConfigurationItems) {
         for (ServerConfigurationItem serverConfigurationItem : serverConfigurationItems) {
             configuration.addConfigurationItem(serverConfigurationItem);
         }

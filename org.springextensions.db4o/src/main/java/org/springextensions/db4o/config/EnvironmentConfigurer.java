@@ -42,7 +42,7 @@ public class EnvironmentConfigurer {
      * @param services
      * @see com.db4o.config.EnvironmentConfiguration#add(Object)
      */
-    public void setService(List<Object> services) {
+    public void setServices(List<Object> services) {
         for (Object service : services) {
             environmentConfiguration.add(service);
         }

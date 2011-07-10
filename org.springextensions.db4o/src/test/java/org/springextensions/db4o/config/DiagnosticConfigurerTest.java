@@ -53,7 +53,7 @@ public class DiagnosticConfigurerTest {
     @Test
     public void testSetListeners() {
         List<DiagnosticListener> diagnosticListeners = Arrays.asList(mock(DiagnosticListener.class), mock(DiagnosticListener.class), mock(DiagnosticListener.class));
-        diagnosticConfigurer.setListener(diagnosticListeners);
+        diagnosticConfigurer.setListeners(diagnosticListeners);
         verify(diagnosticConfiguration, times(diagnosticListeners.size())).addListener(any(DiagnosticListener.class));
     }
 

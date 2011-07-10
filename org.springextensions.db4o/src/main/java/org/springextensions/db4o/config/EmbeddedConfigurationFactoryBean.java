@@ -114,7 +114,7 @@ public class EmbeddedConfigurationFactoryBean { // implements FactoryBean<Embedd
      * @param embeddedConfigurationItems
      * @see com.db4o.config.EmbeddedConfiguration#addConfigurationItem(com.db4o.config.EmbeddedConfigurationItem)
      */
-    public void setConfigurationItem(List<EmbeddedConfigurationItem> embeddedConfigurationItems) {
+    public void setConfigurationItems(List<EmbeddedConfigurationItem> embeddedConfigurationItems) {
         for (EmbeddedConfigurationItem embeddedConfigurationItem : embeddedConfigurationItems) {
             configuration.addConfigurationItem(embeddedConfigurationItem);
         }

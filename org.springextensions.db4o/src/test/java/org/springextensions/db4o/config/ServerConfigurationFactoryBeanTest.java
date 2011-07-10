@@ -100,7 +100,7 @@ public class ServerConfigurationFactoryBeanTest {
     @Test
     public void testSetConfigurationItems() {
         List<ServerConfigurationItem> serverConfigurationItems = Arrays.asList(mock(ServerConfigurationItem.class), mock(ServerConfigurationItem.class), mock(ServerConfigurationItem.class));
-        serverConfigurationFactoryBean.setConfigurationItem(serverConfigurationItems);
+        serverConfigurationFactoryBean.setConfigurationItems(serverConfigurationItems);
         // TODO verify
     }
 

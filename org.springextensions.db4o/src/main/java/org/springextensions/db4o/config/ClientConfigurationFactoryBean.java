@@ -140,7 +140,7 @@ public class ClientConfigurationFactoryBean { // implements FactoryBean<ClientCo
      * @param clientConfigurationItems
      * @see com.db4o.cs.config.ClientConfiguration#addConfigurationItem(com.db4o.cs.config.ClientConfigurationItem)
      */
-    public void setConfigurationItem(List<ClientConfigurationItem> clientConfigurationItems) {
+    public void setConfigurationItems(List<ClientConfigurationItem> clientConfigurationItems) {
         for (ClientConfigurationItem clientConfigurationItem : clientConfigurationItems) {
             configuration.addConfigurationItem(clientConfigurationItem);
         }

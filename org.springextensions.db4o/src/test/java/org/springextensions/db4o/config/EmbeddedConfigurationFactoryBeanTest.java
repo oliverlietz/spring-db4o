@@ -88,7 +88,7 @@ public class EmbeddedConfigurationFactoryBeanTest {
     @Test
     public void testSetConfigurationItems() {
         List<EmbeddedConfigurationItem> embeddedConfigurationItems = Arrays.asList(mock(EmbeddedConfigurationItem.class), mock(EmbeddedConfigurationItem.class), mock(EmbeddedConfigurationItem.class));
-        embeddedConfigurationFactoryBean.setConfigurationItem(embeddedConfigurationItems);
+        embeddedConfigurationFactoryBean.setConfigurationItems(embeddedConfigurationItems);
         // TODO verify
     }
 

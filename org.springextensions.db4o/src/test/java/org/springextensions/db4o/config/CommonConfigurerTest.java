@@ -84,7 +84,7 @@ public class CommonConfigurerTest {
     @Test
     public void testSetAliases() {
         List<Alias> aliases = Arrays.asList(mock(Alias.class), mock(Alias.class), mock(Alias.class), mock(Alias.class));
-        commonConfigurer.setAlias(aliases);
+        commonConfigurer.setAliases(aliases);
         verify(commonConfiguration, times(aliases.size())).addAlias(any(Alias.class));
     }
 
@@ -105,7 +105,7 @@ public class CommonConfigurerTest {
     @Test
     public void testSetConfigurationItems() {
         List<ConfigurationItem> configurationItems = Arrays.asList(mock(ConfigurationItem.class), mock(ConfigurationItem.class), mock(ConfigurationItem.class));
-        commonConfigurer.setConfigurationItem(configurationItems);
+        commonConfigurer.setConfigurationItems(configurationItems);
         verify(commonConfiguration, times(configurationItems.size())).add(any(ConfigurationItem.class));
     }
 
@@ -175,7 +175,7 @@ public class CommonConfigurerTest {
     @Test
     public void testSetMarkTransients() {
         List<String> markTransient = Arrays.asList("", "", "", "", "");
-        commonConfigurer.setMarkTransient(markTransient);
+        commonConfigurer.setMarkTransients(markTransient);
         verify(commonConfiguration, times(markTransient.size())).markTransient(anyString());
     }
 

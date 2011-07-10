@@ -117,7 +117,7 @@ public class ClientConfigurationFactoryBeanTest {
     @Test
     public void testSetConfigurationItems() {
         List<ClientConfigurationItem> clientConfigurationItems = Arrays.asList(mock(ClientConfigurationItem.class), mock(ClientConfigurationItem.class), mock(ClientConfigurationItem.class));
-        clientConfigurationFactoryBean.setConfigurationItem(clientConfigurationItems);
+        clientConfigurationFactoryBean.setConfigurationItems(clientConfigurationItems);
         // TODO verify
     }
 

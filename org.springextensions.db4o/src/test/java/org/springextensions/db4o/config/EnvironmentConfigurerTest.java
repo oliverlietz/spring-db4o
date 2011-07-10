@@ -52,7 +52,7 @@ public class EnvironmentConfigurerTest {
     @Test
     public void testSetServices() {
         List<Object> services = Arrays.asList(new Object(), new Object(), new Object(), new Object());
-        environmentConfigurer.setService(services);
+        environmentConfigurer.setServices(services);
         verify(environmentConfiguration, times(services.size())).add(any());
     }
 

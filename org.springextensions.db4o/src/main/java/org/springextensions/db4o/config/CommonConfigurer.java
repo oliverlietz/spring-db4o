@@ -83,7 +83,7 @@ public class CommonConfigurer {
      * @param aliases
      * @see com.db4o.config.CommonConfiguration#addAlias(com.db4o.config.Alias)
      */
-    public void setAlias(List<Alias> aliases) {
+    public void setAliases(List<Alias> aliases) {
         for (Alias alias : aliases) {
             commonConfiguration.addAlias(alias);
         }
@@ -109,7 +109,7 @@ public class CommonConfigurer {
      * @param configurationItems
      * @see com.db4o.config.CommonConfiguration#add(com.db4o.config.ConfigurationItem)
      */
-    public void setConfigurationItem(List<ConfigurationItem> configurationItems) {
+    public void setConfigurationItems(List<ConfigurationItem> configurationItems) {
         for (ConfigurationItem configurationItem : configurationItems) {
             commonConfiguration.add(configurationItem);
         }
@@ -191,7 +191,7 @@ public class CommonConfigurer {
      * @param markTransients
      * @see com.db4o.config.CommonConfiguration#markTransient(String)
      */
-    public void setMarkTransient(List<String> markTransients) {
+    public void setMarkTransients(List<String> markTransients) {
         for (String markTransient : markTransients) {
             commonConfiguration.markTransient(markTransient);
         }
