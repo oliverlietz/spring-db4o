@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <body>
+
+    <section name="Configuration">
+
+      <p>The Spring db4o Extension's configuration system wraps db4o's configurations with a bean-style api. The values used below are mostly but not always interfaces or db4o's default values. For configuration methods which can be called multiple times there are always properties in singular and plural form.</p>
+
+      <subsection name="EmbeddedConfiguration">
+        <source><![CDATA[
+    <property name="configurationItem">
+      <bean class="com.db4o.config.EmbeddedConfigurationItem"/>
+    </property>
+    <!-- common -->
+    <!-- file -->
+    <!-- idSystem -->
+        ]]></source>
+      </subsection>
+
+      <subsection name="ClientConfiguration">
+        <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/client_configuration.htm">db4o 8.0 reference</a></p>
+        <source><![CDATA[
+    <property name="prefetchDepth" value="5"/>
+    <property name="prefetchIDCount" value="10"/>
+    <property name="prefetchObjectCount" value="500"/>
+    <property name="prefetchSlotCacheSize" value="1024"/>
+    <property name="timeoutClientSocket" value="60000"/>
+    <property name="configurationItem">
+      <bean class="com.db4o.config.ClientConfigurationItem"/>
+    </property>
+    <!-- common -->
+    <!-- networking -->
+        ]]></source>
+      </subsection>
+
+      <subsection name="ServerConfiguration">
+        <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/server_configuration.htm">db4o 8.0 reference</a></p>
+        <source><![CDATA[
+    <property name="timeoutServerSocket" value="600000"/>
+    <property name="configurationItem">
+      <bean class="com.db4o.config.ServerConfigurationItem"/>
+    </property>
+    <!-- common -->
+    <!-- networking -->
+    <!-- file -->
+    <!-- idSystem -->
+        ]]></source>
+      </subsection>
+
+    </section>
+
+    <section name="Common Configuration">
+
+      <subsection name="Common">
+        <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/common_configuration.htm">db4o 8.0 reference</a></p>
+        <source><![CDATA[
+    <property name="common.activationDepth" value="2"/>
+    <property name="common.allowVersionUpdates" value="true"/>
+    <property name="common.automaticShutDown" value="false"/>
+    <property name="common.bTreeNodeSize" value="256"/>
+    <property name="common.callbacks" value="true"/>
+    <property name="common.callConstructors" value="true"/>
+    <property name="common.detectSchemaChanges" value="true"/>
+    <property name="common.exceptionsOnNotStorable" value="true"/>
+    <property name="common.internStrings" value="true"/>
+    <property name="common.markTransient" value="java.lang.String"/>
+    <property name="common.maxStackDepth" value="20"/>
+    <property name="common.messageLevel" value="1"/>
+    <property name="common.nameProvider">
+      <bean class="com.db4o.config.NameProvider"/>
+    </property>
+    <property name="common.optimizeNativeQueries" value="true"/>
+    <property name="common.outStream">
+      <bean class="java.io.PrintStream"/>
+    </property>
+    <property name="common.reflectWith">
+      <bean class="com.db4o.reflect.Reflector"/>
+    </property>
+    <property name="common.stringEncoding">
+      <bean class="com.db4o.config.encoding.StringEncoding"/>
+    </property>
+    <property name="common.testConstructors" value="true"/>
+    <property name="common.typeHandlers">
+      <util:map>
+        <entry>
+          <key>
+            <bean class="com.db4o.typehandlers.TypeHandlerPredicate"/>
+          </key>
+          <bean class="com.db4o.typehandlers.TypeHandler4"/>
+        </entry>
+      </util:map>
+    </property>
+    <property name="common.updateDepth" value="2"/>
+    <property name="common.weakReferences" value="true"/>
+    <property name="common.weakReferenceCollectionInterval" value="10000"/>
+    <property name="common.configurationItem">
+      <bean class="com.db4o.config.ConfigurationItem"/>
+    </property>
+        ]]></source>
+      </subsection>
+
+      <subsection name="Common Query">
+        <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/common/query_modes.htm">db4o 8.0 reference</a></p>
+        <source><![CDATA[
+    <property name="common.query.evaluationMode" value="Immediate"/>
+        ]]></source>
+      </subsection>
+
+      <subsection name="Common Diagnostic">
+        <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/common/diagnostics.htm">db4o 8.0 reference</a></p>
+        <source><![CDATA[
+    <property name="common.diagnostic.listener">
+      <bean class="com.db4o.diagnostic.DiagnosticListener"/>
+    </property>
+        ]]></source>
+      </subsection>
+
+      <subsection name="Common Environment">
+        <source><![CDATA[
+    <property name="common.environment.service">
+      <bean class="java.lang.Object"/>
+    </property>
+        ]]></source>
+      </subsection>
+
+    </section>
+
+    <section name="File Configuration">
+
+      <subsection name="File">
+        <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/file_configuration.htm">db4o 8.0 reference</a></p>
+        <source><![CDATA[
+    <property name="file.asynchronousSync" value="true"/>
+    <property name="file.blobPath" value="/var/db4o/blobs/"/>
+    <property name="file.blockSize" value="8"/>
+    <property name="file.databaseGrowthSize" value="4096"/>
+    <property name="file.disableCommitRecovery" value="true"/>
+    <property name="file.generateCommitTimestamps" value="true"/>
+    <property name="file.generateUUIDs" value="globally"/>
+    <property name="file.lockDatabaseFile" value="false"/>
+    <property name="file.readOnly" value="false"/>
+    <property name="file.recoveryMode" value="false"/>
+    <property name="file.reserveStorageSpace" value="1048576"/>
+    <property name="file.storage">
+      <bean class="com.db4o.io.Storage"/>
+    </property>
+        ]]></source>
+      </subsection>
+
+      <subsection name="File Freespace">
+        <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/file/freespace_configuration.htm">db4o 8.0 reference</a></p>
+        <source><![CDATA[
+    <property name="file.freespace.discardSmallerThan" value="256"/>
+    <property name="file.freespace.freespaceFiller">
+      <bean class="com.db4o.config.FreespaceFiller"/>
+    </property>
+    <property name="file.freespace.system" value="BTree"/>
+        ]]></source>
+      </subsection>
+
+    </section>
+
+    <section name="ID System Configuration">
+      <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/id_system.htm">db4o 8.0 reference</a></p>
+      <source><![CDATA[
+    <property name="idSystem.system" value="PointerBased"/>
+      ]]></source>
+    </section>
+
+    <section name="Networking Configuration">
+      <p><a href="http://developer.db4o.com/Documentation/Reference/db4o-8.0/java/reference/Content/configuration/network_configuration.htm">db4o 8.0 reference</a></p>
+      <source><![CDATA[
+    <property name="networking.batchMessages" value="true"/>
+    <property name="networking.clientServerFactory">
+      <bean class="com.db4o.cs.config.ClientServerFactory"/>
+    </property>
+    <property name="networking.maxBatchQueueSize" value="1024"/>
+    <property name="networking.messageRecipient">
+      <bean class="com.db4o.messaging.MessageRecipient"/>
+    </property>
+    <property name="networking.singleThreadedClient" value="true"/>
+    <property name="networking.socketFactory">
+      <bean class="com.db4o.cs.foundation.Socket4Factory"/>
+    </property>
+      ]]></source>
+    </section>
+
+  </body>
+
+</document>
