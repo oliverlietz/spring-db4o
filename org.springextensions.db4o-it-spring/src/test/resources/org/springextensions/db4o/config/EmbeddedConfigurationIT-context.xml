@@ -1,10 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
 
   <bean id="embeddedConfiguration" class="org.springextensions.db4o.config.EmbeddedConfigurationFactoryBean">
+    <property name="configurationItem">
+      <bean class="org.springextensions.db4o.example.NoopEmbeddedConfigurationItem"/>
+    </property>
+    <!-- common -->
+    <property name="common.activationDepth" value="2"/>
+    <property name="common.allowVersionUpdates" value="true"/>
+    <property name="common.automaticShutDown" value="false"/>
+    <property name="common.bTreeNodeSize" value="256"/>
+    <property name="common.callbacks" value="true"/>
+    <property name="common.callConstructors" value="true"/>
+    <property name="common.detectSchemaChanges" value="true"/>
+    <property name="common.exceptionsOnNotStorable" value="true"/>
+    <property name="common.internStrings" value="true"/>
+    <!-- TODO <property name="common.markTransient" value=""> -->
+    <property name="common.maxStackDepth" value="20"/>
+    <property name="common.messageLevel" value="1"/>
+    <property name="common.nameProvider">
+      <bean class="com.db4o.config.SimpleNameProvider">
+        <constructor-arg value="test"/>
+      </bean>
+    </property>
+    <property name="common.optimizeNativeQueries" value="true"/>
+    <property name="common.outStream">
+      <util:constant static-field="java.lang.System.out"/>
+    </property>
+    <!-- TODO
+    <property name="common.reflectWith">
+      <bean class="com.db4o.reflect.jdk.JdkReflector">
+        <constructor-arg value=""/>
+      </bean>
+    </property>
+    -->
+    <property name="common.stringEncoding">
+      <bean class="com.db4o.config.encoding.StringEncodings" factory-method="unicode"/>
+    </property>
+    <property name="common.testConstructors" value="true"/>
+    <property name="common.typeHandlers">
+      <util:map>
+        <entry>
+          <key>
+            <bean class="org.springextensions.db4o.example.PersonTypeHandlerPredicate">
+              <constructor-arg value="org.springextensions.db4o.example.Person"/>
+            </bean>
+          </key>
+          <bean class="com.db4o.typehandlers.IgnoreFieldsTypeHandler"/>
+        </entry>
+      </util:map>
+    </property>
+    <property name="common.updateDepth" value="2"/>
+    <property name="common.weakReferences" value="true"/>
+    <property name="common.weakReferenceCollectionInterval" value="10000"/>
+    <property name="common.configurationItem">
+      <bean class="com.db4o.config.BigMathSupport"/>
+    </property>
+    <!-- common.query -->
+    <property name="common.query.evaluationMode" value="Immediate"/>
+    <!-- common.diagnostic -->
+    <property name="common.diagnostic.listener">
+      <bean class="org.springextensions.db4o.example.NoopDiagnosticListener"/>
+    </property>
+    <!-- common.environment -->
+    <!-- TODO
+    <property name="common.environment.service">
+    </property>
+    -->
+    <!-- file -->
     <property name="file.asynchronousSync" value="true"/>
     <property name="file.blobPath" value="/tmp/"/>
     <property name="file.blockSize" value="8"/>
@@ -12,20 +81,20 @@
     <property name="file.disableCommitRecovery" value="true"/>
     <property name="file.generateCommitTimestamps" value="true"/>
     <property name="file.generateUUIDs" value="globally"/>
-    <property name="file.lockDatabaseFile" value="true"/>
-    <property name="file.readOnly" value="true"/>
-    <property name="file.recoveryMode" value="true"/>
+    <property name="file.lockDatabaseFile" value="false"/>
+    <property name="file.readOnly" value="false"/>
+    <property name="file.recoveryMode" value="false"/>
     <property name="file.reserveStorageSpace" value="1048576"/>
     <property name="file.storage">
       <bean class="com.db4o.io.PagingMemoryStorage"/>
     </property>
+    <!-- file.freespace -->
     <property name="file.freespace.discardSmallerThan" value="256"/>
-    <!--
     <property name="file.freespace.freespaceFiller">
-      <bean class="com.db4o.config.FreespaceFiller"/>
+      <bean class="org.springextensions.db4o.example.NoopFreespaceFiller"/>
     </property>
-    -->
     <property name="file.freespace.system" value="BTree"/>
+    <!-- idSystem -->
     <property name="idSystem.system" value="PointerBased"/>
   </bean>
 
