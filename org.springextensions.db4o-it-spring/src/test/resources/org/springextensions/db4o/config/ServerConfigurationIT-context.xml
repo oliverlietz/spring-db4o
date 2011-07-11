@@ -11,6 +11,18 @@
     </property>
     <!-- common -->
     <!-- networking -->
+    <property name="networking.batchMessages" value="true"/>
+    <property name="networking.clientServerFactory">
+      <bean class="com.db4o.cs.internal.config.StandardClientServerFactory"/>
+    </property>
+    <property name="networking.maxBatchQueueSize" value="1024"/>
+    <property name="networking.messageRecipient">
+      <bean class="org.springextensions.db4o.example.NoopMessageRecipient"/>
+    </property>
+    <property name="networking.singleThreadedClient" value="true"/>
+    <property name="networking.socketFactory">
+      <bean class="com.db4o.cs.foundation.StandardSocket4Factory"/>
+    </property>
     <!-- file -->
     <!-- idSystem -->
   </bean>
