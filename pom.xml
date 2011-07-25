@@ -59,7 +59,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <org.springframework.version>3.0.0.RELEASE</org.springframework.version>
     <org.slf4j.version>1.5.11</org.slf4j.version>
-    <com.db4o.version>8.0.184.15484</com.db4o.version>
+    <com.db4o.version>8.1.208.15859</com.db4o.version>
   </properties>
 
   <modules>
