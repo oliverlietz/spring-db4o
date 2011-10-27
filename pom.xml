@@ -48,6 +48,10 @@
   </ciManagement>
 
   <distributionManagement>
+    <site>
+      <id>springsource.org</id>
+      <url>http://www.springsource.org/extensions/se-db4o</url>
+    </site>
     <repository>
       <id>de.oliverlietz.maven</id>
       <url>sftp://maven.oliverlietz.de/</url>
