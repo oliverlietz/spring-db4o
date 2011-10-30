@@ -20,7 +20,7 @@ import com.db4o.io.BinConfiguration;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.testng.annotations.BeforeClass;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.mock;
@@ -31,31 +31,55 @@ import static org.mockito.Mockito.when;
  */
 public class ResourceStorageTest {
 
-    private BinConfiguration binConfiguration;
-
-    private Resource resource;
-
-    private ResourceLoader resourceLoader;
-
-    private ResourceStorage resourceStorage;
-
-    @BeforeClass
-    public void setup() {
+    @Test
+    public void testExists() {
         String uri = "resource";
-        binConfiguration = new BinConfiguration(uri, false, 0, false);
 
-        resource = new ByteArrayResource(new byte[]{0, 1, 2, 3, 4, 5, 6, 7});
+        Resource resource = mock(Resource.class);
+        when(resource.exists()).thenReturn(true);
 
-        resourceLoader = mock(ResourceLoader.class);
+        ResourceLoader resourceLoader = mock(ResourceLoader.class);
         when(resourceLoader.getResource(uri)).thenReturn(resource);
 
-        resourceStorage = new ResourceStorage();
+        ResourceStorage resourceStorage = new ResourceStorage();
         resourceStorage.setResourceLoader(resourceLoader);
+
+        Assert.assertTrue(resourceStorage.exists(uri));
+    }
+
+    @Test
+    public void testExistsNot() {
+        String uri = "resource";
+
+        Resource resource = mock(Resource.class);
+        when(resource.exists()).thenReturn(false);
+
+        ResourceLoader resourceLoader = mock(ResourceLoader.class);
+        when(resourceLoader.getResource(uri)).thenReturn(resource);
+
+        ResourceStorage resourceStorage = new ResourceStorage();
+        resourceStorage.setResourceLoader(resourceLoader);
+
+        Assert.assertFalse(resourceStorage.exists(uri));
     }
 
     @Test
     public void testOpen() {
+        String uri = "resource";
+        BinConfiguration binConfiguration = new BinConfiguration(uri, false, 0, false);
+
+        byte[] bytes = new byte[]{0, 1, 2, 3, 4, 5, 6, 7};
+        Resource resource = new ByteArrayResource(bytes);
+
+        ResourceLoader resourceLoader = mock(ResourceLoader.class);
+        when(resourceLoader.getResource(uri)).thenReturn(resource);
+
+        ResourceStorage resourceStorage = new ResourceStorage();
+        resourceStorage.setResourceLoader(resourceLoader);
+
         Bin bin = resourceStorage.open(binConfiguration);
+
+        Assert.assertEquals(bin.length(), bytes.length);
     }
 
 }

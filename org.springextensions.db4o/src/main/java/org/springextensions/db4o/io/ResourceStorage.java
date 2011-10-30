@@ -41,6 +41,17 @@ public class ResourceStorage extends PagingMemoryStorage implements Storage {
     }
 
     /**
+     * @param uri
+     * @return Return whether this resource actually exists in physical form.
+     * @see org.springframework.core.io.Resource#exists()
+     */
+    @Override
+    public boolean exists(String uri) {
+        Resource resource = resourceLoader.getResource(uri);
+        return resource.exists();
+    }
+
+    /**
      * opens an <code>org.springframework.core.io.Resource</code> for the given URI initially
      * and uses a <code>com.db4o.io.PagingMemoryBin</code> for further reads and writes
      *
