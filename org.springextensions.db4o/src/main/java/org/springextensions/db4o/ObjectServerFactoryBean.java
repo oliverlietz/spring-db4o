@@ -21,14 +21,13 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.ObjectUtils;
-
-import com.db4o.Db4o;
+import com.db4o.Db4oVersion;
 import com.db4o.ObjectServer;
 import com.db4o.cs.Db4oClientServer;
 import com.db4o.cs.config.ServerConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ObjectUtils;
 
 /**
  * FactoryBean for creating {@link com.db4o.ObjectServer}s.
@@ -118,7 +117,7 @@ public class ObjectServerFactoryBean { // implements FactoryBean<ObjectServer> {
         }
 
         logger.info("opened object server {} at port {}", ObjectUtils.getIdentityHexString(server), server.ext().port());
-        logger.info(Db4o.version());
+        logger.info("db4o {}", Db4oVersion.NAME);
 
         if (users != null) {
             for (Object o : users.entrySet()) {

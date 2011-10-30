@@ -18,18 +18,17 @@ package org.springextensions.db4o;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.FactoryBeanNotInitializedException;
-import org.springframework.util.ObjectUtils;
-
-import com.db4o.Db4o;
 import com.db4o.Db4oEmbedded;
+import com.db4o.Db4oVersion;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectServer;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.cs.Db4oClientServer;
 import com.db4o.cs.config.ClientConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.FactoryBeanNotInitializedException;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @author Costin Leau
@@ -145,7 +144,7 @@ public class ObjectContainerFactoryBean { // implements FactoryBean<ObjectContai
         } else {
             throw new IllegalArgumentException("mandatory fields are not set: database filename or embedded database server or remote database server (hostname, port, username)");
         }
-        logger.info(Db4o.version());
+        logger.info("db4o {}", Db4oVersion.NAME);
     }
 
     @PreDestroy
