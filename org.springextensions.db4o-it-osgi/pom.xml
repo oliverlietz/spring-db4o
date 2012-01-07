@@ -19,10 +19,17 @@
   <description>OSGi Integration Tests for Spring db4o Extension</description>
 
   <properties>
-    <org.ops4j.pax.exam.version>1.2.4</org.ops4j.pax.exam.version>
+    <org.ops4j.pax.exam.version>2.4.0-SNAPSHOT</org.ops4j.pax.exam.version>
   </properties>
 
   <dependencies>
+    <!-- javax -->
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+      <scope>provided</scope>
+    </dependency>
     <!-- Spring db4o Extension -->
     <dependency>
       <groupId>org.springextensions.db4o</groupId>
@@ -36,43 +43,11 @@
       <type>test-jar</type>
       <scope>provided</scope>
     </dependency>
-    <!-- Spring Framework -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.beans</artifactId>
-      <version>${org.springframework.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.core</artifactId>
-      <version>${org.springframework.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.transaction</artifactId>
-      <version>${org.springframework.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- db4o -->
-    <dependency>
-      <groupId>com.db4o</groupId>
-      <artifactId>db4o-full-java5</artifactId>
-      <version>${com.db4o.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.ant</groupId>
-      <artifactId>com.springsource.org.apache.tools.ant</artifactId>
-      <version>1.7.1</version>
-      <scope>provided</scope>
-    </dependency>
     <!-- OSGi -->
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
-      <version>4.2.0</version>
+      <version>4.3.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -81,69 +56,37 @@
       <version>4.2.0</version>
       <scope>provided</scope>
     </dependency>
-    <!-- OSGi Blueprint -->
-    <dependency>
-      <groupId>org.apache.aries.blueprint</groupId>
-      <artifactId>org.apache.aries.blueprint</artifactId>
-      <version>0.3.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.aries.proxy</groupId>
-      <artifactId>org.apache.aries.proxy</artifactId>
-      <version>0.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.aries</groupId>
-      <artifactId>org.apache.aries.util</artifactId>
-      <version>0.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.objectweb.asm</groupId>
-      <artifactId>com.springsource.org.objectweb.asm</artifactId>
-      <version>3.2.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.objectweb.asm</groupId>
-      <artifactId>com.springsource.org.objectweb.asm.commons</artifactId>
-      <version>3.2.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.objectweb.asm</groupId>
-      <artifactId>com.springsource.org.objectweb.asm.tree</artifactId>
-      <version>3.2.0</version>
-      <scope>provided</scope>
-    </dependency>
     <!-- testing -->
     <dependency>
-      <groupId>org.junit</groupId>
-      <artifactId>com.springsource.org.junit</artifactId>
-      <version>4.9.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
-      <artifactId>pax-exam</artifactId>
+      <artifactId>pax-exam-container-native</artifactId>
       <version>${org.ops4j.pax.exam.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
-      <artifactId>pax-exam-container-default</artifactId>
+      <artifactId>pax-exam-testforge</artifactId>
       <version>${org.ops4j.pax.exam.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
-      <artifactId>pax-exam-junit</artifactId>
+      <artifactId>pax-exam-link-mvn</artifactId>
       <version>${org.ops4j.pax.exam.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- workaround, should be fixed in Pax Exam 1.2.5 -->
+    <dependency>
+      <groupId>org.ops4j.pax.exam</groupId>
+      <artifactId>pax-exam-testng</artifactId>
+      <version>${org.ops4j.pax.exam.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.framework</artifactId>
+      <version>4.0.2</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -170,25 +113,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.ops4j.pax.exam</groupId>
-        <artifactId>maven-paxexam-plugin</artifactId>
-        <version>${org.ops4j.pax.exam.version}</version>
-        <executions>
-          <execution>
-            <id>generate-config</id>
-            <goals>
-              <goal>generate-config</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <options>
-            <platform>felix</platform>
-            <profiles>core,compendium,log</profiles>
-          </options>
-        </configuration>
       </plugin>
     </plugins>
   </build>

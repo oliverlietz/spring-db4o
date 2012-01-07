@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 the original author or authors.
+ * Copyright 2010-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,29 +15,65 @@
  */
 package org.springextensions.db4o;
 
+import javax.inject.Inject;
+
 import com.db4o.events.EventRegistry;
-import org.apache.karaf.testing.AbstractIntegrationTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.ops4j.pax.exam.junit.MavenConfiguredJUnit4TestRunner;
+import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.testng.Configuration;
+import org.ops4j.pax.exam.util.Filter;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import static org.ops4j.pax.exam.CoreOptions.allFrameworks;
+import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
+import static org.ops4j.pax.exam.CoreOptions.options;
 
 /**
  * @author olli
  */
-@RunWith(MavenConfiguredJUnit4TestRunner.class)
-public class BlueprintIT extends AbstractIntegrationTest {
+public class BlueprintIT {
+
+    @Inject
+    @Filter(timeout = 100000)
+    private Db4oOperations db4oOperations;
+
+    @Inject
+    @Filter(timeout = 100000)
+    private EventRegistry eventRegistry;
+
+    @Configuration
+    public Option[] configure() {
+        return options(
+            allFrameworks(),
+            // test
+            mavenBundle("org.testng", "testng", "6.2.1"),
+            // Spring Framework
+            mavenBundle("org.springframework", "org.springframework.beans", "3.0.0.RELEASE"),
+            mavenBundle("org.springframework", "org.springframework.core", "3.0.0.RELEASE"),
+            mavenBundle("org.springframework", "org.springframework.transaction", "3.0.0.RELEASE"),
+            // db4o
+            mavenBundle("com.db4o", "db4o-full-java5", "8.1.209.15862"),
+            mavenBundle("org.apache.ant", "com.springsource.org.apache.tools.ant", "1.7.1"),
+            // Spring db4o
+            mavenBundle("org.springextensions.db4o", "org.springextensions.db4o", "1.0.0.BUILD-SNAPSHOT"),
+            // Aries Blueprint
+            mavenBundle("org.apache.aries.blueprint", "org.apache.aries.blueprint", "0.4"),
+            mavenBundle("org.apache.aries.proxy", "org.apache.aries.proxy", "0.4"),
+            mavenBundle("org.apache.aries", "org.apache.aries.util", "0.4"),
+            mavenBundle("org.objectweb.asm", "com.springsource.org.objectweb.asm", "3.2.0"),
+            mavenBundle("org.objectweb.asm", "com.springsource.org.objectweb.asm.commons", "3.2.0"),
+            mavenBundle("org.objectweb.asm", "com.springsource.org.objectweb.asm.tree", "3.2.0")
+        );
+    }
 
     @Test
     public void testDb4oOperations() {
-        Db4oOperations db4oOperations = getOsgiService(Db4oOperations.class);
-        Assert.assertNotNull("Db4oOperations is null", db4oOperations);
+        Assert.assertNotNull(db4oOperations, "Db4oOperations is null");
     }
 
     @Test
     public void testEventRegistry() {
-        EventRegistry eventRegistry = getOsgiService(EventRegistry.class);
-        Assert.assertNotNull("EventRegistry is null", eventRegistry);
+        Assert.assertNotNull(eventRegistry, "EventRegistry is null");
     }
 
 }
