@@ -19,7 +19,7 @@
   <description>OSGi Integration Tests for Spring db4o Extension</description>
 
   <properties>
-    <org.ops4j.pax.exam.version>2.4.0-SNAPSHOT</org.ops4j.pax.exam.version>
+    <org.ops4j.pax.exam.version>2.3.0</org.ops4j.pax.exam.version>
   </properties>
 
   <dependencies>
