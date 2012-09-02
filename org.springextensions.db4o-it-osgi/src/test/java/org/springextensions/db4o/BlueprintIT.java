@@ -26,6 +26,7 @@ import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import static org.ops4j.pax.exam.CoreOptions.bundle;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 
@@ -56,7 +57,8 @@ public class BlueprintIT {
             mavenBundle("com.db4o", "db4o-full-java5", "8.1.209.15862"),
             mavenBundle("org.apache.ant", "com.springsource.org.apache.tools.ant", "1.7.1"),
             // Spring db4o
-            mavenBundle("org.springextensions.db4o", "org.springextensions.db4o", "1.0.0.BUILD-SNAPSHOT"),
+            // mavenBundle("org.springextensions.db4o", "org.springextensions.db4o", "1.0.0.BUILD-SNAPSHOT"),
+            bundle("file:../org.springextensions.db4o/target/org.springextensions.db4o-1.0.0.BUILD-SNAPSHOT.jar"),
             // Aries Blueprint
             mavenBundle("org.apache.aries.blueprint", "org.apache.aries.blueprint", "1.0.0"),
             mavenBundle("org.apache.aries.proxy", "org.apache.aries.proxy", "1.0.0"),
