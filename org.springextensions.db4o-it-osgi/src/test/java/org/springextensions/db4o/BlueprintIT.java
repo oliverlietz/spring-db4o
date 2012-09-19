@@ -37,11 +37,11 @@ import static org.ops4j.pax.exam.CoreOptions.options;
 public class BlueprintIT {
 
     @Inject
-    @Filter(timeout = 1000)
+    @Filter(timeout = 5000)
     private Db4oOperations db4oOperations;
 
     @Inject
-    @Filter(timeout = 1000)
+    @Filter(timeout = 5000)
     private EventRegistry eventRegistry;
 
     @Configuration
