@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="embeddedConfiguration" class="org.springextensions.db4o.config.EmbeddedConfigurationFactoryBean">
+    <property name="file.storage">
+      <bean class="org.springextensions.db4o.io.ResourceStorage">
+        <property name="resourceLoader">
+          <bean factory-bean="resourceLoaderFactory" factory-method="getResourceLoader"/>
+        </property>
+      </bean>
+    </property>
+  </bean>
+
+  <bean id="objectContainerFactory" class="org.springextensions.db4o.ObjectContainerFactoryBean">
+    <property name="filename" value="classpath:resource.db4o"/>
+    <property name="embeddedConfiguration">
+      <bean factory-bean="embeddedConfiguration" factory-method="getObject"/>
+    </property>
+  </bean>
+
+  <bean id="objectContainer" factory-bean="objectContainerFactory" factory-method="getObject"/>
+
+  <bean id="db4oTemplate" class="org.springextensions.db4o.Db4oTemplate">
+    <constructor-arg ref="objectContainer"/>
+  </bean>
+
+  <bean id="resourceLoaderFactory" class="org.springextensions.db4o.example.ResourceLoaderFactory"/>
+
+</beans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <body>
+
+    <section name="Overview">
+      <p><a href="apidocs/org/springextensions/db4o/Db4oOperations.html"><code>Db4oOperations</code></a> (or its implementing class <a href="apidocs/org/springextensions/db4o/Db4oTemplate.html"><code>Db4oTemplate</code></a>) and <a href="apidocs/org/springextensions/db4o/Db4oCallback.html"><code>Db4oCallback</code></a> are the main interfaces in Spring db4o Extension.</p>
+      <p>The template translates db4o exceptions into <a href="http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/dao.html">Spring Data Access</a> exception hierarchy (making it easy to integrate db4o with <a href="http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/overview.html#d0e315">other persistence frameworks supported by Spring</a>) and maps most of db4o <code>ObjectContainer</code> and <code>ExtObjectContainer</code> interface methods.</p>
+    </section>
+
+    <section name="Use of Db4oOperations (Db4oTemplate) and Db4oCallback">
+      <h2>
+        <code>Db4oOperations (Db4oTemplate)</code>
+      </h2>
+      <source><![CDATA[
+    db4oOperations.store(object);
+      ]]></source>
+      <h2>
+        <code>Db4oCallback</code>
+      </h2>
+      <source><![CDATA[
+    public Object doDb4oOperation() {
+        return db4oOperations.execute(new Db4oCallback() {
+            public Object doInDb4o(ObjectContainer container) throws RuntimeException {
+                // do your work
+                return result;
+            }
+        }, true);
+    }
+      ]]></source>
+    </section>
+
+  </body>
+
+</document>

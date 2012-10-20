@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="serverConfiguration" class="org.springextensions.db4o.config.ServerConfigurationFactoryBean">
+    <property name="timeoutServerSocket" value="600000"/>
+    <property name="configurationItem">
+      <bean class="org.springextensions.db4o.example.NoopServerConfigurationItem"/>
+    </property>
+    <!-- common -->
+    <!-- networking -->
+    <property name="networking.batchMessages" value="true"/>
+    <property name="networking.clientServerFactory">
+      <bean class="com.db4o.cs.internal.config.StandardClientServerFactory"/>
+    </property>
+    <property name="networking.maxBatchQueueSize" value="1024"/>
+    <property name="networking.messageRecipient">
+      <bean class="org.springextensions.db4o.example.NoopMessageRecipient"/>
+    </property>
+    <property name="networking.singleThreadedClient" value="true"/>
+    <property name="networking.socketFactory">
+      <bean class="com.db4o.cs.foundation.StandardSocket4Factory"/>
+    </property>
+    <!-- file -->
+    <!-- idSystem -->
+  </bean>
+
+</beans>

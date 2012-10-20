@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="embeddedConfiguration" class="org.springextensions.db4o.config.EmbeddedConfigurationFactoryBean">
+    <property name="file.storage">
+      <bean class="com.db4o.io.PagingMemoryStorage"/>
+    </property>
+  </bean>
+
+  <bean id="objectContainerFactory" class="org.springextensions.db4o.ObjectContainerFactoryBean">
+    <property name="filename" value="memory"/>
+    <property name="embeddedConfiguration">
+      <bean factory-bean="embeddedConfiguration" factory-method="getObject"/>
+    </property>
+  </bean>
+
+  <bean id="objectContainer" factory-bean="objectContainerFactory" factory-method="getObject"/>
+
+  <bean id="db4oTemplate" class="org.springextensions.db4o.Db4oTemplate">
+    <constructor-arg ref="objectContainer"/>
+  </bean>
+
+</beans>
