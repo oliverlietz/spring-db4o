@@ -1,112 +1,14 @@
 <?xml version="1.0"?>
 
-<project name="spring db4o support" basedir="." default="usage">
+<project name="spring-modules-db4o-sample-pilot" default="run">
+    <property file="build.properties" />
+    <property file="project.properties" />
+    <property file="${common.build.dir}/build.properties" />
+    <property file="${common.build.dir}/project.properties" />
+    <property file="${user.home}/build.properties" />
 
-	<property name="name" value="db4o-spring-support"/>
-
-	<property name="src.dir" value="src"/>
-	<property name="build.dir" value=".classes"/>
-	<property name="dist.dir" value="dist"/>
-	<property name="lib" value="lib"/>
-	<property name="spring.root" value="../.."/>
-	<property name="main.class" value="org.db4ospring.examples.Main"/>
-
-
-	<path id="lib-classpath">
-		<fileset dir="${spring.root}/lib/db4o">
-			<include name="db4o*.jar"/>
-		</fileset>
-		<fileset dir="${spring.root}/lib/jakarta-commons">
-			<include name="commons-logging.jar"/>
-		</fileset>
-		<fileset dir="${spring.root}/lib/j2ee">
-			<include name="servlet-api.jar"/>
-		</fileset>
-		<fileset dir="${spring.root}/lib/spring">
-			<include name="spring.jar"/>
-		</fileset>
-		<fileset dir="${spring.root}/lib/log4j">
-			<include name="log4j*jar"/>
-		</fileset>
-		<fileset dir="${spring.root}/lib/cglib">
-			<include name="cglib*jar"/>
-		</fileset>
-		
-		<fileset dir="${spring.root}/dist">
-			<include name="db4o-spring*.jar"/>
-		</fileset>
-	</path>
-
-	<path id="dist-classpath">
-		<fileset dir="${dist.dir}">
-			<include name="**/*.jar"/>
-		</fileset>
-	</path>
-
-	<target name="usage">
-
-		<echo message=""/>
-		<echo message="Spring Jcr build file"/>
-		<echo message="------------------------------------------------------"/>
-		<echo message=""/>
-		<echo message="Available targets are:"/>
-		<echo message=""/>
-		<echo message="clean    --> Clean output dirs"/>
-		<echo message="build    --> Compile main Java sources and copy libraries"/>
-		<echo message="launch   --> Run the example"/>		
-		<echo message="all      --> Clean, build, warfile"/>
-		<echo message=""/>
-
-	</target>
-
-
-	<target name="clean" description="Clean output dirs (build, weblib, dist)">
-		<delete dir="${build.dir}"/>
-		<delete dir="${dist.dir}"/>
-	</target>
-
-	<target name="build" description="Compile main source tree java files into class files, generate jar files">
-
-		<mkdir dir="${build.dir}"/>
-
-		<javac destdir="${build.dir}" source="1.3" target="1.3" debug="true"
-					 deprecation="false" optimize="false" failonerror="true">
-			<src path="${src.dir}"/>
-			<classpath refid="lib-classpath"/>
-		</javac>
-
-		<copy todir="${build.dir}" preservelastmodified="true">
-			<fileset dir="${src.dir}">
-				<include name="**/*.xml"/>
-				<include name="**/*.properties"/>
-			</fileset>
-		</copy>
-
-		<mkdir dir="${dist.dir}"/>
-		<jar jarfile="${dist.dir}/${name}.jar" compress="true" basedir="${build.dir}"/>
-
-	</target>
-
-	<target name="launch" description="Launch the sample application">
-
-		<mkdir dir="${build.dir}/repo"/>
-		<java classname="${main.class}" fork="yes" failonerror="true">
-			<classpath refid="lib-classpath"/>
-			<classpath>
-				<pathelement path="${build.dir}"/>
-			</classpath>
-		</java>
-	</target>
-
-	<target name="dist" depends="build">
-	<!--
-			Delegate to build target by depending on it. dist is just to offer
-			a generic target name across all Spring sample apps that may be used
-			for autobuilds testing.
-		-->
-	</target>
-
-
-	<target name="all" depends="clean,build" description="Clean,build"/>
+    <import file="${common.build.dir}/common-targets.xml" />
+    <import file="${common.build.dir}/clover-targets.xml" />
+    <import file="${common.build.dir}/doc-targets.xml" />
 
 </project>

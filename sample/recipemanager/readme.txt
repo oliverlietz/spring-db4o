@@ -2,7 +2,7 @@
 == DB4O-Spring sample application      ==
 =========================================
 
-@author Daniel Mitterdorfer
+@author Daniel Mitterdorfer/Costin Leau
 
 1. Introduction
 
